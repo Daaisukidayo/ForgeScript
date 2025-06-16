@@ -2,10 +2,10 @@ import { ArgType, NativeFunction, Return } from "../../structures"
 import { ExtendedTimeFormat } from "./month"
 
 export default new NativeFunction({
-    name: "$dayOfWeek",
+    name: "$weekday",
     version: "2.3.0",
     description: "Returns current day of week",
-    aliases: ["$weekday"],
+    aliases: ["$dayOfWeek"],
     unwrap: true,
     brackets: false,
     args: [

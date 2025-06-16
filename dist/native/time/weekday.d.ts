@@ -8,4 +8,4 @@ declare const _default: NativeFunction<[{
     enum: typeof ExtendedTimeFormat;
 }], true>;
 export default _default;
-//# sourceMappingURL=dayOfWeek.d.ts.map
+//# sourceMappingURL=weekday.d.ts.map

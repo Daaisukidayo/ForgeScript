@@ -3,10 +3,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 const month_1 = require("./month");
 exports.default = new structures_1.NativeFunction({
-    name: "$dayOfWeek",
+    name: "$weekday",
     version: "2.3.0",
     description: "Returns current day of week",
-    aliases: ["$weekday"],
+    aliases: ["$dayOfWeek"],
     unwrap: true,
     brackets: false,
     args: [
@@ -27,4 +27,4 @@ exports.default = new structures_1.NativeFunction({
         return this.success(options.weekday ? day : new Date(day).getUTCDay());
     }
 });
-//# sourceMappingURL=dayOfWeek.js.map
+//# sourceMappingURL=weekday.js.map

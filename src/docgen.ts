@@ -18,6 +18,5 @@ generateMetadata(
     false,
     expose,
     // eslint-disable-next-line no-undef
-    join(__dirname, "handlers", "events"),
-    ["es"]
+    join(__dirname, "handlers", "events")
 )

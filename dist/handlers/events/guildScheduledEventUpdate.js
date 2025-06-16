@@ -5,7 +5,7 @@ const DiscordEventHandler_1 = require("../../structures/extended/DiscordEventHan
 exports.default = new DiscordEventHandler_1.DiscordEventHandler({
     name: "guildScheduledEventUpdate",
     version: "1.4.0",
-    description: "This event is called when a schedule event is updated",
+    description: "This event is called when a scheduled event is updated",
     listener: async function (old, now) {
         const commands = this.commands.get("guildScheduledEventUpdate");
         for (const command of commands) {
