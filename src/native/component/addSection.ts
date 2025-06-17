@@ -1,9 +1,6 @@
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, IExtendedCompiledFunctionField, NativeFunction, Return } from "../../structures"
 import { addActionRow } from "../../functions/componentBuilders"
 import { ComponentType, ContainerBuilder, SectionBuilder } from "discord.js"
-import addButton from "./addButton"
-import addTextDisplay from "./addTextDisplay"
-import addThumbnail from "./addThumbnail"
 
 export default new NativeFunction({
     name: "$addSection",
@@ -26,25 +23,9 @@ export default new NativeFunction({
         ctx.component.section = new SectionBuilder()
         ctx.container.inside.push(ComponentType.Section)
 
-        const textDisplays = this.getFunctions(0, addTextDisplay)
-        const newButton = this.getFunction(0, addButton)
-        const newThumbnail = this.getFunction(0, addThumbnail)
-
-        for (let i = 0, len = textDisplays.length;i < len;i++) {
-            const textDisplay = textDisplays[i]
-            const text = await textDisplay.execute(ctx)
-            if (!this["isValidReturnType"](text)) return text
-        }
-
-        if (newButton) {
-            const button = await newButton.execute(ctx)
-            if (!this["isValidReturnType"](button)) return button
-        }
-
-        if (newThumbnail) {
-            const thumbnail = await newThumbnail.execute(ctx)
-            if (!this["isValidReturnType"](thumbnail)) return thumbnail
-        }
+        const code = this.data.fields![0] as IExtendedCompiledFunctionField
+        const resolved = await this["resolveCode"](ctx, code)
+        if (!this["isValidReturnType"](resolved)) return resolved
 
         if (comp instanceof ContainerBuilder && ctx.container.isInside(ComponentType.Container))
             comp.addSectionComponents(ctx.component.section)

@@ -2,7 +2,6 @@
 import {
     APIApplicationCommandOption,
     APIApplicationCommandSubcommandOption,
-    ApplicationCommandData,
     ApplicationCommandDataResolvable,
     ApplicationCommandOptionType,
     ApplicationCommandType,
@@ -15,12 +14,12 @@ import {
     Events,
     Guild,
     Interaction,
+    PrimaryEntryPointCommandInteraction,
+    RESTPostAPIApplicationCommandsJSONBody,
     RESTPostAPIChatInputApplicationCommandsJSONBody,
-    RESTPostAPIContextMenuApplicationCommandsJSONBody,
     SlashCommandBuilder,
 } from "discord.js"
 import { ApplicationCommand } from "../structures/base/ApplicationCommand"
-import recursiveReaddirSync from "../functions/recursiveReaddirSync"
 import { ForgeClient } from "../core"
 import { NativeEventName } from "./EventManager"
 import { readdirSync, readFileSync, statSync, existsSync } from "fs"
@@ -37,8 +36,7 @@ export interface IApplicationCommandData {
     data:
         | SlashCommandBuilder
         | ContextMenuCommandBuilder
-        | RESTPostAPIChatInputApplicationCommandsJSONBody
-        | RESTPostAPIContextMenuApplicationCommandsJSONBody
+        | RESTPostAPIApplicationCommandsJSONBody
     code: string
     type?: RegistrationType
     independent?: boolean
@@ -149,7 +147,9 @@ export class ApplicationCommandManager {
                     ? ` ${subcommandName}`
                     : ""
             } ${filteredOptions.join(" ")}`
-        } else if (input instanceof ContextMenuCommandInteraction) return `/${input.commandName}`
+        } else if (input instanceof ContextMenuCommandInteraction || input instanceof PrimaryEntryPointCommandInteraction) {
+            return `/${input.commandName}`
+        }
         return null
     }
 

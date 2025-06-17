@@ -1,7 +1,6 @@
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, IExtendedCompiledFunctionField, NativeFunction, Return } from "../../structures"
 import { addActionRow } from "../../functions/componentBuilders"
 import { ComponentType, ContainerBuilder, MediaGalleryBuilder } from "discord.js"
-import addMediaItem from "./addMediaItem"
 
 export default new NativeFunction({
     name: "$addMediaGallery",
@@ -12,7 +11,7 @@ export default new NativeFunction({
     args: [
         {
             name: "items",
-            description: "The items to add",
+            description: "The media items to add",
             rest: false,
             required: true,
             type: ArgType.String,
@@ -23,13 +22,9 @@ export default new NativeFunction({
         const comp = ctx.container.components.at(-1)
         ctx.component.gallery = new MediaGalleryBuilder()
 
-        const items = this.getFunctions(0, addMediaItem)
-
-        for (let i = 0, len = items.length;i < len;i++) {
-            const item = items[i]
-            const media = await item.execute(ctx)
-            if (!this["isValidReturnType"](media)) return media
-        }
+        const code = this.data.fields![0] as IExtendedCompiledFunctionField
+        const resolved = await this["resolveCode"](ctx, code)
+        if (!this["isValidReturnType"](resolved)) return resolved
 
         if (comp instanceof ContainerBuilder && ctx.container.isInside(ComponentType.Container))
             comp.addMediaGalleryComponents(ctx.component.gallery)
