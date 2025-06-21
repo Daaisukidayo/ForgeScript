@@ -5,6 +5,7 @@ exports.default = new structures_1.NativeFunction({
     name: "$channelCategoryID",
     version: "1.0.0",
     description: "Returns the channel category id",
+    aliases: ["$channelParentID"],
     unwrap: true,
     brackets: false,
     output: structures_1.ArgType.Channel,
