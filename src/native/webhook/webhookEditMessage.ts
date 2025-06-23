@@ -1,4 +1,4 @@
-import { Message, WebhookClient } from "discord.js"
+import { BaseChannel, Message, WebhookClient } from "discord.js"
 import { ArgType, NativeFunction, Return } from "../../structures"
 
 export default new NativeFunction({
@@ -28,13 +28,22 @@ export default new NativeFunction({
             description: "The new content for the message",
             rest: false,
             type: ArgType.String,
-        }
+        },
+        {
+            name: "thread ID",
+            description: "The thread this message belongs to",
+            rest: false,
+            type: ArgType.Channel,
+            check: (i: BaseChannel) => i.isThread(),
+        },
     ],
-    async execute(ctx, [ url, msg, content ]) {
+    async execute(ctx, [ url, msg, content, thread ]) {
         const web = new WebhookClient({ url })
 
         ctx.container.content = content || undefined
+        ctx.container.threadId = thread?.id || undefined
         ctx.container.edit = true
+        ctx.container.withComponents = true
 
         return this.success(!!(await ctx.container.send<Message>(web, undefined, msg)))
     },

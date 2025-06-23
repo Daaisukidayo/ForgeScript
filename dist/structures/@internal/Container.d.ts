@@ -18,6 +18,7 @@ export declare class Container {
     channel?: Channel;
     stickers: StickerResolvable[];
     withResponse: boolean;
+    withComponents: boolean;
     modal?: ModalBuilder;
     choices: ApplicationCommandOptionChoiceData<string | number>[];
     allowedMentions: MessageMentionOptions;

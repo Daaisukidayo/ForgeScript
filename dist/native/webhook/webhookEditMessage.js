@@ -29,12 +29,21 @@ exports.default = new structures_1.NativeFunction({
             description: "The new content for the message",
             rest: false,
             type: structures_1.ArgType.String,
-        }
+        },
+        {
+            name: "thread ID",
+            description: "The thread this message belongs to",
+            rest: false,
+            type: structures_1.ArgType.Channel,
+            check: (i) => i.isThread(),
+        },
     ],
-    async execute(ctx, [url, msg, content]) {
+    async execute(ctx, [url, msg, content, thread]) {
         const web = new discord_js_1.WebhookClient({ url });
         ctx.container.content = content || undefined;
+        ctx.container.threadId = thread?.id || undefined;
         ctx.container.edit = true;
+        ctx.container.withComponents = true;
         return this.success(!!(await ctx.container.send(web, undefined, msg)));
     },
 });

@@ -80,6 +80,7 @@ export class Container {
     public channel?: Channel
     public stickers = new Array<StickerResolvable>()
     public withResponse = false
+    public withComponents = false
     public modal?: ModalBuilder
     public choices = new Array<ApplicationCommandOptionChoiceData<string | number>>()
     public allowedMentions: MessageMentionOptions = {}
@@ -197,6 +198,7 @@ export class Container {
         this.edit = false
         this.tts = false
         this.isComponentsV2 = false
+        this.withComponents = false
 
         this.stickers.length = 0
         this.choices.length = 0
@@ -244,6 +246,7 @@ export class Container {
                       threadId: this.threadId,
                       threadName: this.threadName,
                       appliedTags: this.appliedTags,
+                      withComponents: this.withComponents,
                   }
         ) as T
     }

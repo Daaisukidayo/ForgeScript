@@ -26,6 +26,7 @@ class Container {
     channel;
     stickers = new Array();
     withResponse = false;
+    withComponents = false;
     modal;
     choices = new Array();
     allowedMentions = {};
@@ -137,6 +138,7 @@ class Container {
         this.edit = false;
         this.tts = false;
         this.isComponentsV2 = false;
+        this.withComponents = false;
         this.stickers.length = 0;
         this.choices.length = 0;
         this.components.length = 0;
@@ -180,6 +182,7 @@ class Container {
                 threadId: this.threadId,
                 threadName: this.threadName,
                 appliedTags: this.appliedTags,
+                withComponents: this.withComponents,
             });
     }
 }
