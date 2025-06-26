@@ -5,7 +5,7 @@ export default new NativeFunction({
     version: "1.5.0",
     aliases: ["$clientUserInstallCount"],
     description: "Returns the user install count of the bot",
-    unwrap: true,
+    unwrap: false,
     output: ArgType.Number,
     execute(ctx) {
         return this.success(ctx.client.application.approximateUserInstallCount)

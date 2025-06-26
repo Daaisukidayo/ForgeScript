@@ -6,7 +6,7 @@ exports.default = new structures_1.NativeFunction({
     version: "1.5.0",
     aliases: ["$clientUserInstallCount"],
     description: "Returns the user install count of the bot",
-    unwrap: true,
+    unwrap: false,
     output: structures_1.ArgType.Number,
     execute(ctx) {
         return this.success(ctx.client.application.approximateUserInstallCount);
