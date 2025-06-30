@@ -24,6 +24,6 @@ export default new NativeFunction({
     ],
     async execute(ctx, [channel]) {
         const thread = (channel ?? ctx.channel) as ThreadChannel
-        return this.success(thread.totalMessageSent ?? 0)
+        return this.success(thread?.totalMessageSent ?? 0)
     },
 })

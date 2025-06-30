@@ -9,7 +9,7 @@ exports.default = new structures_1.NativeFunction({
     aliases: [
         "$channelStartTyping"
     ],
-    brackets: true,
+    brackets: false,
     args: [
         {
             name: "channel ID",
@@ -22,7 +22,7 @@ exports.default = new structures_1.NativeFunction({
     ],
     async execute(ctx, [ch]) {
         const channel = (ch ?? ctx.channel);
-        if (channel.isTextBased())
+        if (channel?.isTextBased())
             await channel.sendTyping().catch(() => null);
         return this.success();
     },

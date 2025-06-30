@@ -1,4 +1,3 @@
-import noop from "../../functions/noop"
 import { ArgType, NativeFunction } from "../../structures"
 import { BaseChannel, VoiceChannel } from "discord.js"
 
@@ -34,6 +33,6 @@ export default new NativeFunction({
     ],
     unwrap: true,
     async execute(ctx, [channel, bitrate, reason]) {
-        return this.success(!!(await (channel as VoiceChannel).setBitrate(bitrate, reason ?? undefined).catch(ctx.noop)))
+        return this.success(!!(await (channel as VoiceChannel).setBitrate(bitrate, reason || undefined).catch(ctx.noop)))
     },
 })

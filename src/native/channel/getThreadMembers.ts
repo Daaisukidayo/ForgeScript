@@ -1,6 +1,5 @@
 import { BaseChannel, ThreadChannel } from "discord.js"
 import { ArgType, NativeFunction, Return } from "../../structures"
-import noop from "../../functions/noop"
 import array from "../../functions/array"
 
 export default new NativeFunction({

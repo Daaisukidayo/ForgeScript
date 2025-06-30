@@ -33,7 +33,7 @@ exports.default = new structures_1.NativeFunction({
     ],
     unwrap: true,
     async execute(ctx, [channel, bitrate, reason]) {
-        return this.success(!!(await channel.setBitrate(bitrate, reason ?? undefined).catch(ctx.noop)));
+        return this.success(!!(await channel.setBitrate(bitrate, reason || undefined).catch(ctx.noop)));
     },
 });
 //# sourceMappingURL=setVoiceBitrate.js.map

@@ -5,14 +5,14 @@ const MathRegex = /[^0-9%\-+./*\t\n\s()<>]/;
 exports.default = new structures_1.NativeFunction({
     name: "$math",
     version: "1.0.0",
-    description: "Run math expression, returns nothing if incorrect expression",
+    description: "Runs math expression, returns nothing if incorrect expression",
     brackets: true,
     output: structures_1.ArgType.Number,
     unwrap: true,
     args: [
         {
             name: "expr",
-            description: "The expression",
+            description: "The math expression to run",
             rest: false,
             type: structures_1.ArgType.String,
             required: true,

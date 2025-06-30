@@ -34,6 +34,6 @@ export default new NativeFunction({
     ],
     unwrap: true,
     async execute(ctx, [channel, quality, reason]) {
-        return this.success(!!(await (channel as VoiceChannel).setVideoQualityMode(quality, reason ?? undefined).catch(ctx.noop)))
+        return this.success(!!(await (channel as VoiceChannel).setVideoQualityMode(quality, reason || undefined).catch(ctx.noop)))
     },
 })

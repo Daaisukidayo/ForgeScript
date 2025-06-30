@@ -35,18 +35,17 @@ export default new NativeFunction({
     async execute(ctx, [url, method, name]) {
         name ??= "result"
 
-        if (ctx.http.response) {
-            delete ctx.http.response
-        }
-        let ms = performance.now()
+        if (ctx.http.response) delete ctx.http.response
 
+        let ms = performance.now()
         const req = await fetch(url, {
             ...ctx.http,
             method,
             body: ctx.http.body ?? ctx.http.form
-        })
-
+        }).catch(ctx.noop)
         ms = performance.now() - ms
+
+        if (!req) return this.success(void ctx.clearHttpOptions())
 
         const contentType = req.headers.get("content-type")?.split(";")[0]
         const overrideType = ctx.http.contentType

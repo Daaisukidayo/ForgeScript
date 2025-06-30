@@ -52,7 +52,7 @@ exports.default = new structures_1.NativeFunction({
     ],
     output: structures_1.ArgType.Boolean,
     async execute(ctx, [voice, region, reason]) {
-        return this.success(!!(await voice.setRTCRegion(region || null, reason ?? undefined).catch(ctx.noop)));
+        return this.success(!!(await voice.setRTCRegion(region || null, reason || undefined).catch(ctx.noop)));
     },
 });
 //# sourceMappingURL=setVoiceRegion.js.map
