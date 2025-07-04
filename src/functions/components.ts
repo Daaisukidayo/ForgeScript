@@ -57,13 +57,13 @@ export function buildActionRow(comp: any) {
 
 /**
  * Builds a top level component.
- * @param ctx The current context.
  * @param comp The component data.
+ * @param ctx The current context, if any.
  * @returns 
  */
-export function buildComponent(ctx: Context, comp: any) {
-    const type = comp?.type as ComponentType
-    if (isTopLevel(type, false)) ctx.container.isComponentsV2 = true
+export function buildComponent(comp: any, ctx?: Context) {
+    const type = comp.type as ComponentType
+    if (ctx && isTopLevel(type, false)) ctx.container.isComponentsV2 = true
     return new TopLevelComponentBuilders[type](comp.toJSON?.() ?? comp)
 }
 

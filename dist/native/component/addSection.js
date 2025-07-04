@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
-const componentBuilders_1 = require("../../functions/componentBuilders");
+const components_1 = require("../../functions/components");
 const discord_js_1 = require("discord.js");
 exports.default = new structures_1.NativeFunction({
     name: "$addSection",
@@ -19,7 +19,7 @@ exports.default = new structures_1.NativeFunction({
         },
     ],
     async execute(ctx) {
-        (0, componentBuilders_1.addActionRow)(ctx);
+        (0, components_1.addActionRow)(ctx);
         const comp = ctx.container.components.at(-1);
         ctx.component.section = new discord_js_1.SectionBuilder();
         ctx.container.inside.push(discord_js_1.ComponentType.Section);

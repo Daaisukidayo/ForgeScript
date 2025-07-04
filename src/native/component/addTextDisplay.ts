@@ -1,6 +1,6 @@
 import { ComponentType, ContainerBuilder, TextDisplayBuilder } from "discord.js"
 import { ArgType, NativeFunction, Return } from "../../structures"
-import { addActionRow } from "../../functions/componentBuilders"
+import { addActionRow } from "../../functions/components"
 
 export default new NativeFunction({
     name: "$addTextDisplay",

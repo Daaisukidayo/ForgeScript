@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const structures_1 = require("../../structures");
+const components_1 = require("../../functions/components");
 exports.default = new structures_1.NativeFunction({
     name: "$editOption",
     version: "1.4.0",
@@ -53,8 +54,14 @@ exports.default = new structures_1.NativeFunction({
     execute(ctx, [old, name, desc, value, emoji, def]) {
         for (let i = 0, len = ctx.container.components.length; i < len; i++) {
             const comp = ctx.container.components[i];
-            if (comp instanceof discord_js_1.ActionRowBuilder || comp instanceof discord_js_1.ContainerBuilder) {
-                const menu = comp.components[0];
+            const comps = comp instanceof discord_js_1.ContainerBuilder
+                ? comp.components.map((x) => (0, components_1.buildComponent)(x.toJSON()))
+                : ("components" in comp ? comp.components : undefined);
+            if (!comps)
+                continue;
+            for (let n = 0, len = comps.length; n < len; n++) {
+                const row = comps[n];
+                const menu = row instanceof discord_js_1.ActionRowBuilder ? row.components[0] : row;
                 if (menu instanceof discord_js_1.StringSelectMenuBuilder) {
                     const index = menu.options.findIndex(x => x.data.label === old);
                     if (index !== -1) {
@@ -66,9 +73,11 @@ exports.default = new structures_1.NativeFunction({
                             option.setEmoji((0, discord_js_1.parseEmoji)(emoji));
                         if (desc)
                             option.setDescription(desc);
-                        if (def)
+                        if (typeof def === "boolean")
                             option.setDefault(def);
-                        break;
+                        if (comp instanceof discord_js_1.ContainerBuilder)
+                            comp.spliceComponents(n, 1, new discord_js_1.ActionRowBuilder().addComponents(menu));
+                        return this.success();
                     }
                 }
             }

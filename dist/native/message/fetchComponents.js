@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
-const componentBuilders_1 = require("../../functions/componentBuilders");
+const components_1 = require("../../functions/components");
 exports.default = new structures_1.NativeFunction({
     name: "$fetchComponents",
     version: "1.0.0",
@@ -27,7 +27,7 @@ exports.default = new structures_1.NativeFunction({
         },
     ],
     execute(ctx, [, msg]) {
-        ctx.container.components = (msg ?? ctx.message)?.components.map((x) => (0, componentBuilders_1.buildComponent)(ctx, x)) ?? [];
+        ctx.container.components = (msg ?? ctx.message)?.components.map((x) => (0, components_1.buildComponent)(x, ctx)) ?? [];
         return this.success();
     },
 });

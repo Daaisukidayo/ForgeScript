@@ -1,5 +1,5 @@
 import { ArgType, NativeFunction, Return } from "../../structures"
-import { buildComponent } from "../../functions/componentBuilders"
+import { buildComponent } from "../../functions/components"
 
 export default new NativeFunction({
     name: "$fetchComponents",
@@ -26,7 +26,7 @@ export default new NativeFunction({
         },
     ],
     execute(ctx, [, msg]) {
-        ctx.container.components = (msg ?? ctx.message)?.components.map((x) => buildComponent(ctx, x)) ?? []
+        ctx.container.components = (msg ?? ctx.message)?.components.map((x) => buildComponent(x, ctx)) ?? []
         return this.success()
     },
 })

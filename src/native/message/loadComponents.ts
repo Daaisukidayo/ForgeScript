@@ -1,5 +1,5 @@
 import { ArgType, NativeFunction } from "../../structures"
-import { buildActionRow, buildComponent, isTopLevel } from "../../functions/componentBuilders"
+import { buildActionRow, buildComponent, isTopLevel } from "../../functions/components"
 import { ActionRowBuilder, ComponentType } from "discord.js"
 
 export default new NativeFunction({
@@ -23,9 +23,9 @@ export default new NativeFunction({
             ? Array.isArray(json[0])
                 ? json.map((row) => new ActionRowBuilder().addComponents(row?.map((comp: any) => buildActionRow(comp))))
                 : isTopLevel(json[0]?.type as ComponentType)
-                    ? json.map((comp) => buildComponent(ctx, comp))
+                    ? json.map((comp) => buildComponent(comp, ctx))
                     : new Array(new ActionRowBuilder().addComponents(json?.map((comp) => buildActionRow(comp))))
-            : new Array(isTopLevel(json?.type as ComponentType) ? buildComponent(ctx, json) : new ActionRowBuilder().addComponents(buildActionRow(json)))
+            : new Array(isTopLevel(json?.type as ComponentType) ? buildComponent(json, ctx) : new ActionRowBuilder().addComponents(buildActionRow(json)))
 
         ctx.container.components.push(...components)
 

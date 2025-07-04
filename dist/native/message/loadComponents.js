@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
-const componentBuilders_1 = require("../../functions/componentBuilders");
+const components_1 = require("../../functions/components");
 const discord_js_1 = require("discord.js");
 exports.default = new structures_1.NativeFunction({
     name: "$loadComponents",
@@ -22,11 +22,11 @@ exports.default = new structures_1.NativeFunction({
     execute(ctx, [json]) {
         const components = Array.isArray(json)
             ? Array.isArray(json[0])
-                ? json.map((row) => new discord_js_1.ActionRowBuilder().addComponents(row?.map((comp) => (0, componentBuilders_1.buildActionRow)(comp))))
-                : (0, componentBuilders_1.isTopLevel)(json[0]?.type)
-                    ? json.map((comp) => (0, componentBuilders_1.buildComponent)(ctx, comp))
-                    : new Array(new discord_js_1.ActionRowBuilder().addComponents(json?.map((comp) => (0, componentBuilders_1.buildActionRow)(comp))))
-            : new Array((0, componentBuilders_1.isTopLevel)(json?.type) ? (0, componentBuilders_1.buildComponent)(ctx, json) : new discord_js_1.ActionRowBuilder().addComponents((0, componentBuilders_1.buildActionRow)(json)));
+                ? json.map((row) => new discord_js_1.ActionRowBuilder().addComponents(row?.map((comp) => (0, components_1.buildActionRow)(comp))))
+                : (0, components_1.isTopLevel)(json[0]?.type)
+                    ? json.map((comp) => (0, components_1.buildComponent)(comp, ctx))
+                    : new Array(new discord_js_1.ActionRowBuilder().addComponents(json?.map((comp) => (0, components_1.buildActionRow)(comp))))
+            : new Array((0, components_1.isTopLevel)(json?.type) ? (0, components_1.buildComponent)(json, ctx) : new discord_js_1.ActionRowBuilder().addComponents((0, components_1.buildActionRow)(json)));
         ctx.container.components.push(...components);
         return this.success();
     },
