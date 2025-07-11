@@ -35,6 +35,10 @@ export default new NativeFunction({
         ctx.container.inside.push(ComponentType.Container)
         const comp = ctx.container.components.at(-1) as ContainerBuilder
 
+        const code = this.data.fields![0] as IExtendedCompiledFunctionField
+        const resolved = await this["resolveCode"](ctx, code)
+        if (!this["isValidReturnType"](resolved)) return resolved
+
         if (this.displayField(1)) {
             const color = await this["resolveUnhandledArg"](ctx, 1)
             if (!this["isValidReturnType"](color)) return color
@@ -46,10 +50,6 @@ export default new NativeFunction({
             if (!this["isValidReturnType"](spoiler)) return spoiler
             comp.setSpoiler(spoiler.value as boolean)
         }
-
-        const code = this.data.fields![0] as IExtendedCompiledFunctionField
-        const resolved = await this["resolveCode"](ctx, code)
-        if (!this["isValidReturnType"](resolved)) return resolved
 
         addActionRow(ctx)
         ctx.container.inside.pop()

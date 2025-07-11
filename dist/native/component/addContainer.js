@@ -35,6 +35,10 @@ exports.default = new structures_1.NativeFunction({
         ctx.container.components.push(new discord_js_1.ContainerBuilder());
         ctx.container.inside.push(discord_js_1.ComponentType.Container);
         const comp = ctx.container.components.at(-1);
+        const code = this.data.fields[0];
+        const resolved = await this["resolveCode"](ctx, code);
+        if (!this["isValidReturnType"](resolved))
+            return resolved;
         if (this.displayField(1)) {
             const color = await this["resolveUnhandledArg"](ctx, 1);
             if (!this["isValidReturnType"](color))
@@ -47,10 +51,6 @@ exports.default = new structures_1.NativeFunction({
                 return spoiler;
             comp.setSpoiler(spoiler.value);
         }
-        const code = this.data.fields[0];
-        const resolved = await this["resolveCode"](ctx, code);
-        if (!this["isValidReturnType"](resolved))
-            return resolved;
         (0, components_1.addActionRow)(ctx);
         ctx.container.inside.pop();
         return this.success();

@@ -1,10 +1,9 @@
-import noop from "../../functions/noop"
 import { ArgType, NativeFunction, Return } from "../../structures"
 
 export default new NativeFunction({
     name: "$editRolePerms",
     version: "1.0.7",
-    description: "Edits a role's perms, returns boolean",
+    description: "Edits a role's permissions, returns boolean",
     aliases: ["$modifyRolePerms"],
     unwrap: true,
     output: ArgType.Boolean,
@@ -26,10 +25,9 @@ export default new NativeFunction({
         },
         {
             name: "perms",
-            description: "The new perms for the role",
+            description: "The new perms for the role, omit to clear perms",
             rest: true,
             type: ArgType.Permission,
-            required: true,
         },
     ],
     brackets: true,

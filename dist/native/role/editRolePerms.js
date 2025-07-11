@@ -4,7 +4,7 @@ const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$editRolePerms",
     version: "1.0.7",
-    description: "Edits a role's perms, returns boolean",
+    description: "Edits a role's permissions, returns boolean",
     aliases: ["$modifyRolePerms"],
     unwrap: true,
     output: structures_1.ArgType.Boolean,
@@ -26,10 +26,9 @@ exports.default = new structures_1.NativeFunction({
         },
         {
             name: "perms",
-            description: "The new perms for the role",
+            description: "The new perms for the role, omit to clear perms",
             rest: true,
             type: structures_1.ArgType.Permission,
-            required: true,
         },
     ],
     brackets: true,
