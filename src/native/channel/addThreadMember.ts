@@ -1,6 +1,5 @@
 import { BaseChannel, ThreadChannel } from "discord.js"
 import { ArgType, NativeFunction, Return } from "../../structures"
-import noop from "../../functions/noop"
 
 export default new NativeFunction({
     name: "$addThreadMember",
@@ -33,16 +32,10 @@ export default new NativeFunction({
             required: true,
             type: ArgType.Member,
         },
-        {
-            name: "reason",
-            description: "The reason to add this member to thread",
-            rest: false,
-            type: ArgType.String,
-        },
     ],
-    async execute(ctx, [, channel, member, reason]) {
+    async execute(ctx, [, channel, member]) {
         const thread = channel as ThreadChannel
-        const success = await thread.members.add(member, reason || undefined).catch(ctx.noop)
+        const success = await thread.members.add(member).catch(ctx.noop)
 
         return this.success(!!success)
     },

@@ -32,16 +32,10 @@ exports.default = new structures_1.NativeFunction({
             required: true,
             type: structures_1.ArgType.Member,
         },
-        {
-            name: "reason",
-            description: "The reason to add this member to thread",
-            rest: false,
-            type: structures_1.ArgType.String,
-        },
     ],
-    async execute(ctx, [, channel, member, reason]) {
+    async execute(ctx, [, channel, member]) {
         const thread = channel;
-        const success = await thread.members.add(member, reason || undefined).catch(ctx.noop);
+        const success = await thread.members.add(member).catch(ctx.noop);
         return this.success(!!success);
     },
 });

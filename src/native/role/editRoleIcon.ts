@@ -1,4 +1,3 @@
-import noop from "../../functions/noop"
 import { ArgType, NativeFunction, Return } from "../../structures"
 
 export default new NativeFunction({
@@ -26,10 +25,9 @@ export default new NativeFunction({
         },
         {
             name: "icon",
-            description: "The new icon for the role",
+            description: "The new icon for the role, omit to clear",
             rest: false,
             type: ArgType.String,
-            required: true,
         },
     ],
     async execute(ctx, [, role, url]) {

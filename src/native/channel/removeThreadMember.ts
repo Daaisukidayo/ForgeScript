@@ -1,11 +1,10 @@
 import { BaseChannel, ThreadChannel } from "discord.js"
 import { ArgType, NativeFunction, Return } from "../../structures"
-import noop from "../../functions/noop"
 
 export default new NativeFunction({
     name: "$removeThreadMember",
     version: "1.0.0",
-    description: "Removes a thread member",
+    description: "Removes a member from a thread, returns bool",
     brackets: true,
     unwrap: true,
     output: ArgType.Boolean,
@@ -33,17 +32,10 @@ export default new NativeFunction({
             required: true,
             type: ArgType.Member,
         },
-        {
-            name: "reason",
-            description: "The reason to remove this member from thread",
-            rest: false,
-            type: ArgType.String,
-        },
     ],
-    async execute(ctx, [, channel, member, reason]) {
+    async execute(ctx, [, channel, member]) {
         const thread = channel as ThreadChannel
-
-        const success = await thread.members.remove(member.id, reason || undefined).catch(ctx.noop)
+        const success = await thread.members.remove(member.id).catch(ctx.noop)
 
         return this.success(!!success)
     },

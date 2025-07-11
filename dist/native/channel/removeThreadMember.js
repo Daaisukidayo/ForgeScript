@@ -4,7 +4,7 @@ const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$removeThreadMember",
     version: "1.0.0",
-    description: "Removes a thread member",
+    description: "Removes a member from a thread, returns bool",
     brackets: true,
     unwrap: true,
     output: structures_1.ArgType.Boolean,
@@ -32,16 +32,10 @@ exports.default = new structures_1.NativeFunction({
             required: true,
             type: structures_1.ArgType.Member,
         },
-        {
-            name: "reason",
-            description: "The reason to remove this member from thread",
-            rest: false,
-            type: structures_1.ArgType.String,
-        },
     ],
-    async execute(ctx, [, channel, member, reason]) {
+    async execute(ctx, [, channel, member]) {
         const thread = channel;
-        const success = await thread.members.remove(member.id, reason || undefined).catch(ctx.noop);
+        const success = await thread.members.remove(member.id).catch(ctx.noop);
         return this.success(!!success);
     },
 });

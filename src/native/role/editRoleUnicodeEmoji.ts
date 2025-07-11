@@ -1,4 +1,3 @@
-import noop from "../../functions/noop"
 import { ArgType, NativeFunction, Return } from "../../structures"
 
 export default new NativeFunction({
@@ -25,10 +24,9 @@ export default new NativeFunction({
         },
         {
             name: "emoji",
-            description: "The new unicode emoji for the role",
+            description: "The new unicode emoji for the role, omit to clear",
             rest: false,
             type: ArgType.String,
-            required: true,
         },
     ],
     brackets: true,
