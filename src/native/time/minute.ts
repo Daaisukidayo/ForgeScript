@@ -18,6 +18,8 @@ export default new NativeFunction({
     ],
     output: ArgType.Number,
     execute: async function(ctx, [format]) {
-        return this.success(new Date().toLocaleString("en-US", { minute: format || "numeric", timeZone: ctx.timezone, calendar: ctx.calendar }))
+        format ??= BasicTimeFormat.Numeric
+        const minute = new Date().toLocaleString("en-US", { minute: format, timeZone: ctx.timezone, calendar: ctx.calendar })
+        return this.success(format === BasicTimeFormat.TwoDigit ? minute.padStart(2, "0") : minute)
     }
 })
