@@ -5,7 +5,7 @@ const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$addStringSelectMenu",
     version: "1.0.0",
-    description: "Adds a string select menu",
+    description: "Creates a string select menu",
     unwrap: true,
     brackets: true,
     args: [
@@ -45,11 +45,11 @@ exports.default = new structures_1.NativeFunction({
         const menu = new discord_js_1.StringSelectMenuBuilder().setCustomId(id).setDisabled(disabled || false);
         if (placeholder)
             menu.setPlaceholder(placeholder);
-        if (min !== null)
+        if (min)
             menu.setMinValues(min);
-        if (max !== null)
+        if (max)
             menu.setMaxValues(max);
-        ctx.container.components.at(-1)?.addComponents(menu);
+        ctx.container.actionRow?.addComponents(menu);
         return this.success();
     },
 });

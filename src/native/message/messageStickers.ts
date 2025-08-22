@@ -49,7 +49,6 @@ export default new NativeFunction({
         }
     ],
     execute(ctx, [, message, sep, type]) {
-        type ??= StickerReturnType.url
-        return this.success((message ?? ctx.message)?.stickers.map(x => x[type!]).join(sep ?? ", "))
+        return this.success((message ?? ctx.message)?.stickers.map(x => x[type || StickerReturnType.url]).join(sep ?? ", "))
     },
 })

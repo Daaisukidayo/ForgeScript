@@ -1,3 +1,4 @@
+import array from "../../functions/array"
 import { ReactionProperties, ReactionProperty } from "../../properties/reaction"
 import { ArgType, NativeFunction, Return } from "../../structures"
 
@@ -38,9 +39,9 @@ export default new NativeFunction({
             type: ArgType.String,
         },
     ],
-    output: ArgType.Unknown,
+    output: array<ArgType.Unknown>(),
     async execute(ctx, [, message, prop, sep]) {
         const reactions = (await (message ?? ctx.message)?.fetch().catch(ctx.noop))?.reactions.cache
-        return this.success(reactions?.map(reaction => ReactionProperties[prop ? prop : ReactionProperty.emoji](reaction, sep)).join(sep ?? ", "))
+        return this.success(reactions?.map(reaction => ReactionProperties[prop || ReactionProperty.emoji](reaction, sep)).join(sep ?? ", "))
     },
 })

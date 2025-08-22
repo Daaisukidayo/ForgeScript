@@ -8,3 +8,6 @@ CONTRIBUTING.md
 EXTENSIONS.md
 .env
 tsconfig.json
+.eslintrc.json
+.prettierrc
+.prettierignore

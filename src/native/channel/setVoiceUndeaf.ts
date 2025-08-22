@@ -1,4 +1,3 @@
-import noop from "../../functions/noop"
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
@@ -36,6 +35,6 @@ export default new NativeFunction({
     ],
     unwrap: true,
     async execute(ctx, [, member, reason ]) {
-        return this.success(!!(await member.voice.setDeaf(false, reason ?? undefined).catch(ctx.noop)))
+        return this.success(!!(await member.voice.setDeaf(false, reason || undefined).catch(ctx.noop)))
     },
 })

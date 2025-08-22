@@ -1,4 +1,4 @@
-import { ApplicationCommandDataResolvable, Collection, CommandInteraction, ContextMenuCommandBuilder, Guild, Interaction, RESTPostAPIChatInputApplicationCommandsJSONBody, RESTPostAPIContextMenuApplicationCommandsJSONBody, SlashCommandBuilder } from "discord.js";
+import { ApplicationCommandDataResolvable, Collection, CommandInteraction, ContextMenuCommandBuilder, Guild, Interaction, RESTPostAPIApplicationCommandsJSONBody, SlashCommandBuilder } from "discord.js";
 import { ApplicationCommand } from "../structures/base/ApplicationCommand";
 import { ForgeClient } from "../core";
 export declare enum RegistrationType {
@@ -7,7 +7,7 @@ export declare enum RegistrationType {
     All = 2
 }
 export interface IApplicationCommandData {
-    data: SlashCommandBuilder | ContextMenuCommandBuilder | RESTPostAPIChatInputApplicationCommandsJSONBody | RESTPostAPIContextMenuApplicationCommandsJSONBody;
+    data: SlashCommandBuilder | ContextMenuCommandBuilder | RESTPostAPIApplicationCommandsJSONBody;
     code: string;
     type?: RegistrationType;
     independent?: boolean;

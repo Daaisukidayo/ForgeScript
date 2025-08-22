@@ -1,5 +1,6 @@
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js"
+import { ActionRow, ActionRowBuilder, ButtonBuilder, ButtonStyle, MessageActionRowComponent } from "discord.js"
 import { ArgType, NativeFunction, Return } from "../../structures"
+import { resolveNumericEnum } from "../../functions/enum"
 
 export default new NativeFunction({
     name: "$editButtonOf",
@@ -67,7 +68,7 @@ export default new NativeFunction({
     ],
     output: ArgType.Boolean,
     async execute(ctx, [, m, oldId, id, label, style, emoji, disabled]) {
-        const components = m.components.map(x => ActionRowBuilder.from(x))
+        const components = m.components.map(x => ActionRowBuilder.from(x as ActionRow<MessageActionRowComponent>))
 
         const rowIndex = components.findIndex((x) =>
             x.components.some((x) => "custom_id" in x.data && x.data.custom_id === oldId)
@@ -79,22 +80,21 @@ export default new NativeFunction({
         ) as ButtonBuilder
 
         if (!btn) return this.success()
+        style = resolveNumericEnum(ButtonStyle, style)
 
         // @ts-ignore
-        btn.setCustomId(id || btn.data.custom_id)
-            .setDisabled(disabled || btn.data.disabled!)
-            .setStyle(style || btn.data.style!)
-            // @ts-ignore
-            .setLabel(label || btn.data.label || "")
+        btn.setLabel(label || btn.data.label)
+            .setStyle(style)
 
-        // @ts-ignore
-        if (style === ButtonStyle.Link) btn.setURL(id || btn.data.custom_id)
-        else if (style === ButtonStyle.Premium) btn.setSKUId(id)
+            if (emoji) btn.setEmoji(emoji)
+            if (typeof disabled === "boolean") btn.setDisabled(disabled)
 
-        if (emoji) btn.setEmoji(emoji)
+            if (style === ButtonStyle.Link) btn.setURL(id)
+            else if (style === ButtonStyle.Premium) btn.setSKUId(id)
+            else btn.setCustomId(id)
 
         return this.success(
-            !!(await m.edit({ components: components as ActionRowBuilder<ButtonBuilder>[ ]}).catch(ctx.noop))
+            !!(await m.edit({ components: components as ActionRowBuilder<ButtonBuilder>[] }).catch(ctx.noop))
         )
     },
 })

@@ -25,10 +25,9 @@ exports.default = new structures_1.NativeFunction({
         },
         {
             name: "emoji",
-            description: "The new unicode emoji for the role",
+            description: "The new unicode emoji for the role, omit to clear",
             rest: false,
             type: structures_1.ArgType.String,
-            required: true,
         },
     ],
     brackets: true,

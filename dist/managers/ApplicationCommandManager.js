@@ -113,8 +113,9 @@ class ApplicationCommandManager {
                     ? ` ${subcommandName}`
                     : ""} ${filteredOptions.join(" ")}`;
         }
-        else if (input instanceof discord_js_1.ContextMenuCommandInteraction)
+        else if (input instanceof discord_js_1.ContextMenuCommandInteraction || input instanceof discord_js_1.PrimaryEntryPointCommandInteraction) {
             return `/${input.commandName}`;
+        }
         return null;
     }
     get(input) {

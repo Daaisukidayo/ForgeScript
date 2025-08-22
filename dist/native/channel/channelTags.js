@@ -10,12 +10,13 @@ exports.default = new structures_1.NativeFunction({
     version: "1.0.3",
     description: "Retrieves tags from a forum thread",
     unwrap: true,
-    output: (0, array_1.default)(),
+    brackets: false,
     args: [
         {
             name: "channel ID",
             description: "The channel to get tags of",
             rest: false,
+            required: true,
             type: structures_1.ArgType.Channel,
             check: (i) => i.isThread(),
         },
@@ -26,10 +27,10 @@ exports.default = new structures_1.NativeFunction({
             type: structures_1.ArgType.String,
         },
     ],
-    brackets: false,
+    output: (0, array_1.default)(),
     execute(ctx, [ch, sep]) {
         const channel = (ch ?? ctx.channel);
-        return this.success(channel?.appliedTags.join(sep || ", "));
+        return this.success(channel?.appliedTags?.join(sep || ", "));
     },
 });
 //# sourceMappingURL=channelTags.js.map

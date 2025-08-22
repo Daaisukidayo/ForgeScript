@@ -1,10 +1,10 @@
-import { ActionRowBuilder, ButtonBuilder } from "discord.js"
+import { ActionRow, ActionRowBuilder, ButtonBuilder, MessageActionRowComponent } from "discord.js"
 import { ArgType, NativeFunction, Return } from "../../structures"
 
 export default new NativeFunction({
     name: "$deleteComponentFrom",
     version: "1.5.0",
-    description: "Deletes a component with given custom id from a message",
+    description: "Deletes a message component with given custom id from a message",
     brackets: true,
     args: [
         {
@@ -33,7 +33,7 @@ export default new NativeFunction({
     output: ArgType.Boolean,
     unwrap: true,
     async execute(ctx, [, m, id]) {
-        const components = m.components.map(x => ActionRowBuilder.from(x))
+        const components = m.components.map(x => ActionRowBuilder.from(x as ActionRow<MessageActionRowComponent>))
 
         for (let i = 0, len = components.length; i < len; i++) {
             const comp = components[i]

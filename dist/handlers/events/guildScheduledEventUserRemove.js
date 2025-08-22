@@ -5,7 +5,7 @@ const DiscordEventHandler_1 = require("../../structures/extended/DiscordEventHan
 exports.default = new DiscordEventHandler_1.DiscordEventHandler({
     name: "guildScheduledEventUserRemove",
     version: "1.4.0",
-    description: "This event is called when a user is removed from a schedule event",
+    description: "This event is called when a user is removed from a scheduled event",
     listener: async function (m, user) {
         const commands = this.commands.get("guildScheduledEventUserRemove");
         for (const command of commands) {

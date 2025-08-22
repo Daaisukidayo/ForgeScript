@@ -7,12 +7,13 @@ export default new NativeFunction({
     version: "1.0.3",
     description: "Retrieves tags from a forum thread",
     unwrap: true,
-    output: array<ArgType.String>(),
+    brackets: false,
     args: [
         {
             name: "channel ID",
             description: "The channel to get tags of",
             rest: false,
+            required: true,
             type: ArgType.Channel,
             check: (i: BaseChannel) => i.isThread(),
         },
@@ -23,9 +24,9 @@ export default new NativeFunction({
             type: ArgType.String,
         },
     ],
-    brackets: false,
+    output: array<ArgType.ForumTag>(),
     execute(ctx, [ch, sep]) {
         const channel = (ch ?? ctx.channel) as ThreadChannel | undefined
-        return this.success(channel?.appliedTags.join(sep || ", "))
+        return this.success(channel?.appliedTags?.join(sep || ", "))
     },
 })

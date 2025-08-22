@@ -35,7 +35,7 @@ exports.default = new structures_1.NativeFunction({
     ],
     unwrap: true,
     async execute(ctx, [channel, quality, reason]) {
-        return this.success(!!(await channel.setVideoQualityMode(quality, reason ?? undefined).catch(ctx.noop)));
+        return this.success(!!(await channel.setVideoQualityMode(quality, reason || undefined).catch(ctx.noop)));
     },
 });
 //# sourceMappingURL=setVoiceVideoQuality.js.map

@@ -1,4 +1,4 @@
-import { RoleSelectMenuBuilder, UserSelectMenuBuilder } from "discord.js"
+import { UserSelectMenuBuilder } from "discord.js"
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
@@ -50,17 +50,14 @@ export default new NativeFunction({
     execute(ctx, [ id, placeholder, min, max, disabled, users ]) {
         const menu = new UserSelectMenuBuilder()
             .setDefaultUsers(users)
-            .setDisabled(disabled ?? false)
+            .setDisabled(disabled || false)
             .setCustomId(id)
             
-        if (placeholder)
-            menu.setPlaceholder(placeholder)
-        if (min)
-            menu.setMinValues(min)
-        if (max)
-            menu.setMaxValues(max)
-        
-        ctx.container.components.at(-1)?.addComponents(menu)
+        if (placeholder) menu.setPlaceholder(placeholder)
+        if (min) menu.setMinValues(min)
+        if (max) menu.setMaxValues(max)
+
+        ctx.container.actionRow?.addComponents(menu)
         return this.success()
     }
 })

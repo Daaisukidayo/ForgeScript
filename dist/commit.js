@@ -30,7 +30,11 @@ async function main() {
     const json = (0, fs_1.existsSync)(fileName) ? JSON.parse((0, fs_1.readFileSync)(fileName, "utf-8")) : {};
     json[version] ??= [];
     if (!skip) {
-        json[version].unshift(msg);
+        json[version].unshift({
+            message: msg,
+            timestamp: new Date(),
+            author: (0, child_process_1.execSync)("git config user.name").toString().trim()
+        });
         (0, fs_1.writeFileSync)(fileName, JSON.stringify(json), "utf-8");
     }
     const branch = await (0, prompt_1.default)("Write the branch name to push to (defaults to dev): ") || "dev";

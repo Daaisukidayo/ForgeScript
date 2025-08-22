@@ -33,7 +33,7 @@ exports.default = new structures_1.NativeFunction({
     ],
     unwrap: true,
     async execute(ctx, [channel, limit, reason]) {
-        return this.success(!!(await channel.setUserLimit(limit, reason ?? undefined).catch(ctx.noop)));
+        return this.success(!!(await channel.setUserLimit(limit, reason || undefined).catch(ctx.noop)));
     },
 });
 //# sourceMappingURL=setVoiceUserLimit.js.map

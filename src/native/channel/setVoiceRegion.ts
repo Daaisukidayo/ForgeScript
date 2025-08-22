@@ -51,6 +51,6 @@ export default new NativeFunction({
     ],
     output: ArgType.Boolean,
     async execute(ctx, [voice, region, reason]) {
-        return this.success(!!(await (voice as VoiceChannel).setRTCRegion(region || null, reason ?? undefined).catch(ctx.noop)))
+        return this.success(!!(await (voice as VoiceChannel).setRTCRegion(region || null, reason || undefined).catch(ctx.noop)))
     },
 })

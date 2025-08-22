@@ -1,4 +1,4 @@
-import { ActionRowBuilder, RoleSelectMenuBuilder, UserSelectMenuBuilder } from "discord.js"
+import { ActionRowBuilder, createComponentBuilder, UserSelectMenuBuilder } from "discord.js"
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
@@ -66,21 +66,18 @@ export default new NativeFunction({
     async execute(ctx, [ , m, id, placeholder, min, max, disabled, users ]) {
         const menu = new UserSelectMenuBuilder()
             .setDefaultUsers(users)
-            .setDisabled(disabled ?? false)
+            .setDisabled(disabled || false)
             .setCustomId(id)
             
-        if (placeholder)
-            menu.setPlaceholder(placeholder)
-        if (min)
-            menu.setMinValues(min)
-        if (max)
-            menu.setMaxValues(max)
+        if (placeholder) menu.setPlaceholder(placeholder)
+        if (min) menu.setMinValues(min)
+        if (max) menu.setMaxValues(max)
 
-        const components = m.components.map(x => ActionRowBuilder.from(x))
-        components.at(-1)?.addComponents(menu)
+        const components = m.components.map(x => createComponentBuilder(x.toJSON()))
+        components.push(new ActionRowBuilder().addComponents(menu))
 
         return this.success(
-            !!(await m.edit({ components: components as ActionRowBuilder<UserSelectMenuBuilder>[] }).catch(ctx.noop))
+            !!(await m.edit({ components: components.map(x => x.toJSON()) }).catch(ctx.noop))
         )
     }
 })

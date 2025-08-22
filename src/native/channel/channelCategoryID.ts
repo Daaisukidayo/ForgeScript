@@ -4,6 +4,7 @@ export default new NativeFunction({
     name: "$channelCategoryID",
     version: "1.0.0",
     description: "Returns the channel category id",
+    aliases: ["$channelParentID"],
     unwrap: true,
     brackets: false,
     output: ArgType.Channel,

@@ -1,5 +1,6 @@
-import { ButtonBuilder, ButtonStyle } from "discord.js"
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, ContainerBuilder } from "discord.js"
 import { ArgType, NativeFunction, Return } from "../../structures"
+import { resolveNumericEnum } from "../../functions/enum"
 
 export default new NativeFunction({
     name: "$editButton",
@@ -52,28 +53,31 @@ export default new NativeFunction({
     ],
     execute(ctx, [oldId, id, label, style, emoji, disabled]) {
         const rowIndex = ctx.container.components.findIndex((x) =>
-            x.components.some((x) => "custom_id" in x.data && x.data.custom_id === oldId)
+            (x instanceof ActionRowBuilder || x instanceof ContainerBuilder)
+                ? x.components.some((x) => "custom_id" in x.data && x.data.custom_id === oldId)
+                : false
         )
         if (rowIndex === -1) return this.success()
 
+        // @ts-ignore
         const btn = ctx.container.components[rowIndex].components.find(
+            // @ts-ignore
             (x) => "custom_id" in x.data && x.data.custom_id === oldId
         ) as ButtonBuilder
 
         if (!btn) return this.success()
-        
-        // @ts-ignore
-        btn.setCustomId(id || btn.data.custom_id)
-            .setDisabled(disabled || false)
-            .setStyle(style || btn.data.style!)
-            // @ts-ignore
-            .setLabel(label || btn.data.label || "")
+        style = resolveNumericEnum(ButtonStyle, style)
 
         // @ts-ignore
-        if (style === ButtonStyle.Link) btn.setURL(id || btn.data.custom_id)
-        else if (style === ButtonStyle.Premium) btn.setSKUId(id)
+        btn.setLabel(label || btn.data.label)
+            .setStyle(style)
 
-        if (emoji) btn.setEmoji(emoji)
+            if (emoji) btn.setEmoji(emoji)
+            if (typeof disabled === "boolean") btn.setDisabled(disabled)
+
+            if (style === ButtonStyle.Link) btn.setURL(id)
+            else if (style === ButtonStyle.Premium) btn.setSKUId(id)
+            else btn.setCustomId(id)
 
         return this.success()
     },

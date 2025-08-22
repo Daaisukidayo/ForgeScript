@@ -13,9 +13,12 @@ import {
     GuildEmoji,
     GuildMember,
     Interaction,
+    MediaGalleryBuilder,
     Message,
     MessageReaction,
     Role,
+    SectionBuilder,
+    SoundboardSound,
     Sticker,
     User,
 } from "discord.js"
@@ -63,6 +66,11 @@ export interface ILocalFunctionData {
     args: string[]
 }
 
+export interface IComponentOptions {
+    section: SectionBuilder
+    gallery: MediaGalleryBuilder
+}
+
 export enum CalendarType {
     Buddhist = "buddhist",
     Chinese = "chinese",
@@ -103,6 +111,7 @@ export interface IContextCache {
     emoji: Emoji | null
     automod: AutoModerationActionExecution | null
     sticker: Sticker | null
+    sound: SoundboardSound | null
 }
 
 export class Context {
@@ -114,6 +123,7 @@ export class Context {
     executionTimestamp!: number
     http: Partial<IHttpOptions> = {}
     automodRule: Partial<IAutomodRuleOptions> = {}
+    component: Partial<IComponentOptions> = {}
     timezone: string = "UTC"
     calendar?: CalendarType
 
@@ -179,6 +189,10 @@ export class Context {
 
     public get sticker() {
         return (this.#cache.sticker ??= this.obj instanceof Sticker ? this.obj : null)
+    }
+
+    public get sound() {
+        return (this.#cache.sound ??= this.obj instanceof SoundboardSound ? this.obj : null)
     }
 
     public get role() {

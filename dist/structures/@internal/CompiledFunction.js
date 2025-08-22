@@ -50,7 +50,9 @@ class CompiledFunction {
         };
     }
     displayField(i) {
-        const field = this.data.fields[i];
+        const field = this.data.fields?.[i];
+        if (!field)
+            return null;
         if ("op" in field) {
             if (field.rhs) {
                 return `${field.lhs.resolve(field.lhs.functions.map((x) => x.display))}${field.op}${field.rhs.resolve(field.rhs.functions.map((x) => x.display))}`;
@@ -66,7 +68,9 @@ class CompiledFunction {
         else {
             const args = new Array();
             for (let i = 0, len = this.data.fields.length; i < len; i++) {
-                args.push(this.displayField(i));
+                const field = this.displayField(i);
+                if (field)
+                    args.push(field);
             }
             return `${this.data.name}[${args.join(";")}]`;
         }
@@ -315,6 +319,11 @@ class CompiledFunction {
             return;
         return this.resolvePointer(arg, ref, ctx.guild)?.scheduledEvents.fetch(str).catch(ctx.noop);
     }
+    resolveSoundboardSound(ctx, arg, str, ref) {
+        if (!CompiledFunction.IdRegex.test(str))
+            return;
+        return this.resolvePointer(arg, ref, ctx.guild)?.soundboardSounds.fetch(str).catch(ctx.noop);
+    }
     resolveStageInstance(ctx, arg, str, ref) {
         if (!CompiledFunction.IdRegex.test(str))
             return;
@@ -350,6 +359,9 @@ class CompiledFunction {
         if (!CompiledFunction.IdRegex.test(str))
             return;
         return ctx.client.fetchWebhook(str).catch(ctx.noop);
+    }
+    async resolveTemplate(ctx, arg, str, ref) {
+        return await ctx.client.fetchGuildTemplate(str).catch(ctx.noop);
     }
     resolveOverwritePermission(ctx, arg, str, ref) {
         const symbol = str[0];
@@ -395,6 +407,9 @@ class CompiledFunction {
     }
     get hasFields() {
         return this.data.fields !== null;
+    }
+    hasField(i) {
+        return this.data.fields?.[i] != null;
     }
     error(type, ...args) {
         if (type instanceof Error)
@@ -462,7 +477,7 @@ class CompiledFunction {
         return new Return_1.Return(Return_1.ReturnType.Success, value);
     }
     success(value = null) {
-        return new Return_1.Return(Return_1.ReturnType.Success, this.data.negated ? null : this.data.count !== null && typeof (value) === "string" ? value.split(this.data.count).length : value);
+        return new Return_1.Return(Return_1.ReturnType.Success, this.data.negated ? null : this.data.count !== null && typeof (value) === "string" ? (value !== "" ? value.split(this.data.count).length : 0) : value);
     }
 }
 exports.CompiledFunction = CompiledFunction;

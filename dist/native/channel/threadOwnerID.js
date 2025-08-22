@@ -20,7 +20,7 @@ exports.default = new structures_1.NativeFunction({
     ],
     async execute(ctx, [channel]) {
         const thread = (channel ?? ctx.channel);
-        return this.success(thread.ownerId || undefined);
+        return this.success(thread?.ownerId);
     },
 });
 //# sourceMappingURL=threadOwnerID.js.map

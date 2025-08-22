@@ -23,7 +23,7 @@ exports.default = new structures_1.NativeFunction({
     ],
     async execute(ctx, [channel]) {
         const thread = (channel ?? ctx.channel);
-        return this.success(thread.totalMessageSent ?? 0);
+        return this.success(thread?.totalMessageSent ?? 0);
     },
 });
 //# sourceMappingURL=threadTotalMessagesSent.js.map

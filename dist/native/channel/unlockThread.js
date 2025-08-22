@@ -27,7 +27,7 @@ exports.default = new structures_1.NativeFunction({
     ],
     async execute(ctx, [channel, reason]) {
         const thread = (channel ?? ctx.channel);
-        if (!thread.isThread())
+        if (!thread?.isThread())
             return this.success(false);
         const success = await thread.setLocked(false, reason || undefined).catch(ctx.noop);
         return this.success(!!success);

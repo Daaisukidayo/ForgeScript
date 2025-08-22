@@ -20,6 +20,6 @@ export default new NativeFunction({
     ],
     async execute(ctx, [channel]) {
         const thread = (channel ?? ctx.channel) as ThreadChannel
-        return this.success(thread.ownerId || undefined)
+        return this.success(thread?.ownerId)
     },
 })

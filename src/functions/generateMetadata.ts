@@ -1,17 +1,15 @@
-import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "fs"
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs"
 import { EventManager, FunctionManager } from "../managers"
-import { execSync } from "child_process"
-import { argv, cwd, exit } from "process"
-import { Arg, ArgType, EnumLike, IArg, IEvent, INativeFunction, Logger, NativeFunction } from "../structures"
+import { cwd, exit } from "process"
+import { EnumLike, IArg, IEvent, INativeFunction, Logger } from "../structures"
 import { enumToArray } from "./enum"
-import { capitalize } from "lodash"
 import { translateData } from "./translate"
-import { Locale, MessageType } from "discord.js"
-import { join } from "path"
+import { Locale } from "discord.js"
+import { join, relative } from "path"
 
 const FunctionNameRegex = /(name: "\$?(\w+)"),?/m
 const FunctionCategoryRegex = /\r?\n(.*)(category: "\$?(\w+)"),?/m
-const ArgEnumRegex = /(?:enum: +(\w+),?|Arg\.(?:\w+)Enum\([\r\n\t ]?(\w+))/gim
+const ArgEnumRegex = /(?:enum: +(\w+),?|Arg\.(?:\w+)Enum\([\r\n\t ]*(\w+))/gim
 const OutputRegex = /output:(array(<[A-Za-z.]+>)?\((\w+)?\)|(\w+)|ArgType.(\w+)|\[((array(<[A-Za-z.]+>)?\(\w*\)|\w+|ArgType\.\w+),?)+\]),/im
 
 function getOutputValues(fn: INativeFunction<IArg[]>, txt: string, enums: Record<string, string[]>) {
@@ -74,8 +72,14 @@ export default async function(functionsAbsolutePath: string, mainCategoryName?: 
     Logger.info(`Loaded ${FunctionManager["Functions"].size} functions`)
 
     const metaOutPath = "./metadata"
-
     if (!existsSync(metaOutPath)) mkdirSync(metaOutPath)
+
+    const toSrcPath = (absPath: string) => relative(cwd(), absPath).replace(/^dist\//, "src/")
+
+    writeFileSync(join(metaOutPath, "paths.json"), JSON.stringify({
+        functions: toSrcPath(functionsAbsolutePath),
+        ...(eventsAbsolutePath && { events: toSrcPath(eventsAbsolutePath) })
+    }), "utf-8")
 
     const v = require(cwd() + "/package.json").version
 

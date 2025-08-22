@@ -85,7 +85,8 @@ export class CompiledFunction<T extends [...IArg[]] = IArg[], Unwrap extends boo
     }
 
     public displayField(i: number) {
-        const field = this.data.fields![i]
+        const field = this.data.fields?.[i]
+        if (!field) return null
         if ("op" in field) {
             if (field.rhs) {
                 return `${field.lhs.resolve(field.lhs.functions.map((x) => x.display))}${field.op}${field.rhs.resolve(
@@ -102,7 +103,8 @@ export class CompiledFunction<T extends [...IArg[]] = IArg[], Unwrap extends boo
             const args = new Array<string>()
 
             for (let i = 0, len = this.data.fields.length; i < len; i++) {
-                args.push(this.displayField(i))
+                const field = this.displayField(i)
+                if (field) args.push(field)
             }
 
             return `${this.data.name}[${args.join(";")}]`
@@ -388,6 +390,11 @@ export class CompiledFunction<T extends [...IArg[]] = IArg[], Unwrap extends boo
         return this.resolvePointer(arg, ref, ctx.guild)?.scheduledEvents.fetch(str).catch(ctx.noop)
     }
 
+    private resolveSoundboardSound(ctx: Context, arg: IArg, str: string, ref: Array<unknown>) {
+        if (!CompiledFunction.IdRegex.test(str)) return
+        return this.resolvePointer(arg, ref, ctx.guild)?.soundboardSounds.fetch(str).catch(ctx.noop)
+    }
+
     private resolveStageInstance(ctx: Context, arg: IArg, str: string, ref: Array<unknown>) {
         if (!CompiledFunction.IdRegex.test(str)) return
         const chan = ctx.client.channels.cache.get(str)
@@ -426,6 +433,10 @@ export class CompiledFunction<T extends [...IArg[]] = IArg[], Unwrap extends boo
     private resolveWebhook(ctx: Context, arg: IArg, str: string, ref: Array<unknown>) {
         if (!CompiledFunction.IdRegex.test(str)) return
         return ctx.client.fetchWebhook(str).catch(ctx.noop)
+    }
+
+    private async resolveTemplate(ctx: Context, arg: IArg, str: string, ref: Array<unknown>) {
+        return await ctx.client.fetchGuildTemplate(str).catch(ctx.noop)
     }
 
     private resolveOverwritePermission(
@@ -491,6 +502,10 @@ export class CompiledFunction<T extends [...IArg[]] = IArg[], Unwrap extends boo
 
     public get hasFields() {
         return this.data.fields !== null
+    }
+
+    public hasField(i: number) {
+        return this.data.fields?.[i] != null
     }
 
     public error(err: Error): Return<ReturnType.Error>
@@ -577,6 +592,6 @@ export class CompiledFunction<T extends [...IArg[]] = IArg[], Unwrap extends boo
     }
 
     public success(value: ReturnValue<ReturnType.Success> = null) {
-        return new Return(ReturnType.Success, this.data.negated ? null : this.data.count !== null && typeof(value) === "string" ? value.split(this.data.count).length : value)
+        return new Return(ReturnType.Success, this.data.negated ? null : this.data.count !== null && typeof(value) === "string" ? (value !== "" ? value.split(this.data.count).length : 0) : value)
     }
 }

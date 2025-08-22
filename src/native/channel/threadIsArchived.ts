@@ -1,6 +1,5 @@
 import { BaseChannel, ThreadChannel } from "discord.js"
 import { ArgType, NativeFunction, Return } from "../../structures"
-import noop from "../../functions/noop"
 
 export default new NativeFunction({
     name: "$threadIsArchived",
@@ -25,6 +24,6 @@ export default new NativeFunction({
     ],
     async execute(ctx, [channel]) {
         const thread = (channel ?? ctx.channel) as ThreadChannel
-        return this.success(!!thread.archived)
+        return this.success(!!thread?.archived)
     },
 })

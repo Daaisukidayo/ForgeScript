@@ -36,6 +36,8 @@ var ArgType;
     ArgType[ArgType["AutomodRule"] = 30] = "AutomodRule";
     ArgType[ArgType["ScheduledEvent"] = 31] = "ScheduledEvent";
     ArgType[ArgType["StageInstance"] = 32] = "StageInstance";
+    ArgType[ArgType["SoundboardSound"] = 33] = "SoundboardSound";
+    ArgType[ArgType["Template"] = 34] = "Template";
 })(ArgType || (exports.ArgType = ArgType = {}));
 class NativeFunction {
     data;

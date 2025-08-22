@@ -1,5 +1,6 @@
-import { ActionRowBuilder, ButtonBuilder, StringSelectMenuBuilder } from "discord.js"
+import { ActionRowBuilder, ContainerBuilder, StringSelectMenuBuilder } from "discord.js"
 import { ArgType, NativeFunction, Return } from "../../structures"
+import { buildComponent } from "../../functions/components"
 
 export default new NativeFunction({
     name: "$editStringSelectMenuOf",
@@ -64,25 +65,37 @@ export default new NativeFunction({
     ],
     output: ArgType.Boolean,
     async execute(ctx, [, m, old, id, placeholder, disabled, min, max]) {
-        const components = m.components.map(x => ActionRowBuilder.from(x))
+        const components = m.components.map((x) => buildComponent(x))
 
+        outer:
         for (let i = 0, len = components.length;i < len;i++) {
             const comp = components[i]
-            const menu = comp.components[0]
-            if (menu instanceof StringSelectMenuBuilder && menu.data.custom_id === old) {
-                menu.setCustomId(id)
-                
-                if (placeholder) menu.setPlaceholder(placeholder)
-                if (typeof disabled === "boolean") menu.setDisabled(disabled)
-                if (typeof min === "number") menu.setMinValues(min)
-                if (typeof max === "number") menu.setMaxValues(max)
+            const comps = comp instanceof ContainerBuilder
+                ? comp.components.map((x) => buildComponent(x.toJSON()))
+                : ("components" in comp ? comp.components : undefined)
+            if (!comps) continue
+            
+            for (let n = 0, len = comps.length;n < len;n++) {
+                const row = comps[n]
+                const menu = row instanceof ActionRowBuilder ? row.components[0] : row
 
-                break
+                if (menu instanceof StringSelectMenuBuilder && menu.data.custom_id === old) {
+                    menu.setCustomId(id)
+                    
+                    if (placeholder) menu.setPlaceholder(placeholder)
+                    if (typeof disabled === "boolean") menu.setDisabled(disabled)
+                    if (typeof min === "number") menu.setMinValues(min)
+                    if (typeof max === "number") menu.setMaxValues(max)
+                    
+                    if (comp instanceof ContainerBuilder) comp.spliceComponents(n, 1, new ActionRowBuilder().addComponents(menu))
+                    
+                    break outer
+                }
             }
         }
 
         return this.success(
-            !!(await m.edit({ components: components as ActionRowBuilder<ButtonBuilder>[] }).catch(ctx.noop))
+            !!(await m.edit({ components: components.map((x) => x.toJSON()) }).catch(ctx.noop))
         )
     },
 })

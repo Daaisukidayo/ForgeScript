@@ -3,7 +3,6 @@ import { Context } from ".."
 import { IExtendedCompilationResult, Compiler, ForgeClient } from "../../core"
 import { ForgeError, ErrorType } from "../forge/ForgeError"
 
-
 export type CommandType = keyof ClientEvents
 export type RawExecutableCode = (ctx: Context) => Promise<unknown[] | null>
 
@@ -13,7 +12,8 @@ export type CommandInteractionTypes =
     "slashCommand" | 
     "autocomplete" | 
     "contextMenu" |
-    "selectMenu"
+    "selectMenu" |
+    "activityCommand"
 
 export interface IBaseCommand<T> {
     name?: string
@@ -100,7 +100,8 @@ export class BaseCommand<T> {
                         (type === "selectMenu" && i.isAnySelectMenu()) ||
                         (type === "modal" && i.isModalSubmit()) ||
                         (type === "autocomplete" && i.isAutocomplete()) ||
-                        (type === "contextMenu" && i.isContextMenuCommand())
+                        (type === "contextMenu" && i.isContextMenuCommand()) ||
+                        (type === "activityCommand" && i.isPrimaryEntryPointCommand())
                 )
             )
         )

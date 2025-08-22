@@ -19,7 +19,9 @@ exports.default = new structures_1.NativeFunction({
     ],
     output: structures_1.ArgType.Number,
     execute: async function (ctx, [format]) {
-        return this.success(new Date().toLocaleString("en-US", { minute: format || "numeric", timeZone: ctx.timezone, calendar: ctx.calendar }));
+        format ??= hour_1.BasicTimeFormat.Numeric;
+        const minute = new Date().toLocaleString("en-US", { minute: format, timeZone: ctx.timezone, calendar: ctx.calendar });
+        return this.success(format === hour_1.BasicTimeFormat.TwoDigit ? minute.padStart(2, "0") : minute);
     }
 });
 //# sourceMappingURL=minute.js.map

@@ -1,4 +1,4 @@
-import { RESTPostAPIChatInputApplicationCommandsJSONBody, RESTPostAPIContextMenuApplicationCommandsJSONBody } from "discord.js"
+import { RESTPostAPIApplicationCommandsJSONBody } from "discord.js"
 import { Compiler, IExtendedCompilationResult } from "../../core"
 import { IApplicationCommandData, RegistrationType } from "../../managers/ApplicationCommandManager"
 import { ErrorType, ForgeError } from "../forge/ForgeError"
@@ -22,7 +22,7 @@ export class ApplicationCommand {
         return this.registrationType === RegistrationType.All || this.registrationType === type
     }
 
-    public toJSON(): RESTPostAPIChatInputApplicationCommandsJSONBody | RESTPostAPIContextMenuApplicationCommandsJSONBody {
+    public toJSON(): RESTPostAPIApplicationCommandsJSONBody {
         if (!this.options.data)
             throw new ForgeError(null, ErrorType.MissingApplicationCommandData, this.options.path ?? "index file")
 

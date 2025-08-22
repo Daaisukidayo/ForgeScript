@@ -36,7 +36,7 @@ exports.default = new structures_1.NativeFunction({
     ],
     unwrap: true,
     async execute(ctx, [, member, reason]) {
-        return this.success(!!(await member.voice.setMute(false, reason ?? undefined).catch(ctx.noop)));
+        return this.success(!!(await member.voice.setMute(false, reason || undefined).catch(ctx.noop)));
     },
 });
 //# sourceMappingURL=setVoiceUnmute.js.map

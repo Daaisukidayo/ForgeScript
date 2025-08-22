@@ -5,7 +5,7 @@ const DiscordEventHandler_1 = require("../../structures/extended/DiscordEventHan
 exports.default = new DiscordEventHandler_1.DiscordEventHandler({
     name: "guildScheduledEventCreate",
     version: "1.4.0",
-    description: "This event is called when a schedule event is created",
+    description: "This event is called when a scheduled event is created",
     listener: async function (m) {
         const commands = this.commands.get("guildScheduledEventCreate");
         for (const command of commands) {

@@ -1,5 +1,6 @@
-import { ButtonBuilder, ButtonStyle } from "discord.js"
+import { ButtonBuilder, ButtonStyle, ComponentType } from "discord.js"
 import { ArgType, NativeFunction, Return } from "../../structures"
+import { resolveNumericEnum } from "../../functions/enum"
 
 export default new NativeFunction({
     name: "$addButton",
@@ -44,6 +45,8 @@ export default new NativeFunction({
         },
     ],
     execute(ctx, [id, label, style, emoji, disabled]) {
+        style = resolveNumericEnum(ButtonStyle, style)
+
         const btn = new ButtonBuilder()
             .setDisabled(disabled || false)
             .setStyle(style)
@@ -57,7 +60,9 @@ export default new NativeFunction({
             if (emoji) btn.setEmoji(emoji)
         }
 
-        ctx.container.components.at(-1)?.addComponents(btn)
+        if (ctx.container.isInside(ComponentType.Section)) ctx.component.section?.setButtonAccessory(btn)
+        else ctx.container.actionRow?.addComponents(btn)
+
         return this.success()
     },
 })

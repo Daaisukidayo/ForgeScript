@@ -26,10 +26,9 @@ exports.default = new structures_1.NativeFunction({
         },
         {
             name: "icon",
-            description: "The new icon for the role",
+            description: "The new icon for the role, omit to clear",
             rest: false,
             type: structures_1.ArgType.String,
-            required: true,
         },
     ],
     async execute(ctx, [, role, url]) {
