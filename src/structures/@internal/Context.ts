@@ -450,6 +450,12 @@ export class Context {
         return empty
     }
 
+    public cloneRuntime() : IRunnable {
+        this.runtime.keywords = this.#keywords as Record<string, string>
+        this.runtime.environment = this.#environment
+        return this.runtime
+    }
+
     private clearCache() {
         this.#cache = {}
     }

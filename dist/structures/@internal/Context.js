@@ -307,6 +307,11 @@ class Context {
         }
         return empty;
     }
+    cloneRuntime() {
+        this.runtime.keywords = this.#keywords;
+        this.runtime.environment = this.#environment;
+        return this.runtime;
+    }
     clearCache() {
         this.#cache = {};
     }

@@ -28,7 +28,7 @@ exports.default = new structures_1.NativeFunction({
         send ??= true;
         try {
             const result = await core_1.Interpreter.run({
-                ...ctx.runtime,
+                ...ctx.cloneRuntime(),
                 data: core_1.Compiler.compile(code),
                 doNotSend: !send,
             });

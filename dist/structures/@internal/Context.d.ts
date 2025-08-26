@@ -155,6 +155,7 @@ export declare class Context {
      * @returns
      */
     clone(props?: Partial<IRunnable>, syncVars?: boolean): Context;
+    cloneRuntime(): IRunnable;
     private clearCache;
     get noop(): (...args: any[]) => void;
 }
