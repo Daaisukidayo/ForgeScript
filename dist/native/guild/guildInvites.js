@@ -43,7 +43,9 @@ exports.default = new structures_1.NativeFunction({
     ],
     async execute(ctx, [guild, prop, sep]) {
         const invites = await (guild ?? ctx.guild)?.invites.fetch().catch(ctx.noop);
-        return this.successJSON(invites?.map((x) => invite_1.InviteProperties[prop || invite_1.InviteProperty.code](x)).join(sep ?? ", "));
+        if (invites && prop)
+            return this.success(invites.map((x) => invite_1.InviteProperties[prop](x)).join(sep ?? ", "));
+        return this.successJSON(invites);
     },
 });
 //# sourceMappingURL=guildInvites.js.map

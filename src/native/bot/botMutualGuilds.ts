@@ -24,8 +24,12 @@ export default new NativeFunction({
     ],
     brackets: false,
     output: array<ArgType.Guild>(),
-    execute(ctx, [user, sep]) {
+    async execute(ctx, [user, sep]) {
         user ??= ctx.user!
-        return this.success(ctx.client.guilds.cache.filter(x => x.members.cache.has(user.id)).map(guild => guild.id).join(sep || ", "))
+        return this.success(ctx.client.guilds.cache
+            .filter(async (x) => await x.members.fetch(user).then(() => true).catch(() => false))
+            .map(guild => guild.id)
+            .join(sep || ", ")
+        )
     },
 })
