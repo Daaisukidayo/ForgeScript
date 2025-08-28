@@ -109,6 +109,10 @@ class Container {
     embed(index) {
         return (this.embeds[index] ??= new discord_js_1.EmbedBuilder());
     }
+    unparseMention(type) {
+        this.allowedMentions.parse ??= ["everyone", "roles", "users"];
+        return (this.allowedMentions.parse = this.allowedMentions.parse.filter((x) => x !== type));
+    }
     /**
      * Checks if current context is inside a component builder function.
      * @param type The type of the component to check for.

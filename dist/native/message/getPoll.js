@@ -4,6 +4,7 @@ const structures_1 = require("../../structures");
 const poll_1 = require("../../properties/poll");
 exports.default = new structures_1.NativeFunction({
     name: "$getPoll",
+    version: "2.5.0",
     description: "Retrieves data of a poll from a message",
     aliases: ["$getMessagePoll"],
     unwrap: true,
