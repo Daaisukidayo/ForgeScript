@@ -51,6 +51,7 @@ exports.default = new structures_1.NativeFunction({
             name,
             tags,
             description: desc || null,
+            reason: ctx.reason
         })
             .catch(ctx.noop);
         return this.success(created?.id);

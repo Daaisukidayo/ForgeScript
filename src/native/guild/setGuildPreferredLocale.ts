@@ -34,6 +34,6 @@ export default new NativeFunction({
     ],
     brackets: true,
     async execute(ctx, [guild, locale, reason]) {
-        return this.success((await guild.setPreferredLocale(locale || null, reason || undefined).catch(() => false)) !== false)
+        return this.success((await guild.setPreferredLocale(locale || null, reason || ctx.reason).catch(() => false)) !== false)
     },
 })

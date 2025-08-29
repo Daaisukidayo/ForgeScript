@@ -25,7 +25,7 @@ exports.default = new structures_1.NativeFunction({
     ],
     async execute(ctx, [code, reason]) {
         const invite = await ctx.client.fetchInvite(code).catch(ctx.noop);
-        return this.success(!!(await invite?.delete(reason || undefined).catch(ctx.noop)));
+        return this.success(!!(await invite?.delete(reason || ctx.reason).catch(ctx.noop)));
     },
 });
 //# sourceMappingURL=deleteInvite.js.map

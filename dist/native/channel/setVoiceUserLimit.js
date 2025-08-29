@@ -25,7 +25,7 @@ exports.default = new structures_1.NativeFunction({
         },
         {
             name: "reason",
-            description: "Reason to change the user limit",
+            description: "The reason to change the user limit",
             rest: false,
             required: false,
             type: structures_1.ArgType.String
@@ -33,7 +33,7 @@ exports.default = new structures_1.NativeFunction({
     ],
     unwrap: true,
     async execute(ctx, [channel, limit, reason]) {
-        return this.success(!!(await channel.setUserLimit(limit, reason || undefined).catch(ctx.noop)));
+        return this.success(!!(await channel.setUserLimit(limit, reason || ctx.reason).catch(ctx.noop)));
     },
 });
 //# sourceMappingURL=setVoiceUserLimit.js.map

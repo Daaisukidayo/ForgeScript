@@ -1,4 +1,3 @@
-import { decrypt } from "dotenv"
 import { ArgType, NativeFunction, Return } from "../../structures"
 
 export default new NativeFunction({
@@ -53,7 +52,7 @@ export default new NativeFunction({
                     days: days || 7,
                     dry: dry || false,
                     roles: roles,
-                    reason: reason || undefined,
+                    reason: reason || ctx.reason,
                 }).catch(ctx.noop))
         )
     },

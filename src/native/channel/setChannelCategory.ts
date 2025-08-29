@@ -1,6 +1,5 @@
 import { BaseChannel, CategoryChannel, ChannelType, TextChannel } from "discord.js"
 import { ArgType, NativeFunction, Return } from "../../structures"
-import noop from "../../functions/noop"
 
 export default new NativeFunction({
     name: "$setChannelCategory",
@@ -13,7 +12,7 @@ export default new NativeFunction({
     args: [
         {
             name: "channel ID",
-            description: "The channel id to set its category",
+            description: "The channel to set its category",
             rest: false,
             check: (i: BaseChannel) => "setParent" in i,
             type: ArgType.Channel,
@@ -28,6 +27,6 @@ export default new NativeFunction({
         },
     ],
     async execute(ctx, [channel, parent]) {
-        return this.success(!!(await (channel as TextChannel).setParent(parent as CategoryChannel || null).catch(ctx.noop)))
+        return this.success(!!(await (channel as TextChannel).setParent(parent as CategoryChannel || null, { reason: ctx.reason }).catch(ctx.noop)))
     },
 })

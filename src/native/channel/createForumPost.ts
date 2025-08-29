@@ -1,6 +1,5 @@
 import { BaseChannel, ChannelType, ForumChannel } from "discord.js"
 import { ArgType, NativeFunction, Return } from "../../structures"
-import noop from "../../functions/noop"
 
 export default new NativeFunction({
     name: "$createForumPost",
@@ -48,6 +47,7 @@ export default new NativeFunction({
                 appliedTags: tags,
                 name: title,
                 message: ctx.container.getOptions(),
+                reason: ctx.reason
             })
             .catch(ctx.noop)
 

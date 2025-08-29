@@ -4,7 +4,7 @@ import { ColorResolvable } from "discord.js"
 export default new NativeFunction({
     name: "$editRole",
     version: "1.0.7",
-    description: "Edits role data, returns boolean",
+    description: "Edits a role on a guild, returns boolean",
     unwrap: true,
     output: ArgType.Boolean,
     args: [
@@ -69,6 +69,7 @@ export default new NativeFunction({
             mentionable: mentionable || undefined,
             name: name || undefined,
             permissions: perms || undefined,
+            reason: ctx.reason
         }).catch(ctx.noop)
 
         return this.success(!!edit)

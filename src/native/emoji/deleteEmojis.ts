@@ -1,5 +1,4 @@
 import { ArgType, NativeFunction, Return } from "../../structures"
-import noop from "../../functions/noop"
 
 export default new NativeFunction({
     name: "$deleteEmojis",
@@ -29,7 +28,7 @@ export default new NativeFunction({
         let count = 0
         for (let i = 0, len = emotes.length; i < len; i++) {
             const emote = emotes[i]
-            const success = await emote.delete().catch(ctx.noop)
+            const success = await emote.delete(ctx.reason).catch(ctx.noop)
             if (success) count++
         }
 

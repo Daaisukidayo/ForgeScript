@@ -25,7 +25,7 @@ export default new NativeFunction({
         },
         {
             name: "reason",
-            description: "Reason for modifying default emoji",
+            description: "The reason for modifying default emoji",
             rest: false,
             type: ArgType.String
         }
@@ -34,7 +34,7 @@ export default new NativeFunction({
     async execute(ctx, [ chan, emoji, reason ]) {
         return this.success(!!(await (chan as ThreadOnlyChannel).setDefaultReactionEmoji(
             parseSingleEmoji(ctx, emoji) as DefaultReactionEmoji,
-            reason || undefined
+            reason || ctx.reason
         ).catch(ctx.noop)))
     },
 })

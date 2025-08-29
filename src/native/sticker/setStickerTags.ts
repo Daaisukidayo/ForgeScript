@@ -1,10 +1,9 @@
-import noop from "../../functions/noop"
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$setStickerTags",
     version: "1.4.0",
-    description: "Sets a sticker's tags",
+    description: "Sets a sticker's tags, returns bool",
     brackets: true,
     unwrap: true,
     args: [
@@ -27,7 +26,8 @@ export default new NativeFunction({
     async execute(ctx, [ s, n ]) {
         return this.success(
             !!(await s.edit({
-                tags: n.join(" ")
+                tags: n.join(" "),
+                reason: ctx.reason
             }).catch(ctx.noop))
         )
     },

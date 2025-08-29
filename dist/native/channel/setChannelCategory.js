@@ -13,7 +13,7 @@ exports.default = new structures_1.NativeFunction({
     args: [
         {
             name: "channel ID",
-            description: "The channel id to set its category",
+            description: "The channel to set its category",
             rest: false,
             check: (i) => "setParent" in i,
             type: structures_1.ArgType.Channel,
@@ -28,7 +28,7 @@ exports.default = new structures_1.NativeFunction({
         },
     ],
     async execute(ctx, [channel, parent]) {
-        return this.success(!!(await channel.setParent(parent || null).catch(ctx.noop)));
+        return this.success(!!(await channel.setParent(parent || null, { reason: ctx.reason }).catch(ctx.noop)));
     },
 });
 //# sourceMappingURL=setChannelCategory.js.map

@@ -1,4 +1,4 @@
-import { BaseChannel, ChannelType, ForumChannel, GuildChannel, TextChannel, ThreadAutoArchiveDuration, ThreadChannel } from "discord.js"
+import { BaseChannel, TextChannel, ThreadAutoArchiveDuration } from "discord.js"
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
@@ -27,12 +27,12 @@ export default new NativeFunction({
         },
         {
             name: "reason",
-            description: "Reason for modifying archive duration",
+            description: "The reason for modifying archive duration",
             rest: false,
             type: ArgType.String
         }
     ],
     async execute(ctx, [ ch, dur, reason ]) {
-        return this.success(!!((ch as TextChannel).setDefaultAutoArchiveDuration(dur, reason ?? undefined)))
+        return this.success(!!((ch as TextChannel).setDefaultAutoArchiveDuration(dur, reason || ctx.reason)))
     },
 })

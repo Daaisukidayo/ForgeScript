@@ -37,6 +37,7 @@ export default new NativeFunction({
             .createWebhook({
                 name: name,
                 avatar: url || undefined,
+                reason: ctx.reason
             })
             .catch(ctx.noop)
 

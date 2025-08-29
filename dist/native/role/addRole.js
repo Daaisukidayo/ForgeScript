@@ -72,6 +72,7 @@ exports.default = new structures_1.NativeFunction({
             name,
             permissions: perms || [],
             position: pos || undefined,
+            reason: ctx.reason
         })
             .catch(ctx.noop);
         return this.success(created ? created.id : undefined);

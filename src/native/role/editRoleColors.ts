@@ -49,6 +49,6 @@ export default new NativeFunction({
             primaryColor: primary,
             secondaryColor: secondary || undefined,
             tertiaryColor: tertiary || undefined
-        }).catch(ctx.noop)))
+        }, ctx.reason).catch(ctx.noop)))
     },
 })

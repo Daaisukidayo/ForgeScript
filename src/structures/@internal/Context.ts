@@ -24,10 +24,9 @@ import {
 } from "discord.js"
 import { CompiledFunction, IExtendedCompiledFunctionField } from "./CompiledFunction"
 import { Container, Sendable } from "./Container"
-import { IArg, NativeFunction, UnwrapArgs } from "./NativeFunction"
+import { IArg, UnwrapArgs } from "./NativeFunction"
 import { Return, ReturnType } from "./Return"
 import { IRunnable } from "../../core/Interpreter"
-import noop from "../../functions/noop"
 import { ForgeError } from "../forge/ForgeError"
 import { Logger } from "./Logger"
 import { FormData, Headers } from "undici"
@@ -132,6 +131,8 @@ export class Context {
     #keywords: Record<string, unknown> = {}
     #environment: Record<string, unknown> = {}
 
+    private _reason?: string
+
     public container: Container
 
     // eslint-disable-next-line no-unused-vars
@@ -148,6 +149,16 @@ export class Context {
     public set obj(o: Sendable) {
         this.runtime.obj = o
         this.clearCache()
+    }
+
+    public set reason(str: string | undefined) {
+        this._reason = str
+    }
+
+    public get reason() {
+        const str = this._reason
+        this._reason = undefined
+        return str
     }
 
     public get cmd() {

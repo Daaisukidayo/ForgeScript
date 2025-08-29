@@ -71,6 +71,7 @@ export default new NativeFunction({
                 name,
                 permissions: (perms as PermissionsString[]) || [],
                 position: pos || undefined,
+                reason: ctx.reason
             })
             .catch(ctx.noop)
         return this.success(created ? created.id : undefined)

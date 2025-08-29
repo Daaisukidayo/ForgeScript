@@ -36,7 +36,7 @@ exports.default = new structures_1.NativeFunction({
     ],
     brackets: true,
     async execute(ctx, [guild, channel, reason]) {
-        return this.success((await guild.setSystemChannel(channel || null, reason || undefined).catch(() => false)) !== false);
+        return this.success((await guild.setSystemChannel(channel || null, reason || ctx.reason).catch(() => false)) !== false);
     },
 });
 //# sourceMappingURL=setGuildSystemChannel.js.map

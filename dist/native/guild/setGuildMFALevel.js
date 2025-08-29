@@ -37,7 +37,7 @@ exports.default = new structures_1.NativeFunction({
     ],
     brackets: true,
     async execute(ctx, [guild, level, reason]) {
-        return this.success((await guild.setMFALevel(level, reason || undefined).catch(() => false)) !== false);
+        return this.success((await guild.setMFALevel(level, reason || ctx.reason).catch(() => false)) !== false);
     },
 });
 //# sourceMappingURL=setGuildMFALevel.js.map

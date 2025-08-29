@@ -1,6 +1,5 @@
 import { BaseChannel, GuildChannel } from "discord.js"
 import { ArgType, NativeFunction } from "../../structures"
-import noop from "../../functions/noop"
 
 export default new NativeFunction({
     name: "$cloneChannel",
@@ -26,6 +25,11 @@ export default new NativeFunction({
         }
     ],
     async execute(ctx, [ raw, name ]) {
-        return this.success((await (<GuildChannel>raw).clone({ name: name || (raw as GuildChannel).name }).catch(ctx.noop))?.id)
+        const channel = await (<GuildChannel>raw).clone({
+            name: name || (raw as GuildChannel).name,
+            reason: ctx.reason
+        }).catch(ctx.noop)
+
+        return this.success(channel?.id)
     },
 })

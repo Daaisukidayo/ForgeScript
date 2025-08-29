@@ -45,10 +45,10 @@ exports.default = new structures_1.NativeFunction({
         const ch = channel;
         const mapped = (0, overwritePermissionsArrayToObject_1.default)(raw);
         if (ch.permissionOverwrites.cache.has(roleOrUser.id)) {
-            return this.success(!!(await ch.permissionOverwrites.edit(roleOrUser, mapped).catch(ctx.noop)));
+            return this.success(!!(await ch.permissionOverwrites.edit(roleOrUser, mapped, { reason: ctx.reason }).catch(ctx.noop)));
         }
         else {
-            return this.success(!!(await ch.permissionOverwrites.create(roleOrUser, mapped).catch(ctx.noop)));
+            return this.success(!!(await ch.permissionOverwrites.create(roleOrUser, mapped, { reason: ctx.reason }).catch(ctx.noop)));
         }
     },
 });

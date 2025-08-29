@@ -4,7 +4,7 @@ const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$editRole",
     version: "1.0.7",
-    description: "Edits role data, returns boolean",
+    description: "Edits a role on a guild, returns boolean",
     unwrap: true,
     output: structures_1.ArgType.Boolean,
     args: [
@@ -69,6 +69,7 @@ exports.default = new structures_1.NativeFunction({
             mentionable: mentionable || undefined,
             name: name || undefined,
             permissions: perms || undefined,
+            reason: ctx.reason
         }).catch(ctx.noop);
         return this.success(!!edit);
     },

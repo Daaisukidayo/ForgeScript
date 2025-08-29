@@ -25,7 +25,7 @@ export default new NativeFunction({
         },
         {
             name: "reason",
-            description: "Reason to change the bitrate",
+            description: "The reason to change the bitrate",
             rest: false,
             required: false,
             type: ArgType.String
@@ -33,6 +33,6 @@ export default new NativeFunction({
     ],
     unwrap: true,
     async execute(ctx, [channel, bitrate, reason]) {
-        return this.success(!!(await (channel as VoiceChannel).setBitrate(bitrate, reason || undefined).catch(ctx.noop)))
+        return this.success(!!(await (channel as VoiceChannel).setBitrate(bitrate, reason || ctx.reason).catch(ctx.noop)))
     },
 })

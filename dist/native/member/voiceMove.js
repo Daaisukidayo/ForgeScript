@@ -43,7 +43,7 @@ exports.default = new structures_1.NativeFunction({
     ],
     unwrap: true,
     async execute(ctx, [, member, voice, reason]) {
-        return this.success(!!(await member.voice.setChannel(voice, reason || undefined).catch(ctx.noop)));
+        return this.success(!!(await member.voice.setChannel(voice, reason || ctx.reason).catch(ctx.noop)));
     },
 });
 //# sourceMappingURL=voiceMove.js.map

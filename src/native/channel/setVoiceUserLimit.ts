@@ -25,7 +25,7 @@ export default new NativeFunction({
         },
         {
             name: "reason",
-            description: "Reason to change the user limit",
+            description: "The reason to change the user limit",
             rest: false,
             required: false,
             type: ArgType.String
@@ -33,6 +33,6 @@ export default new NativeFunction({
     ],
     unwrap: true,
     async execute(ctx, [channel, limit, reason ]) {
-        return this.success(!!(await (channel as VoiceChannel).setUserLimit(limit, reason || undefined).catch(ctx.noop)))
+        return this.success(!!(await (channel as VoiceChannel).setUserLimit(limit, reason || ctx.reason).catch(ctx.noop)))
     },
 })

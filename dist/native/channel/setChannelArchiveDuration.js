@@ -28,13 +28,13 @@ exports.default = new structures_1.NativeFunction({
         },
         {
             name: "reason",
-            description: "Reason for modifying archive duration",
+            description: "The reason for modifying archive duration",
             rest: false,
             type: structures_1.ArgType.String
         }
     ],
     async execute(ctx, [ch, dur, reason]) {
-        return this.success(!!(ch.setDefaultAutoArchiveDuration(dur, reason ?? undefined)));
+        return this.success(!!(ch.setDefaultAutoArchiveDuration(dur, reason || ctx.reason)));
     },
 });
 //# sourceMappingURL=setChannelArchiveDuration.js.map

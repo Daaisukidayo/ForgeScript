@@ -86,10 +86,13 @@ export declare class Context {
     timezone: string;
     calendar?: CalendarType;
     localFunctions: Map<string, ILocalFunctionData>;
+    private _reason?;
     container: Container;
     constructor(runtime: IRunnable);
     get client(): import("../..").ForgeClient;
     set obj(o: Sendable);
+    set reason(str: string | undefined);
+    get reason(): string | undefined;
     get cmd(): import("..").BaseCommand<unknown> | null;
     get obj(): Sendable;
     get args(): string[];

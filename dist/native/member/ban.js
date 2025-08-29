@@ -5,7 +5,8 @@ exports.default = new structures_1.NativeFunction({
     name: "$ban",
     version: "1.0.0",
     aliases: [
-        "$memberBan"
+        "$memberBan",
+        "$banMember"
     ],
     description: "Bans a member from the guild, returns true or false depending on whether the action was successfully performed",
     unwrap: true,
@@ -42,7 +43,7 @@ exports.default = new structures_1.NativeFunction({
     async execute(ctx, [guild, user, reason, seconds]) {
         return this.success((await guild.members
             .ban(user, {
-            reason: reason || undefined,
+            reason: reason || ctx.reason,
             deleteMessageSeconds: seconds || undefined,
         })
             .catch(() => false)) !== false);

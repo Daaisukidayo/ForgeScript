@@ -1,5 +1,4 @@
 import { ArgType, NativeFunction, Return } from "../../structures"
-import noop from "../../functions/noop"
 
 export default new NativeFunction({
     name: "$deleteRoles",
@@ -29,7 +28,7 @@ export default new NativeFunction({
         let count = 0
         for (let i = 0, len = roles.length; i < len; i++) {
             const role = roles[i]
-            const success = await role.delete().catch(ctx.noop)
+            const success = await role.delete(ctx.reason).catch(ctx.noop)
             if (success) count++
         }
 

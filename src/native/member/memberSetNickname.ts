@@ -1,10 +1,9 @@
-import noop from "../../functions/noop"
 import { ArgType, NativeFunction, Return } from "../../structures"
 
 export default new NativeFunction({
     name: "$memberSetNickname",
     version: "1.0.7",
-    description: "Edits a member's nickname",
+    description: "Edits a member's nickname, returns bool",
     brackets: true,
     output: ArgType.Boolean,
     unwrap: true,
@@ -32,6 +31,6 @@ export default new NativeFunction({
         },
     ],
     async execute(ctx, [, m, nick]) {
-        return this.success(!!(await m.setNickname(nick).catch(noop || null)))
+        return this.success(!!(await m.setNickname(nick, ctx.reason).catch(ctx.noop)))
     },
 })

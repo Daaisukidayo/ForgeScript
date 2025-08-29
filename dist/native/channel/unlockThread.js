@@ -29,7 +29,7 @@ exports.default = new structures_1.NativeFunction({
         const thread = (channel ?? ctx.channel);
         if (!thread?.isThread())
             return this.success(false);
-        const success = await thread.setLocked(false, reason || undefined).catch(ctx.noop);
+        const success = await thread.setLocked(false, reason || ctx.reason).catch(ctx.noop);
         return this.success(!!success);
     },
 });

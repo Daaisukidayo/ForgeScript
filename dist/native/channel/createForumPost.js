@@ -46,6 +46,7 @@ exports.default = new structures_1.NativeFunction({
             appliedTags: tags,
             name: title,
             message: ctx.container.getOptions(),
+            reason: ctx.reason
         })
             .catch(ctx.noop);
         ctx.container.reset();

@@ -30,12 +30,12 @@ export default new NativeFunction({
         },
         {
             name: "reason",
-            description: "Reason for modifying archive duration",
+            description: "The reason for modifying archive duration",
             rest: false,
             type: ArgType.String
         }
     ],
     async execute(ctx, [ ch, dur, reason ]) {
-        return this.success(!!(await (ch as ThreadChannel).setAutoArchiveDuration(dur, reason || undefined).catch(ctx.noop)))
+        return this.success(!!(await (ch as ThreadChannel).setAutoArchiveDuration(dur, reason || ctx.reason).catch(ctx.noop)))
     },
 })

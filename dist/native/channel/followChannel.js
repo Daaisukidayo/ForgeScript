@@ -34,7 +34,7 @@ exports.default = new structures_1.NativeFunction({
     ],
     output: structures_1.ArgType.Webhook,
     async execute(ctx, [news, chan, reason]) {
-        return this.success("guild" in news ? (await news.guild?.channels.addFollower(news, chan, reason || undefined).catch(ctx.noop)) : undefined);
+        return this.success("guild" in news ? (await news.guild?.channels.addFollower(news, chan, reason || ctx.reason).catch(ctx.noop)) : undefined);
     },
 });
 //# sourceMappingURL=followChannel.js.map

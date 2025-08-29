@@ -37,6 +37,7 @@ exports.default = new structures_1.NativeFunction({
             .createWebhook({
             name: name,
             avatar: url || undefined,
+            reason: ctx.reason
         })
             .catch(ctx.noop);
         return this.success(web ? web.id : undefined);

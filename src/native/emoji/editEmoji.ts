@@ -1,4 +1,3 @@
-import noop from "../../functions/noop"
 import { ArgType, NativeFunction, Return } from "../../structures"
 
 export default new NativeFunction({
@@ -49,7 +48,7 @@ export default new NativeFunction({
             !!(await emoji
                 .edit({
                     name: name || undefined,
-                    reason: reason || undefined,
+                    reason: reason || ctx.reason,
                     roles: roles || undefined,
                 })
                 .catch(ctx.noop)

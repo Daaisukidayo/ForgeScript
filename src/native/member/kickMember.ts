@@ -35,6 +35,6 @@ export default new NativeFunction({
         },
     ],
     async execute(ctx, [, member, reason]) {
-        return this.success((await member.kick(reason || undefined).catch(() => false)) !== false)
+        return this.success((await member.kick(reason || ctx.reason).catch(() => false)) !== false)
     },
 })

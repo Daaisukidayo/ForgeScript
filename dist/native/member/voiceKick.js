@@ -4,7 +4,7 @@ const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$voiceKick",
     version: "1.4.0",
-    description: "Kicks a member from voice channel",
+    description: "Kicks a member from a voice channel, returns bool",
     brackets: true,
     aliases: [
         "$memberVoiceKick"
@@ -28,7 +28,7 @@ exports.default = new structures_1.NativeFunction({
         },
         {
             name: "reason",
-            description: "Reason to kick this user",
+            description: "The reason to kick this user",
             rest: false,
             required: false,
             type: structures_1.ArgType.String
@@ -36,7 +36,7 @@ exports.default = new structures_1.NativeFunction({
     ],
     unwrap: true,
     async execute(ctx, [, member, reason]) {
-        return this.success(!!(await member.voice.disconnect(reason ?? undefined).catch(ctx.noop)));
+        return this.success(!!(await member.voice.disconnect(reason || ctx.reason).catch(ctx.noop)));
     },
 });
 //# sourceMappingURL=voiceKick.js.map

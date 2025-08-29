@@ -11,7 +11,7 @@ exports.default = new structures_1.NativeFunction({
     args: [
         {
             name: "channel ID",
-            description: "The channel id to set its topic",
+            description: "The channel to set its topic",
             rest: false,
             check: (i) => "setTopic" in i,
             type: structures_1.ArgType.Channel,
@@ -25,7 +25,7 @@ exports.default = new structures_1.NativeFunction({
         },
     ],
     async execute(ctx, [channel, topic]) {
-        return this.success(!!(await channel.setTopic(topic || null).catch(ctx.noop)));
+        return this.success(!!(await channel.setTopic(topic || null, ctx.reason).catch(ctx.noop)));
     },
 });
 //# sourceMappingURL=setChannelTopic.js.map

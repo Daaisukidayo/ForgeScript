@@ -50,7 +50,7 @@ exports.default = new structures_1.NativeFunction({
             primaryColor: primary,
             secondaryColor: secondary || undefined,
             tertiaryColor: tertiary || undefined
-        }).catch(ctx.noop)));
+        }, ctx.reason).catch(ctx.noop)));
     },
 });
 //# sourceMappingURL=editRoleColors.js.map

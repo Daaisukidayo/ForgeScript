@@ -63,7 +63,7 @@ exports.default = new structures_1.NativeFunction({
             exemptRoles: ctx.automodRule.exemptRoles || undefined,
             exemptChannels: ctx.automodRule.exemptChannels || undefined,
             enabled: (0, lodash_1.isBoolean)(enabled) ? enabled : undefined,
-            reason: reason || undefined
+            reason: reason || ctx.reason
         }).catch(ctx.noop);
         ctx.clearAutomodRuleOptions();
         return this.success(!!success);

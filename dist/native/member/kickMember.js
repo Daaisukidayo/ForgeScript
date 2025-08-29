@@ -35,7 +35,7 @@ exports.default = new structures_1.NativeFunction({
         },
     ],
     async execute(ctx, [, member, reason]) {
-        return this.success((await member.kick(reason || undefined).catch(() => false)) !== false);
+        return this.success((await member.kick(reason || ctx.reason).catch(() => false)) !== false);
     },
 });
 //# sourceMappingURL=kickMember.js.map

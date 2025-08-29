@@ -36,6 +36,6 @@ export default new NativeFunction({
     ],
     brackets: true,
     async execute(ctx, [guild, level, reason]) {
-        return this.success((await guild.setMFALevel(level, reason || undefined).catch(() => false)) !== false)
+        return this.success((await guild.setMFALevel(level, reason || ctx.reason).catch(() => false)) !== false)
     },
 })

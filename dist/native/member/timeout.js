@@ -4,12 +4,13 @@ const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$timeout",
     version: "1.0.0",
-    description: "Times a member out for X milliseconds",
+    description: "Times a member out for X milliseconds, returns bool",
     unwrap: true,
     aliases: [
-        "$memberTimeout"
+        "$memberTimeout",
+        "$timeoutMember"
     ],
-    output: structures_1.ArgType.Number,
+    output: structures_1.ArgType.Boolean,
     brackets: true,
     args: [
         {
@@ -41,7 +42,7 @@ exports.default = new structures_1.NativeFunction({
         },
     ],
     async execute(ctx, [, member, ms, reason]) {
-        const timeout = await member.disableCommunicationUntil(ms ? Date.now() + ms : null, reason || undefined).catch(ctx.noop);
+        const timeout = await member.disableCommunicationUntil(ms ? Date.now() + ms : null, reason || ctx.reason).catch(ctx.noop);
         return this.success(!!timeout);
     },
 });

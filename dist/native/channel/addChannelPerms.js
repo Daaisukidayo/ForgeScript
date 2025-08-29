@@ -38,7 +38,7 @@ exports.default = new structures_1.NativeFunction({
         const channel = ch;
         const obj = {};
         perms.forEach((x) => (obj[x] = true));
-        return this.success(!!(await channel.permissionOverwrites.create(id, obj)));
+        return this.success(!!(await channel.permissionOverwrites.create(id, obj, { reason: ctx.reason })));
     },
 });
 //# sourceMappingURL=addChannelPerms.js.map

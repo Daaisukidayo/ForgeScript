@@ -1,6 +1,5 @@
 import { BaseChannel } from "discord.js"
 import { ArgType, NativeFunction, Return } from "../../structures"
-import noop from "../../functions/noop"
 
 export default new NativeFunction({
     name: "$unpinMessage",
@@ -28,6 +27,6 @@ export default new NativeFunction({
         }
     ],
     async execute(ctx, [, m ]) {
-        return this.success(!!(await (m ?? ctx.message)?.unpin().catch(ctx.noop)))
+        return this.success(!!(await (m ?? ctx.message)?.unpin(ctx.reason).catch(ctx.noop)))
     },
 })

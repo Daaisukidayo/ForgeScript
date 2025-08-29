@@ -4,7 +4,8 @@ export default new NativeFunction({
     name: "$ban",
     version: "1.0.0",
     aliases: [
-        "$memberBan"
+        "$memberBan",
+        "$banMember"
     ],
     description:
         "Bans a member from the guild, returns true or false depending on whether the action was successfully performed",
@@ -43,7 +44,7 @@ export default new NativeFunction({
         return this.success(
             (await guild.members
                 .ban(user, {
-                    reason: reason || undefined,
+                    reason: reason || ctx.reason,
                     deleteMessageSeconds: seconds || undefined,
                 })
                 .catch(() => false)) !== false

@@ -36,7 +36,7 @@ exports.default = new structures_1.NativeFunction({
     ],
     brackets: true,
     async execute(ctx, [guild, member, reason]) {
-        return this.success((await guild.setOwner(member, reason || undefined).catch(() => false)) !== false);
+        return this.success((await guild.setOwner(member, reason || ctx.reason).catch(() => false)) !== false);
     },
 });
 //# sourceMappingURL=setGuildOwner.js.map

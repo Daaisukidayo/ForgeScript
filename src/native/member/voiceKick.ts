@@ -1,10 +1,9 @@
-import noop from "../../functions/noop"
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$voiceKick",
     version: "1.4.0",
-    description: "Kicks a member from voice channel",
+    description: "Kicks a member from a voice channel, returns bool",
     brackets: true,
     aliases: [
         "$memberVoiceKick"
@@ -28,7 +27,7 @@ export default new NativeFunction({
         },
         {
             name: "reason",
-            description: "Reason to kick this user",
+            description: "The reason to kick this user",
             rest: false,
             required: false,
             type: ArgType.String
@@ -36,6 +35,6 @@ export default new NativeFunction({
     ],
     unwrap: true,
     async execute(ctx, [, member, reason ]) {
-        return this.success(!!(await member.voice.disconnect(reason ?? undefined).catch(ctx.noop)))
+        return this.success(!!(await member.voice.disconnect(reason || ctx.reason).catch(ctx.noop)))
     },
 })

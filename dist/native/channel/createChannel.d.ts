@@ -1,4 +1,4 @@
-import { ChannelType } from "discord.js";
+import { BaseChannel, ChannelType } from "discord.js";
 import { ArgType, NativeFunction } from "../../structures";
 declare const _default: NativeFunction<[{
     name: string;
@@ -28,7 +28,9 @@ declare const _default: NativeFunction<[{
     name: string;
     description: string;
     rest: false;
-    type: ArgType.String;
+    type: ArgType.Channel;
+    check: (i: BaseChannel) => boolean;
+    pointer: number;
 }], true>;
 export default _default;
 //# sourceMappingURL=createChannel.d.ts.map

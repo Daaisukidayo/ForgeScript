@@ -1,12 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
-const lodash_1 = require("lodash");
 exports.default = new structures_1.NativeFunction({
     name: "$createInvite",
     version: "1.1.0",
     brackets: true,
-    description: "Creates an invite, returns the code",
+    description: "Creates an invite, returns the invite code",
     unwrap: true,
     output: structures_1.ArgType.Invite,
     args: [
@@ -41,9 +40,9 @@ exports.default = new structures_1.NativeFunction({
         const channel = (ch ?? ctx.channel);
         const invite = await channel
             .createInvite({
-            reason: reason || undefined,
+            reason: reason || ctx.reason,
             maxUses: maxUses || undefined,
-            maxAge: (0, lodash_1.isNumber)(maxAge) ? maxAge : undefined,
+            maxAge: typeof (maxAge) === "number" ? maxAge : undefined,
             unique: true
         })
             .catch(ctx.noop);

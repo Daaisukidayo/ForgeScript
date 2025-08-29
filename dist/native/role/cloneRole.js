@@ -41,6 +41,7 @@ exports.default = new structures_1.NativeFunction({
             mentionable: role.mentionable,
             permissions: role.permissions,
             unicodeEmoji: role.unicodeEmoji,
+            reason: ctx.reason
         })
             .catch(ctx.noop);
         return this.success(created ? created.id : undefined);

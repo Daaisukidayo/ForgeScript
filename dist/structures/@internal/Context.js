@@ -47,6 +47,7 @@ class Context {
     localFunctions = new Map();
     #keywords = {};
     #environment = {};
+    _reason;
     container;
     // eslint-disable-next-line no-unused-vars
     constructor(runtime) {
@@ -63,6 +64,14 @@ class Context {
     set obj(o) {
         this.runtime.obj = o;
         this.clearCache();
+    }
+    set reason(str) {
+        this._reason = str;
+    }
+    get reason() {
+        const str = this._reason;
+        this._reason = undefined;
+        return str;
     }
     get cmd() {
         return this.runtime.command;

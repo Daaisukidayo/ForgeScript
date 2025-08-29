@@ -1,5 +1,4 @@
 import { BaseChannel, GuildVoiceChannelResolvable } from "discord.js"
-import noop from "../../functions/noop"
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
@@ -44,6 +43,6 @@ export default new NativeFunction({
     ],
     unwrap: true,
     async execute(ctx, [, member, voice, reason ]) {
-        return this.success(!!(await member.voice.setChannel(voice as GuildVoiceChannelResolvable, reason || undefined).catch(ctx.noop)))
+        return this.success(!!(await member.voice.setChannel(voice as GuildVoiceChannelResolvable, reason || ctx.reason).catch(ctx.noop)))
     },
 })

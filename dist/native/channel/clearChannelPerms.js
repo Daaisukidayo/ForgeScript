@@ -28,10 +28,10 @@ exports.default = new structures_1.NativeFunction({
     async execute(ctx, [ch, id]) {
         const perms = ch.permissionOverwrites;
         if (id) {
-            return this.success(!!(await perms.delete(id).catch(ctx.noop)));
+            return this.success(!!(await perms.delete(id, ctx.reason).catch(ctx.noop)));
         }
         else {
-            return this.success(!!(await perms.set([]).catch(ctx.noop)));
+            return this.success(!!(await perms.set([], ctx.reason).catch(ctx.noop)));
         }
     },
 });

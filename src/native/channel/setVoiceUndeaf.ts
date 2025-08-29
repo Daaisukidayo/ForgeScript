@@ -27,7 +27,7 @@ export default new NativeFunction({
         },
         {
             name: "reason",
-            description: "Reason to undeafen this user",
+            description: "The reason to undeafen this user",
             rest: false,
             required: false,
             type: ArgType.String
@@ -35,6 +35,6 @@ export default new NativeFunction({
     ],
     unwrap: true,
     async execute(ctx, [, member, reason ]) {
-        return this.success(!!(await member.voice.setDeaf(false, reason || undefined).catch(ctx.noop)))
+        return this.success(!!(await member.voice.setDeaf(false, reason || ctx.reason).catch(ctx.noop)))
     },
 })

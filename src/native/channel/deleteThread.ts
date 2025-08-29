@@ -1,6 +1,5 @@
 import { BaseChannel, ThreadChannel } from "discord.js"
 import { ArgType, NativeFunction, Return } from "../../structures"
-import noop from "../../functions/noop"
 
 export default new NativeFunction({
     name: "$deleteThread",
@@ -27,8 +26,7 @@ export default new NativeFunction({
     ],
     async execute(ctx, [channel, reason]) {
         const thread = channel as ThreadChannel
-
-        const success = await thread.delete(reason || undefined).catch(ctx.noop)
+        const success = await thread.delete(reason || ctx.reason).catch(ctx.noop)
 
         return this.success(!!success)
     },

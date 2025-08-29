@@ -1,4 +1,3 @@
-import noop from "../../functions/noop"
 import { ArgType, NativeFunction, Return } from "../../structures"
 
 export default new NativeFunction({
@@ -51,6 +50,7 @@ export default new NativeFunction({
                 name,
                 tags,
                 description: desc || null,
+                reason: ctx.reason
             })
             .catch(ctx.noop)
         return this.success(created?.id)
