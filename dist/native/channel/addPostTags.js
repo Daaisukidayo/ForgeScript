@@ -2,9 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
-    name: "$addForumTags",
+    name: "$addPostTags",
     version: "1.5.0",
-    aliases: ["$addPostTags"],
     description: "Adds tags to a forum post, returns bool",
     unwrap: true,
     output: structures_1.ArgType.Boolean,
@@ -34,7 +33,7 @@ exports.default = new structures_1.NativeFunction({
     brackets: true,
     async execute(ctx, [channel, reason, tags]) {
         const post = channel;
-        return this.success(!!(await post.setAppliedTags(tags, reason || ctx.reason).catch(ctx.noop)));
+        return this.success(!!(await post.setAppliedTags([...post.appliedTags, ...tags], reason || ctx.reason).catch(ctx.noop)));
     },
 });
-//# sourceMappingURL=addForumTags.js.map
+//# sourceMappingURL=addPostTags.js.map

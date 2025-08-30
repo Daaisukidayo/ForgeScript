@@ -2,11 +2,11 @@ import {
     PermissionFlagsBits,
     TextChannel,
     parseEmoji,
-    ForumChannel,
     AttachmentBuilder,
     PermissionsString,
     StageChannel,
     StageInstance,
+    ThreadOnlyChannel,
 } from "discord.js"
 import { existsSync } from "fs"
 import { inspect } from "util"
@@ -343,9 +343,7 @@ export class CompiledFunction<T extends [...IArg[]] = IArg[], Unwrap extends boo
     }
 
     private resolveForumTag(ctx: Context, arg: IArg, str: string, ref: Array<unknown>) {
-        return (this.resolvePointer(arg, ref, ctx.channel) as ForumChannel)?.availableTags.find(
-            (x) => x.id === str || x.name === str
-        )
+        return (this.resolvePointer(arg, ref, ctx.channel) as ThreadOnlyChannel)?.availableTags.find((x) => x.id === str)
     }
 
     private resolveSticker(ctx: Context, arg: IArg, str: string, ref: Array<unknown>) {

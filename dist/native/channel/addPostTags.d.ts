@@ -20,4 +20,4 @@ declare const _default: NativeFunction<[{
     type: ArgType.String;
 }], true>;
 export default _default;
-//# sourceMappingURL=modifyForumTags.d.ts.map
+//# sourceMappingURL=addPostTags.d.ts.map

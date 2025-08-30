@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const discord_js_1 = require("discord.js");
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$createForumPost",
@@ -14,7 +13,7 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
             required: true,
             type: structures_1.ArgType.Channel,
-            check: (i) => i.type === discord_js_1.ChannelType.GuildForum,
+            check: (i) => i.isThreadOnly(),
             description: "The channel to create a post on",
         },
         {

@@ -2,10 +2,10 @@ import { BaseChannel, ThreadChannel } from "discord.js"
 import { ArgType, NativeFunction, Return } from "../../structures"
 
 export default new NativeFunction({
-    name: "$addForumTags",
+    name: "$modifyPostTags",
     version: "1.5.0",
-    aliases: ["$addPostTags"],
-    description: "Adds tags to a forum post, returns bool",
+    aliases: ["$editPostTags"],
+    description: "Modifies tags of a forum post, returns bool",
     unwrap: true,
     output: ArgType.Boolean,
     args: [
@@ -19,7 +19,7 @@ export default new NativeFunction({
         },
         {
             name: "reason",
-            description: "The reason for adding post tags",
+            description: "The reason for modifying post tags",
             rest: false,
             type: ArgType.String,
         },
@@ -34,6 +34,6 @@ export default new NativeFunction({
     brackets: true,
     async execute(ctx, [ channel, reason, tags ]) {
         const post = channel as ThreadChannel
-        return this.success(!!(await post.setAppliedTags(tags, reason || ctx.reason).catch(ctx.noop)))
+        return this.success(!!(await post.setAppliedTags([...new Set(post.appliedTags.filter(tag => !tags.includes(tag)).concat(tags.filter(tag => !post.appliedTags.includes(tag))))], reason || ctx.reason).catch(ctx.noop)))
     },
 })

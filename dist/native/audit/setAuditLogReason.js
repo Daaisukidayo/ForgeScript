@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$setAuditLogReason",
+    version: "2.5.0",
     description: "Sets the reason for audit log entries",
     brackets: true,
     unwrap: true,
