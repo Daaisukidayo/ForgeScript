@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$deleteForumTags",
+    version: "2.5.0",
     description: "Deletes tags from a forum, returns bool",
     aliases: ["$deleteForumTag"],
     unwrap: true,

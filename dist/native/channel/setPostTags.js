@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$setPostTags",
+    version: "2.5.0",
     description: "Sets tags to a forum post, returns bool",
     unwrap: true,
     output: structures_1.ArgType.Boolean,

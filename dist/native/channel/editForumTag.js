@@ -4,6 +4,7 @@ const structures_1 = require("../../structures");
 const parseSingleEmoji_1 = require("../../functions/parseSingleEmoji");
 exports.default = new structures_1.NativeFunction({
     name: "$editForumTag",
+    version: "2.5.0",
     description: "Edits an existing forum tag, returns bool",
     unwrap: true,
     brackets: true,
