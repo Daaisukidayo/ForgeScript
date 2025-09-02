@@ -17,7 +17,7 @@ export default new NativeFunction({
     ],
     experimental: true,
     execute(ctx) {
-        void this["resolveArgs"](ctx)
+        void this["resolveArgs"](ctx).catch(() => {})
         return this.success()
     },
 })
