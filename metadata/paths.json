@@ -1,1 +1,1 @@
-{"functions":"src/native","events":"src/handlers/events"}
+{"functions":"dist\\native","events":"dist\\handlers\\events"}

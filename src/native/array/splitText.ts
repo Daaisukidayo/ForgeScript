@@ -1,4 +1,4 @@
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 import { SplitTextName } from "./textSplit"
 
 export default new NativeFunction({
