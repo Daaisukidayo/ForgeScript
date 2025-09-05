@@ -46,7 +46,7 @@ async function main() {
 
     const branch = await prompt("Write the branch name to push to (defaults to dev): ") || "dev"
     let escapedMsg = msg
-    if(platform() == "darwin") escapedMsg = escapedMsg.replace(/\$/g, "\\$")
+    if (platform() === "darwin") escapedMsg = escapedMsg.replace(/\$/g, "\\$")
 
     execSync("git branch -M " + branch + " && git add . && git commit -m \"" + escapedMsg + "\" && git push -u origin " + branch, {
         stdio: "inherit"

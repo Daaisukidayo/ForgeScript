@@ -72,12 +72,12 @@ export default new NativeFunction({
         btn.setLabel(label || btn.data.label)
             .setStyle(style)
 
-            if (emoji) btn.setEmoji(emoji)
-            if (typeof disabled === "boolean") btn.setDisabled(disabled)
+        if (emoji) btn.setEmoji(emoji)
+        if (typeof disabled === "boolean") btn.setDisabled(disabled)
 
-            if (style === ButtonStyle.Link) btn.setURL(id)
-            else if (style === ButtonStyle.Premium) btn.setSKUId(id)
-            else btn.setCustomId(id)
+        if (style === ButtonStyle.Link) btn.setURL(id)
+        else if (style === ButtonStyle.Premium) btn.setSKUId(id)
+        else btn.setCustomId(id)
 
         return this.success()
     },
