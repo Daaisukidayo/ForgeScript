@@ -2,6 +2,7 @@ import { execSync } from "child_process"
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs"
 import prompt from "./functions/prompt"
 import { join } from "path"
+import { platform } from "os"
 
 const path = "./metadata"
 if (!existsSync(path)) mkdirSync(path)
@@ -45,7 +46,7 @@ async function main() {
 
     const branch = await prompt("Write the branch name to push to (defaults to dev): ") || "dev"
     let escapedMsg = msg
-    if(author == "xNickyDev") escapedMsg = escapedMsg.replace(/\$/g, "\\$")
+    if(platform() == "darwin") escapedMsg = escapedMsg.replace(/\$/g, "\\$")
 
     execSync("git branch -M " + branch + " && git add . && git commit -m \"" + escapedMsg + "\" && git push -u origin " + branch, {
         stdio: "inherit"
