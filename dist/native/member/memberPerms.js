@@ -16,14 +16,14 @@ exports.default = new structures_1.NativeFunction({
     args: [
         {
             name: "guild ID",
-            description: "The guild id to return the member from",
+            description: "The guild to pull the member from",
             rest: false,
             type: structures_1.ArgType.Guild,
             required: true,
         },
         {
             name: "user ID",
-            description: "The member id to return its perms",
+            description: "The member to return its perms",
             rest: false,
             type: structures_1.ArgType.Member,
             pointer: 0,
@@ -36,10 +36,17 @@ exports.default = new structures_1.NativeFunction({
             required: false,
             rest: false,
         },
+        {
+            name: "return int",
+            description: "Whether to return the perms as bitfield int",
+            type: structures_1.ArgType.Boolean,
+            rest: false,
+        },
     ],
-    execute(ctx, [, user, sep]) {
+    execute(ctx, [, user, sep, int]) {
         const member = user ?? ctx.member ?? ctx.interaction?.member;
-        return this.success(new discord_js_1.PermissionsBitField(member?.permissions).toArray().join(sep || ", "));
+        const perms = new discord_js_1.PermissionsBitField(member?.permissions);
+        return this.success(int ? perms.bitfield : perms.toArray().join(sep ?? ", "));
     },
 });
 //# sourceMappingURL=memberPerms.js.map

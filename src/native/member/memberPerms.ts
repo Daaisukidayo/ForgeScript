@@ -12,14 +12,14 @@ export default new NativeFunction({
     args: [
         {
             name: "guild ID",
-            description: "The guild id to return the member from",
+            description: "The guild to pull the member from",
             rest: false,
             type: ArgType.Guild,
             required: true,
         },
         {
             name: "user ID",
-            description: "The member id to return its perms",
+            description: "The member to return its perms",
             rest: false,
             type: ArgType.Member,
             pointer: 0,
@@ -32,9 +32,16 @@ export default new NativeFunction({
             required: false,
             rest: false,
         },
+        {
+            name: "return int",
+            description: "Whether to return the perms as bitfield int",
+            type: ArgType.Boolean,
+            rest: false,
+        },
     ],
-    execute(ctx, [, user, sep]) {
+    execute(ctx, [, user, sep, int]) {
         const member = user ?? ctx.member ?? ctx.interaction?.member
-        return this.success(new PermissionsBitField(member?.permissions).toArray().join(sep || ", "))
+        const perms = new PermissionsBitField(member?.permissions)
+        return this.success(int ? perms.bitfield : perms.toArray().join(sep ?? ", "))
     },
 })

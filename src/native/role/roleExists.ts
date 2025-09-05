@@ -10,7 +10,7 @@ export default new NativeFunction({
     args: [
         {
             name: "guild ID",
-            description: "The guild to check for the role",
+            description: "The guild to pull the role from",
             type: ArgType.Guild,
             rest: false,
             required: true,

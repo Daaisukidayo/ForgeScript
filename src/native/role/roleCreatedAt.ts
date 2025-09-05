@@ -10,14 +10,14 @@ export default new NativeFunction({
     args: [
         {
             name: "guild ID",
-            description: "The guild id to return the role from",
+            description: "The guild to pull the role from",
             rest: false,
             type: ArgType.Guild,
             required: true,
         },
         {
             name: "role ID",
-            description: "The role id return its creation date",
+            description: "The role to return its creation date",
             rest: false,
             type: ArgType.Role,
             pointer: 0,
