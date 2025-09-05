@@ -33,18 +33,19 @@ async function main() {
     const fileName = join(path, "changelogs.json")
     const json: Record<string, object[]> = existsSync(fileName) ? JSON.parse(readFileSync(fileName, "utf-8")) : {}
     json[version] ??= []
-
+    const author = execSync("git config user.name").toString().trim()
     if (!skip) {
         json[version].unshift({
             message: msg,
             timestamp: new Date(),
-            author: execSync("git config user.name").toString().trim()
+            author
         })
         writeFileSync(fileName, JSON.stringify(json), "utf-8")
     }
 
     const branch = await prompt("Write the branch name to push to (defaults to dev): ") || "dev"
-    const escapedMsg = msg.replace(/\$/g, "\\$")
+    let escapedMsg = msg
+    if(author == "xNickyDev") escapedMsg = escapedMsg.replace(/\$/g, "\\$")
 
     execSync("git branch -M " + branch + " && git add . && git commit -m \"" + escapedMsg + "\" && git push -u origin " + branch, {
         stdio: "inherit"

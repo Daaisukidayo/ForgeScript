@@ -74,7 +74,7 @@ export default async function(functionsAbsolutePath: string, mainCategoryName?: 
     const metaOutPath = "./metadata"
     if (!existsSync(metaOutPath)) mkdirSync(metaOutPath)
 
-    const toSrcPath = (absPath: string) => relative(cwd(), absPath).replace(/^dist\//, "src/")
+    const toSrcPath = (absPath: string) => relative(cwd(), absPath).replace(/\\/g, "/").replace(/^dist\//, "src/")
 
     writeFileSync(join(metaOutPath, "paths.json"), JSON.stringify({
         functions: toSrcPath(functionsAbsolutePath),
