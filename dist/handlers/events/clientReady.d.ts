@@ -1,4 +1,4 @@
 import { DiscordEventHandler } from "../../structures/extended/DiscordEventHandler";
-declare const _default: DiscordEventHandler<"ready">;
+declare const _default: DiscordEventHandler<"clientReady">;
 export default _default;
-//# sourceMappingURL=ready.d.ts.map
+//# sourceMappingURL=clientReady.d.ts.map

@@ -6,6 +6,7 @@ exports.default = new structures_1.NativeFunction({
     name: "$getTextSplitIndex",
     version: "2.5.0",
     description: "Gets the index of a textSplit element",
+    aliases: ["$getSplitTextIndex"],
     brackets: true,
     unwrap: true,
     args: [

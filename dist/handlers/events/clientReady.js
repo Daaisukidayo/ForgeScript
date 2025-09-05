@@ -5,12 +5,11 @@ const structures_1 = require("../../structures");
 const DiscordEventHandler_1 = require("../../structures/extended/DiscordEventHandler");
 const InviteTracker_1 = require("../../structures/trackers/InviteTracker");
 exports.default = new DiscordEventHandler_1.DiscordEventHandler({
-    name: "ready",
+    name: "clientReady",
     version: "1.0.1",
     description: "This event is fired when the bot becomes ready",
-    deprecated: true,
     listener: async function () {
-        const commands = this.commands.get("ready");
+        const commands = this.commands.get("clientReady");
         if (commands.length) {
             for (const command of commands) {
                 core_1.Interpreter.run({
@@ -29,4 +28,4 @@ exports.default = new DiscordEventHandler_1.DiscordEventHandler({
         }
     },
 });
-//# sourceMappingURL=ready.js.map
+//# sourceMappingURL=clientReady.js.map
