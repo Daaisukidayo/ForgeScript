@@ -62,7 +62,7 @@ const client = new ForgeClient({
     ],
     events: [
         "messageCreate",
-        "ready"
+        "clientReady"
     ], // Events our bot will act on
     prefixes: [
         "!",
