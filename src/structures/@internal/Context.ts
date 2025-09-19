@@ -313,6 +313,10 @@ export class Context {
         this.automodRule = {}
     }
 
+    public async fetchApplicationEmojis() {
+        return await this.client.application.emojis.fetch().catch(this.noop)
+    }
+
     public setEnvironmentKey(name: string, value: unknown) {
         return (this.#environment[name] = value)
     }

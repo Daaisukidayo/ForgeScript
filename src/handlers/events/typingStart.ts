@@ -1,10 +1,10 @@
-import { User } from "discord.js"
 import { Interpreter } from "../../core"
 import { DiscordEventHandler } from "../../structures/extended/DiscordEventHandler"
 
 export default new DiscordEventHandler({
     name: "typingStart",
     version: "1.4.0",
+    description: "This event is fired when a user starts typing",
     listener: async function (typing) {
         const commands = this.commands.get("typingStart")
 
@@ -18,6 +18,5 @@ export default new DiscordEventHandler({
             })
         }
     },
-    description: "This event is fired when a user starts typing",
     intents: ["GuildMessageTyping", "DirectMessageTyping"],
 })

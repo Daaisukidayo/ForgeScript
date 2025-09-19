@@ -490,6 +490,38 @@ export class Arg {
         })
     }
 
+    public static optionalForumTag(name: string = "tag ID", desc: string = "The forum tag to use") {
+        return Arg.create({
+            name,
+            description: desc,
+            rest: false,
+            type: ArgType.ForumTag,
+            pointer: 0
+        })
+    }
+
+    public static requiredForumTag(name: string = "tag ID", desc: string = "The forum tag to use") {
+        return Arg.create({
+            name,
+            description: desc,
+            rest: false,
+            required: true,
+            type: ArgType.ForumTag,
+            pointer: 0
+        })
+    }
+
+    public static restForumTag(name: string = "tag IDs", desc: string = "The forum tags to use", required: boolean = false) {
+        return Arg.create({
+            name,
+            description: desc,
+            rest: true,
+            required,
+            type: ArgType.ForumTag,
+            pointer: 0
+        })
+    }
+
     public static restTextChannel(name: string = "text channel IDs", desc: string = "The text channels to use", required: boolean = false) {
         return Arg.create({
             name,

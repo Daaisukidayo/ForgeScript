@@ -18,6 +18,6 @@ exports.default = new DiscordEventHandler_1.DiscordEventHandler({
             });
         }
     },
-    intents: ["Guilds"],
+    intents: ["Guilds", "DirectMessages"],
 });
 //# sourceMappingURL=channelPinsUpdate.js.map

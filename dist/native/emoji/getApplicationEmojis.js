@@ -32,8 +32,10 @@ exports.default = new structures_1.NativeFunction({
         (0, array_1.default)()
     ],
     async execute(ctx, [prop, sep]) {
-        const emojis = await ctx.client.application.emojis.fetch().catch(ctx.noop);
-        return this.successJSON(!prop ? emojis : emojis?.map(emoji => applicationEmoji_1.ApplicationEmojiProperties[prop](emoji)).join(sep ?? ", "));
+        const emojis = await ctx.fetchApplicationEmojis();
+        if (!prop)
+            return this.successJSON(emojis);
+        return this.success(emojis?.map(emoji => applicationEmoji_1.ApplicationEmojiProperties[prop](emoji)).join(sep ?? ", "));
     },
 });
 //# sourceMappingURL=getApplicationEmojis.js.map

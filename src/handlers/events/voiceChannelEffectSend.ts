@@ -23,4 +23,5 @@ export default new DiscordEventHandler({
             })
         }
     },
+    intents: ["GuildVoiceStates"]
 })

@@ -443,6 +443,35 @@ class Arg {
             pointer: 0
         });
     }
+    static optionalForumTag(name = "tag ID", desc = "The forum tag to use") {
+        return Arg.create({
+            name,
+            description: desc,
+            rest: false,
+            type: NativeFunction_1.ArgType.ForumTag,
+            pointer: 0
+        });
+    }
+    static requiredForumTag(name = "tag ID", desc = "The forum tag to use") {
+        return Arg.create({
+            name,
+            description: desc,
+            rest: false,
+            required: true,
+            type: NativeFunction_1.ArgType.ForumTag,
+            pointer: 0
+        });
+    }
+    static restForumTag(name = "tag IDs", desc = "The forum tags to use", required = false) {
+        return Arg.create({
+            name,
+            description: desc,
+            rest: true,
+            required,
+            type: NativeFunction_1.ArgType.ForumTag,
+            pointer: 0
+        });
+    }
     static restTextChannel(name = "text channel IDs", desc = "The text channels to use", required = false) {
         return Arg.create({
             name,

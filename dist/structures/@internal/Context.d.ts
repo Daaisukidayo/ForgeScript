@@ -115,6 +115,7 @@ export declare class Context {
     handleNotSuccess(fn: CompiledFunction, rt: Return): boolean;
     clearHttpOptions(): void;
     clearAutomodRuleOptions(): void;
+    fetchApplicationEmojis(): Promise<void | import("@discordjs/collection").Collection<string, import("discord.js").ApplicationEmoji>>;
     setEnvironmentKey(name: string, value: unknown): unknown;
     traverseDeleteEnvironmentKey(...keys: string[]): boolean | any[];
     traverseAddEnvironmentKey(value: unknown, ...keys: string[]): boolean;

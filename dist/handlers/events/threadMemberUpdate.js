@@ -24,6 +24,6 @@ exports.default = new DiscordEventHandler_1.DiscordEventHandler({
             });
         }
     },
-    intents: ["GuildMembers"],
+    intents: ["Guilds", "GuildMembers"],
 });
 //# sourceMappingURL=threadMemberUpdate.js.map

@@ -1,6 +1,4 @@
-import { GuildMember } from "discord.js"
 import { Interpreter } from "../../core"
-import { InviteTracker } from "../../structures/trackers/InviteTracker"
 import { DiscordEventHandler } from "../../structures/extended/DiscordEventHandler"
 
 export default new DiscordEventHandler({
@@ -26,5 +24,5 @@ export default new DiscordEventHandler({
             })
         }
     },
-    intents: ["GuildMembers"],
+    intents: ["Guilds", "GuildMembers"],
 })
