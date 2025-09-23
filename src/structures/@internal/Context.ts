@@ -10,7 +10,6 @@ import {
     Emoji,
     Entitlement,
     Guild,
-    GuildEmoji,
     GuildMember,
     Interaction,
     MediaGalleryBuilder,
@@ -20,6 +19,7 @@ import {
     SectionBuilder,
     SoundboardSound,
     Sticker,
+    Subscription,
     User,
 } from "discord.js"
 import { CompiledFunction, IExtendedCompiledFunctionField } from "./CompiledFunction"
@@ -111,6 +111,7 @@ export interface IContextCache {
     automod: AutoModerationActionExecution | null
     sticker: Sticker | null
     sound: SoundboardSound | null
+    subscription: Subscription | null
 }
 
 export class Context {
@@ -185,6 +186,10 @@ export class Context {
         return this.#cache.entitlement ??= this.obj instanceof Entitlement ? this.obj : null
     }
 
+    public get subscription() {
+        return this.#cache.subscription ??= this.obj instanceof Subscription ? this.obj : null
+    }
+
     public get member() {
         return (this.#cache.member ??=
             this.obj instanceof GuildMember
@@ -195,7 +200,7 @@ export class Context {
     }
 
     public get emoji() {
-        return (this.#cache.emoji ??= this.obj instanceof GuildEmoji ? this.obj : null)
+        return (this.#cache.emoji ??= this.obj instanceof Emoji ? this.obj : null)
     }
 
     public get sticker() {
@@ -313,8 +318,18 @@ export class Context {
         this.automodRule = {}
     }
 
-    public async fetchApplicationEmojis() {
-        return await this.client.application.emojis.fetch().catch(this.noop)
+    /**
+     * Fetches all emojis of the application.
+     * @param once Whether to fetch only when the collection is empty.
+     * @returns 
+     */
+    public async fetchApplicationEmojis(once?: boolean) {
+        const { emojis } = this.client.application
+
+        if (once && emojis.cache.size) {
+            return emojis.cache
+        }
+        return await emojis.fetch().catch(this.noop)
     }
 
     public setEnvironmentKey(name: string, value: unknown) {

@@ -1,4 +1,3 @@
-import { MemberProperties, MemberProperty } from "../../properties/member"
 import { ScheduledEventProperties, ScheduledEventProperty } from "../../properties/scheduledEvent"
 import { ArgType, NativeFunction, Return } from "../../structures"
 

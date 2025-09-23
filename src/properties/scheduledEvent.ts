@@ -1,6 +1,5 @@
-import { Channel, ChannelType, Collection, GuildMember } from "discord.js"
+import { GuildScheduledEvent } from "discord.js"
 import defineProperties from "../functions/defineProperties"
-import { IStates, States } from "../core"
 
 export enum ScheduledEventProperty {
     id = "id",
@@ -20,7 +19,7 @@ export enum ScheduledEventProperty {
     entityType = "entityType"
 }
 
-export const ScheduledEventProperties = defineProperties<typeof ScheduledEventProperty, IStates["scheduledEvent"]>({
+export const ScheduledEventProperties = defineProperties<typeof ScheduledEventProperty, GuildScheduledEvent>({
     channelID: i => i?.channelId,
     guildID: i => i?.guildId,
     id: i => i?.id,

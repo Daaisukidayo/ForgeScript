@@ -1,5 +1,6 @@
 import defineProperties from "../functions/defineProperties"
 import { IStates } from "../core"
+import { Message } from "discord.js"
 
 export enum BulkProperty {
     messages = "messages",

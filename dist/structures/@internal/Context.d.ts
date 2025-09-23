@@ -1,4 +1,4 @@
-import { AnySelectMenuInteraction, AutoModerationActionExecution, AutoModerationActionOptions, AutoModerationTriggerMetadataOptions, BaseChannel, ChatInputCommandInteraction, ContextMenuCommandInteraction, Emoji, Entitlement, Guild, GuildMember, Interaction, MediaGalleryBuilder, Message, MessageReaction, Role, SectionBuilder, SoundboardSound, Sticker, User } from "discord.js";
+import { AnySelectMenuInteraction, AutoModerationActionExecution, AutoModerationActionOptions, AutoModerationTriggerMetadataOptions, BaseChannel, ChatInputCommandInteraction, ContextMenuCommandInteraction, Emoji, Entitlement, Guild, GuildMember, Interaction, MediaGalleryBuilder, Message, MessageReaction, Role, SectionBuilder, SoundboardSound, Sticker, Subscription, User } from "discord.js";
 import { CompiledFunction, IExtendedCompiledFunctionField } from "./CompiledFunction";
 import { Container, Sendable } from "./Container";
 import { IArg, UnwrapArgs } from "./NativeFunction";
@@ -74,6 +74,7 @@ export interface IContextCache {
     automod: AutoModerationActionExecution | null;
     sticker: Sticker | null;
     sound: SoundboardSound | null;
+    subscription: Subscription | null;
 }
 export declare class Context {
     #private;
@@ -99,6 +100,7 @@ export declare class Context {
     get states(): import("../../core/Interpreter").States | undefined;
     get automod(): AutoModerationActionExecution | null;
     get entitlement(): Entitlement | null;
+    get subscription(): Subscription | null;
     get member(): GuildMember | null;
     get emoji(): Emoji | null;
     get sticker(): Sticker | null;
@@ -115,7 +117,12 @@ export declare class Context {
     handleNotSuccess(fn: CompiledFunction, rt: Return): boolean;
     clearHttpOptions(): void;
     clearAutomodRuleOptions(): void;
-    fetchApplicationEmojis(): Promise<void | import("@discordjs/collection").Collection<string, import("discord.js").ApplicationEmoji>>;
+    /**
+     * Fetches all emojis of the application.
+     * @param once Whether to fetch only when the collection is empty.
+     * @returns
+     */
+    fetchApplicationEmojis(once?: boolean): Promise<void | import("@discordjs/collection").Collection<string, import("discord.js").ApplicationEmoji>>;
     setEnvironmentKey(name: string, value: unknown): unknown;
     traverseDeleteEnvironmentKey(...keys: string[]): boolean | any[];
     traverseAddEnvironmentKey(value: unknown, ...keys: string[]): boolean;

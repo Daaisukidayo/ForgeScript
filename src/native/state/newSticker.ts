@@ -1,4 +1,3 @@
-import { EmojiProperties, EmojiProperty } from "../../properties/emoji"
 import { StickerProperties, StickerProperty } from "../../properties/sticker"
 import { ArgType, NativeFunction, Return } from "../../structures"
 

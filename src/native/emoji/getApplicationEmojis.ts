@@ -28,8 +28,8 @@ export default new NativeFunction({
         array<ArgType.Unknown>()
     ],
     async execute(ctx, [prop, sep]) {
-        const emojis = await ctx.fetchApplicationEmojis()
+        const emojis = await ctx.fetchApplicationEmojis(true)
         if (!prop) return this.successJSON(emojis)
-        return this.success(emojis?.map(emoji => ApplicationEmojiProperties[prop](emoji)).join(sep ?? ", "))
+        return this.success(emojis ? emojis.map(emoji => ApplicationEmojiProperties[prop](emoji)).join(sep ?? ", ") : null)
     },
 })

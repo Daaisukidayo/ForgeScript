@@ -2,6 +2,7 @@
 import {
     ActionRowBuilder,
     ApplicationCommandOptionChoiceData,
+    ApplicationEmoji,
     AttachmentBuilder,
     AutoModerationActionExecution,
     AutocompleteInteraction,
@@ -12,6 +13,7 @@ import {
     ContainerBuilder,
     ContainerComponentBuilder,
     EmbedBuilder,
+    Emoji,
     Guild,
     GuildEmoji,
     GuildMember,
@@ -62,6 +64,8 @@ export type Sendable =
     | Invite
     | AutoModerationActionExecution
     | SoundboardSound
+    | Emoji
+    | ApplicationEmoji
 
 export class Container {
     public content?: string

@@ -1,5 +1,4 @@
 import { AuditProperties, AuditProperty } from "../../properties/audit"
-import { RoleProperties, RoleProperty } from "../../properties/role"
 import { ArgType, NativeFunction, Return } from "../../structures"
 
 export default new NativeFunction({

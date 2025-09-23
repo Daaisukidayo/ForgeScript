@@ -1,5 +1,4 @@
 import { PresenceProperties, PresenceProperty } from "../../properties/presence"
-import { RoleProperties, RoleProperty } from "../../properties/role"
 import { ArgType, NativeFunction, Return } from "../../structures"
 
 export default new NativeFunction({

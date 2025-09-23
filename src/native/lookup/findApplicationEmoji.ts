@@ -17,15 +17,13 @@ export default new NativeFunction({
     ],
     unwrap: true,
     async execute(ctx, [q]) {
-        if (!ctx.client.application.emojis.cache.size) await ctx.fetchApplicationEmojis()
+        const emojis = await ctx.fetchApplicationEmojis(true)
 
         if (CompiledFunction.IdRegex.test(q)) {
-            const e = ctx.client.application.emojis.cache.get(q)
+            const e = emojis?.get(q)
             if (e) return this.success(e.id)
         }
 
-        return this.success(
-            ctx.client.application.emojis.cache.find((x) => x.id === q || x.name?.toLowerCase() === q.toLowerCase() || x.toString() === q)?.id
-        )
+        return this.success(emojis?.find((x) => x.id === q || x.name?.toLowerCase() === q.toLowerCase() || x.toString() === q)?.id)
     },
 })

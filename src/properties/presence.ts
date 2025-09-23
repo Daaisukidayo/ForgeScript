@@ -1,4 +1,4 @@
-import { Message, MessageType, Presence, Role } from "discord.js"
+import { Presence } from "discord.js"
 import defineProperties from "../functions/defineProperties"
 
 export enum PresenceProperty {

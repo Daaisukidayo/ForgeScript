@@ -91,6 +91,9 @@ class Context {
     get entitlement() {
         return this.#cache.entitlement ??= this.obj instanceof discord_js_1.Entitlement ? this.obj : null;
     }
+    get subscription() {
+        return this.#cache.subscription ??= this.obj instanceof discord_js_1.Subscription ? this.obj : null;
+    }
     get member() {
         return (this.#cache.member ??=
             this.obj instanceof discord_js_1.GuildMember
@@ -100,7 +103,7 @@ class Context {
                     : null);
     }
     get emoji() {
-        return (this.#cache.emoji ??= this.obj instanceof discord_js_1.GuildEmoji ? this.obj : null);
+        return (this.#cache.emoji ??= this.obj instanceof discord_js_1.Emoji ? this.obj : null);
     }
     get sticker() {
         return (this.#cache.sticker ??= this.obj instanceof discord_js_1.Sticker ? this.obj : null);
@@ -198,8 +201,17 @@ class Context {
     clearAutomodRuleOptions() {
         this.automodRule = {};
     }
-    async fetchApplicationEmojis() {
-        return await this.client.application.emojis.fetch().catch(this.noop);
+    /**
+     * Fetches all emojis of the application.
+     * @param once Whether to fetch only when the collection is empty.
+     * @returns
+     */
+    async fetchApplicationEmojis(once) {
+        const { emojis } = this.client.application;
+        if (once && emojis.cache.size) {
+            return emojis.cache;
+        }
+        return await emojis.fetch().catch(this.noop);
     }
     setEnvironmentKey(name, value) {
         return (this.#environment[name] = value);

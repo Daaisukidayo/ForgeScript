@@ -1,6 +1,4 @@
-import { AuditProperties, AuditProperty } from "../../properties/audit"
 import { BulkProperties, BulkProperty } from "../../properties/bulk"
-import { RoleProperties, RoleProperty } from "../../properties/role"
 import { ArgType, NativeFunction, Return } from "../../structures"
 
 export default new NativeFunction({
