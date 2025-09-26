@@ -35,7 +35,7 @@ exports.default = new structures_1.NativeFunction({
     ],
     brackets: true,
     async execute(ctx, [guild, setting, reason]) {
-        return this.success((await guild.setDefaultMessageNotifications(setting || null, reason || undefined).catch(() => false)) !== false);
+        return this.success((await guild.setDefaultMessageNotifications(setting || null, reason || ctx.reason).catch(() => false)) !== false);
     },
 });
 //# sourceMappingURL=setGuildDefaultMessageNotifications.js.map

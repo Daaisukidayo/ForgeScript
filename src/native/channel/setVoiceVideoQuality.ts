@@ -26,7 +26,7 @@ export default new NativeFunction({
         },
         {
             name: "reason",
-            description: "Reason to change the video quality",
+            description: "The reason to change the video quality",
             rest: false,
             required: false,
             type: ArgType.String
@@ -34,6 +34,6 @@ export default new NativeFunction({
     ],
     unwrap: true,
     async execute(ctx, [channel, quality, reason]) {
-        return this.success(!!(await (channel as VoiceChannel).setVideoQualityMode(quality, reason || undefined).catch(ctx.noop)))
+        return this.success(!!(await (channel as VoiceChannel).setVideoQualityMode(quality, reason || ctx.reason).catch(ctx.noop)))
     },
 })

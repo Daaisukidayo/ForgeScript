@@ -33,7 +33,7 @@ exports.default = new structures_1.NativeFunction({
     ],
     brackets: true,
     async execute(ctx, [guild, icon, reason]) {
-        return this.success((await guild.setIcon(icon || null, reason || undefined).catch(() => false)) !== false);
+        return this.success((await guild.setIcon(icon || null, reason || ctx.reason).catch(() => false)) !== false);
     },
 });
 //# sourceMappingURL=setGuildIcon.js.map

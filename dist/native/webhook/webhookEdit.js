@@ -4,7 +4,7 @@ const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$webhookEdit",
     version: "1.0.0",
-    description: "Edits webhook with given id",
+    description: "Edits webhook with given id, returns bool",
     brackets: true,
     unwrap: true,
     output: structures_1.ArgType.Boolean,
@@ -34,6 +34,7 @@ exports.default = new structures_1.NativeFunction({
             .edit({
             avatar: avatar || undefined,
             name: name || undefined,
+            reason: ctx.reason
         })
             .catch(ctx.noop);
         return this.success(!!edit);

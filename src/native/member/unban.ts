@@ -1,4 +1,3 @@
-import noop from "../../functions/noop"
 import { ArgType, NativeFunction, Return } from "../../structures"
 
 export default new NativeFunction({
@@ -7,14 +6,15 @@ export default new NativeFunction({
     brackets: true,
     unwrap: true,
     aliases: [
-        "$memberUnban"
+        "$memberUnban",
+        "$unbanMember"
     ],
     output: ArgType.Boolean,
-    description: "Unbans a user",
+    description: "Unbans a user from a guild, returns bool",
     args: [
         {
             name: "guild ID",
-            description: "The guild to unban a user from",
+            description: "The guild to unban user from",
             rest: false,
             required: true,
             type: ArgType.Guild,
@@ -34,7 +34,7 @@ export default new NativeFunction({
         },
     ],
     async execute(ctx, [guild, user, reason]) {
-        const unbanned = await guild.bans.remove(user, reason || undefined).catch(ctx.noop)
+        const unbanned = await guild.bans.remove(user, reason || ctx.reason).catch(ctx.noop)
         return this.success(!!unbanned)
     },
 })

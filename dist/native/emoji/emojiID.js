@@ -18,8 +18,9 @@ exports.default = new structures_1.NativeFunction({
         },
     ],
     async execute(ctx, [emoji]) {
-        if (this.hasFields)
-            return this.success(ctx.client.emojis.cache.find((x) => x.name === emoji)?.id || (await ctx.client.application.emojis.fetch().catch(ctx.noop))?.find((x) => x.name === emoji)?.id);
+        if (this.hasFields) {
+            return this.success(ctx.client.emojis.cache.find((x) => x.name === emoji)?.id || (await ctx.fetchApplicationEmojis(true))?.find((x) => x.name === emoji)?.id);
+        }
         return this.success(ctx.emoji?.id);
     },
 });

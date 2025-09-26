@@ -7,6 +7,7 @@ exports.default = new structures_1.NativeFunction({
     description: "Disables all user mentions",
     unwrap: false,
     execute(ctx) {
+        ctx.container.unparseMention("users");
         ctx.container.allowedMentions.users = [];
         return this.success();
     },

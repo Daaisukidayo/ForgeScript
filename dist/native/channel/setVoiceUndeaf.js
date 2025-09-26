@@ -28,7 +28,7 @@ exports.default = new structures_1.NativeFunction({
         },
         {
             name: "reason",
-            description: "Reason to undeafen this user",
+            description: "The reason to undeafen this user",
             rest: false,
             required: false,
             type: structures_1.ArgType.String
@@ -36,7 +36,7 @@ exports.default = new structures_1.NativeFunction({
     ],
     unwrap: true,
     async execute(ctx, [, member, reason]) {
-        return this.success(!!(await member.voice.setDeaf(false, reason || undefined).catch(ctx.noop)));
+        return this.success(!!(await member.voice.setDeaf(false, reason || ctx.reason).catch(ctx.noop)));
     },
 });
 //# sourceMappingURL=setVoiceUndeaf.js.map

@@ -16,7 +16,7 @@ export default new NativeFunction({
         },
     ],
     async execute(ctx, [web]) {
-        await web.delete().catch(ctx.noop)
+        await web.delete(ctx.reason).catch(ctx.noop)
         return this.success()
     },
 })

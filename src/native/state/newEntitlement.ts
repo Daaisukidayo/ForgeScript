@@ -1,5 +1,4 @@
 import { EntitlementProperties, EntitlementProperty } from "../../properties/entitlement"
-import { VoiceStateProperties, VoiceStateProperty } from "../../properties/voiceState"
 import { ArgType, NativeFunction, Return } from "../../structures"
 
 export default new NativeFunction({

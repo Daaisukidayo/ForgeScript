@@ -7,14 +7,15 @@ exports.default = new structures_1.NativeFunction({
     brackets: true,
     unwrap: true,
     aliases: [
-        "$memberUnban"
+        "$memberUnban",
+        "$unbanMember"
     ],
     output: structures_1.ArgType.Boolean,
-    description: "Unbans a user",
+    description: "Unbans a user from a guild, returns bool",
     args: [
         {
             name: "guild ID",
-            description: "The guild to unban a user from",
+            description: "The guild to unban user from",
             rest: false,
             required: true,
             type: structures_1.ArgType.Guild,
@@ -34,7 +35,7 @@ exports.default = new structures_1.NativeFunction({
         },
     ],
     async execute(ctx, [guild, user, reason]) {
-        const unbanned = await guild.bans.remove(user, reason || undefined).catch(ctx.noop);
+        const unbanned = await guild.bans.remove(user, reason || ctx.reason).catch(ctx.noop);
         return this.success(!!unbanned);
     },
 });

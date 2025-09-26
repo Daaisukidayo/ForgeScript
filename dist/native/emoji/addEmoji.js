@@ -50,6 +50,7 @@ exports.default = new structures_1.NativeFunction({
             attachment: icon,
             name,
             roles: roles || undefined,
+            reason: ctx.reason
         })
             .catch(ctx.noop);
         return this.success(returnEmojiID && em ? em.id : undefined);

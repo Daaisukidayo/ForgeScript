@@ -43,8 +43,8 @@ exports.default = new structures_1.NativeFunction({
     async execute(ctx, [guild, chan, enabled, reason]) {
         return this.success((await guild.setWidgetSettings({
             channel: chan || null,
-            enabled: enabled ?? guild.widgetEnabled ?? false
-        }, reason || undefined).catch(() => false)) !== false);
+            enabled: enabled || guild.widgetEnabled || false
+        }, reason || ctx.reason).catch(() => false)) !== false);
     },
 });
 //# sourceMappingURL=setGuildWidgetSettings.js.map

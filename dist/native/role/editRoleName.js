@@ -33,7 +33,7 @@ exports.default = new structures_1.NativeFunction({
     ],
     brackets: true,
     async execute(ctx, [, role, name]) {
-        return this.success(!!(await role.setName(name).catch(ctx.noop)));
+        return this.success(!!(await role.setName(name, ctx.reason).catch(ctx.noop)));
     },
 });
 //# sourceMappingURL=editRoleName.js.map

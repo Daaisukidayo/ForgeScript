@@ -27,7 +27,7 @@ exports.default = new structures_1.NativeFunction({
         }
     ],
     async execute(ctx, [, m]) {
-        return this.success(!!(await (m ?? ctx.message)?.unpin().catch(ctx.noop)));
+        return this.success(!!(await (m ?? ctx.message)?.unpin(ctx.reason).catch(ctx.noop)));
     },
 });
 //# sourceMappingURL=unpinMessage.js.map

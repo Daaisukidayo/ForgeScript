@@ -17,7 +17,7 @@ exports.default = new structures_1.NativeFunction({
         },
     ],
     async execute(ctx, [web]) {
-        await web.delete().catch(ctx.noop);
+        await web.delete(ctx.reason).catch(ctx.noop);
         return this.success();
     },
 });

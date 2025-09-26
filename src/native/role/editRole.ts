@@ -1,11 +1,10 @@
-import noop from "../../functions/noop"
 import { ArgType, NativeFunction, Return } from "../../structures"
 import { ColorResolvable } from "discord.js"
 
 export default new NativeFunction({
     name: "$editRole",
     version: "1.0.7",
-    description: "Edits role data, returns boolean",
+    description: "Edits a role on a guild, returns boolean",
     unwrap: true,
     output: ArgType.Boolean,
     args: [
@@ -25,19 +24,19 @@ export default new NativeFunction({
             required: true,
         },
         {
-            name: "role name",
+            name: "name",
             description: "The new role name, leave empty to not modify",
             rest: false,
             type: ArgType.String,
         },
         {
-            name: "role color",
+            name: "color",
             description: "The new role color, leave empty to not modify",
             rest: false,
             type: ArgType.String,
         },
         {
-            name: "role icon",
+            name: "icon",
             description: "The new role icon, leave empty to not modify",
             rest: false,
             type: ArgType.String,
@@ -63,17 +62,16 @@ export default new NativeFunction({
     ],
     brackets: true,
     async execute(ctx, [, role, name, color, icon, hoist, mentionable, perms]) {
-        return this.success(
-            !!(await role
-                .edit({
-                    color: (color as ColorResolvable) || undefined,
-                    hoist: hoist || undefined,
-                    icon: icon || undefined,
-                    mentionable: mentionable || undefined,
-                    name: name || undefined,
-                    permissions: perms || undefined,
-                })
-                .catch(ctx.noop))
-        )
+        const edit = await role.edit({
+            colors: !color ? undefined : { primaryColor: color as ColorResolvable },
+            hoist: hoist || undefined,
+            icon: icon || undefined,
+            mentionable: mentionable || undefined,
+            name: name || undefined,
+            permissions: perms || undefined,
+            reason: ctx.reason
+        }).catch(ctx.noop)
+
+        return this.success(!!edit)
     },
 })

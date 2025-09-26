@@ -44,7 +44,7 @@ exports.default = new structures_1.NativeFunction({
         },
         {
             name: "reason",
-            description: "Reason to set the voice region",
+            description: "The reason to set the voice region",
             rest: false,
             required: false,
             type: structures_1.ArgType.String
@@ -52,7 +52,7 @@ exports.default = new structures_1.NativeFunction({
     ],
     output: structures_1.ArgType.Boolean,
     async execute(ctx, [voice, region, reason]) {
-        return this.success(!!(await voice.setRTCRegion(region || null, reason || undefined).catch(ctx.noop)));
+        return this.success(!!(await voice.setRTCRegion(region || null, reason || ctx.reason).catch(ctx.noop)));
     },
 });
 //# sourceMappingURL=setVoiceRegion.js.map

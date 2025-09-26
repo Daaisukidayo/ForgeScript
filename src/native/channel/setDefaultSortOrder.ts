@@ -25,13 +25,13 @@ export default new NativeFunction({
         },
         {
             name: "reason",
-            description: "Reason for modifying default sort order",
+            description: "The reason for modifying default sort order",
             rest: false,
             type: ArgType.String
         }
     ],
     output: ArgType.Boolean,
     async execute(ctx, [ chan, sortOrder, reason ]) {
-        return this.success(!!(await (chan as ThreadOnlyChannel).setDefaultSortOrder(sortOrder || null, reason || undefined).catch(ctx.noop)))
+        return this.success(!!(await (chan as ThreadOnlyChannel).setDefaultSortOrder(sortOrder || null, reason || ctx.reason).catch(ctx.noop)))
     },
 })

@@ -18,17 +18,18 @@ export default new NativeFunction({
     ],
     unwrap: true,
     async execute(ctx, [q]) {
+        const emojis = await ctx.fetchApplicationEmojis(true)
         const parsed = parseEmoji(q)
 
         if (CompiledFunction.IdRegex.test(q)) {
-            const e = ctx.client.emojis.cache.get(q) || await ctx.client.application.emojis.fetch(q).catch(ctx.noop)
+            const e = ctx.client.emojis.cache.get(q) || emojis?.get(q)
             if (e) return this.success(e.id)
         }
 
         const name = parsed?.name.toLowerCase()
 
         return this.success(
-            ctx.client.emojis.cache.find((x) => x.id === q || x.name?.toLowerCase() === name || x.toString() === q)?.id || (await ctx.client.application.emojis.fetch().catch(ctx.noop))?.find((x) => x.id === q || x.name?.toLowerCase() === name || x.toString() === q)?.id
+            ctx.client.emojis.cache.find((x) => x.id === q || x.name?.toLowerCase() === name || x.toString() === q)?.id || emojis?.find((x) => x.id === q || x.name?.toLowerCase() === name || x.toString() === q)?.id
         )
     },
 })

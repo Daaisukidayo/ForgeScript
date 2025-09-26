@@ -25,5 +25,5 @@ export default new DiscordEventHandler({
             })
         }
     },
-    intents: ["Guilds", "GuildMessagePolls", "DirectMessagePolls"],
+    intents: ["GuildMessagePolls", "DirectMessagePolls"],
 })

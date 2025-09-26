@@ -35,6 +35,6 @@ export default new NativeFunction({
     ],
     brackets: true,
     async execute(ctx, [guild, channel, reason]) {
-        return this.success((await guild.setPublicUpdatesChannel(channel as TextChannel || null, reason || undefined).catch(() => false)) !== false)
+        return this.success((await guild.setPublicUpdatesChannel(channel as TextChannel || null, reason || ctx.reason).catch(() => false)) !== false)
     },
 })

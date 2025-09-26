@@ -25,7 +25,7 @@ exports.default = new structures_1.NativeFunction({
         },
         {
             name: "reason",
-            description: "Reason to change the bitrate",
+            description: "The reason to change the bitrate",
             rest: false,
             required: false,
             type: structures_1.ArgType.String
@@ -33,7 +33,7 @@ exports.default = new structures_1.NativeFunction({
     ],
     unwrap: true,
     async execute(ctx, [channel, bitrate, reason]) {
-        return this.success(!!(await channel.setBitrate(bitrate, reason || undefined).catch(ctx.noop)));
+        return this.success(!!(await channel.setBitrate(bitrate, reason || ctx.reason).catch(ctx.noop)));
     },
 });
 //# sourceMappingURL=setVoiceBitrate.js.map

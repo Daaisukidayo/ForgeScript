@@ -1,5 +1,4 @@
 import { ArgType, NativeFunction, Return } from "../../structures"
-import noop from "../../functions/noop"
 
 export default new NativeFunction({
     name: "$deleteInvite",
@@ -25,6 +24,6 @@ export default new NativeFunction({
     ],
     async execute(ctx, [code, reason]) {
         const invite = await ctx.client.fetchInvite(code).catch(ctx.noop)
-        return this.success(!!(await invite?.delete(reason || undefined).catch(ctx.noop)))
+        return this.success(!!(await invite?.delete(reason || ctx.reason).catch(ctx.noop)))
     },
 })

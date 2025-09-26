@@ -33,6 +33,6 @@ export default new NativeFunction({
     ],
     brackets: true,
     async execute(ctx, [guild, seconds, reason]) {
-        return this.success((await guild.setAFKTimeout(seconds, reason || undefined).catch(() => false)) !== false)
+        return this.success((await guild.setAFKTimeout(seconds, reason || ctx.reason).catch(() => false)) !== false)
     },
 })

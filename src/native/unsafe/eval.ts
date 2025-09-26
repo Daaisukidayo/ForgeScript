@@ -27,7 +27,7 @@ export default new NativeFunction({
         send ??= true
         try {
             const result = await Interpreter.run({
-                ...ctx.runtime,
+                ...ctx.cloneRuntime(),
                 data: Compiler.compile(code),
                 doNotSend: !send,
             })

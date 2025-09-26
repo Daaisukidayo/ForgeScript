@@ -39,7 +39,7 @@ exports.default = new structures_1.NativeFunction({
         },
         {
             name: "reason",
-            description: "Reason for creating thread",
+            description: "The reason for creating thread",
             rest: false,
             type: structures_1.ArgType.String
         }
@@ -49,8 +49,8 @@ exports.default = new structures_1.NativeFunction({
         const success = await ch.threads
             .create({
             name,
-            startMessage: m ?? undefined,
-            reason: reason ?? undefined,
+            startMessage: m || undefined,
+            reason: reason || ctx.reason,
             type: priv ? discord_js_1.ChannelType.PrivateThread : discord_js_1.ChannelType.PublicThread
         })
             .catch(ctx.noop);

@@ -6,7 +6,6 @@ import {
     Partials,
     DefaultWebSocketManagerOptions,
     Message,
-    Collection,
 } from "discord.js"
 import { IExtendedCompilationResult, Compiler } from "."
 import {

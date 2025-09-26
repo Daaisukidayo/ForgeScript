@@ -25,14 +25,14 @@ exports.default = new structures_1.NativeFunction({
         },
         {
             name: "reason",
-            description: "Reason for modifying default emoji",
+            description: "The reason for modifying default emoji",
             rest: false,
             type: structures_1.ArgType.String
         }
     ],
     output: structures_1.ArgType.Boolean,
     async execute(ctx, [chan, emoji, reason]) {
-        return this.success(!!(await chan.setDefaultReactionEmoji((0, parseSingleEmoji_1.parseSingleEmoji)(ctx, emoji), reason || undefined).catch(ctx.noop)));
+        return this.success(!!(await chan.setDefaultReactionEmoji((0, parseSingleEmoji_1.parseSingleEmoji)(ctx, emoji), reason || ctx.reason).catch(ctx.noop)));
     },
 });
 //# sourceMappingURL=setDefaultReactionEmoji.js.map

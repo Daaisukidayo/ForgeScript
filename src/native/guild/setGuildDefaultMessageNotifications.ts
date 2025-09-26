@@ -34,6 +34,6 @@ export default new NativeFunction({
     ],
     brackets: true,
     async execute(ctx, [guild, setting, reason]) {
-        return this.success((await guild.setDefaultMessageNotifications(setting || null, reason || undefined).catch(() => false)) !== false)
+        return this.success((await guild.setDefaultMessageNotifications(setting || null, reason || ctx.reason).catch(() => false)) !== false)
     },
 })

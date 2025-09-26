@@ -1,10 +1,9 @@
-import noop from "../../functions/noop"
 import { ArgType, NativeFunction, Return } from "../../structures"
 
 export default new NativeFunction({
     name: "$memberRemoveRoles",
     version: "1.0.0",
-    description: "Removes roles from a member and returns bool",
+    description: "Removes roles from a member, returns bool",
     unwrap: true,
     brackets: true,
     output: ArgType.Boolean,
@@ -34,7 +33,7 @@ export default new NativeFunction({
     ],
     async execute(ctx, [, member, roles]) {
         member ??= ctx.member!
-        const d = await member.roles.remove(roles).catch(ctx.noop)
+        const d = await member.roles.remove(roles, ctx.reason).catch(ctx.noop)
 
         return this.success(!!d)
     },

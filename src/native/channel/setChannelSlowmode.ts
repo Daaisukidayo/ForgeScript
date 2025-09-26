@@ -1,6 +1,5 @@
 import { BaseChannel, TextChannel } from "discord.js"
 import { ArgType, NativeFunction, Return } from "../../structures"
-import noop from "../../functions/noop"
 
 export default new NativeFunction({
     name: "$setChannelSlowmode",
@@ -12,7 +11,7 @@ export default new NativeFunction({
     args: [
         {
             name: "channel ID",
-            description: "The channel id to set its nsfw state",
+            description: "The channel to set its nsfw state",
             rest: false,
             check: (i: BaseChannel) => "setRateLimitPerUser" in i,
             type: ArgType.Channel,
@@ -26,6 +25,6 @@ export default new NativeFunction({
         },
     ],
     async execute(ctx, [channel, seconds]) {
-        return this.success(!!(await (channel as TextChannel).setRateLimitPerUser(seconds || 0).catch(ctx.noop)))
+        return this.success(!!(await (channel as TextChannel).setRateLimitPerUser(seconds || 0, ctx.reason).catch(ctx.noop)))
     },
 })

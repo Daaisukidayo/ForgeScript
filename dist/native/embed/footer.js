@@ -15,8 +15,8 @@ exports.default = new structures_1.NativeFunction({
             rest: false,
         },
         {
-            name: "url",
-            description: "The url for the embed footer",
+            name: "icon",
+            description: "The icon url for the embed footer",
             type: structures_1.ArgType.String,
             rest: false,
         },

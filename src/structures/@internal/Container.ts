@@ -2,6 +2,7 @@
 import {
     ActionRowBuilder,
     ApplicationCommandOptionChoiceData,
+    ApplicationEmoji,
     AttachmentBuilder,
     AutoModerationActionExecution,
     AutocompleteInteraction,
@@ -12,6 +13,7 @@ import {
     ContainerBuilder,
     ContainerComponentBuilder,
     EmbedBuilder,
+    Emoji,
     Guild,
     GuildEmoji,
     GuildMember,
@@ -24,6 +26,7 @@ import {
     Message,
     MessageActionRowComponentBuilder,
     MessageMentionOptions,
+    MessageMentionTypes,
     MessageReaction,
     MessageReplyOptions,
     ModalBuilder,
@@ -61,6 +64,8 @@ export type Sendable =
     | Invite
     | AutoModerationActionExecution
     | SoundboardSound
+    | Emoji
+    | ApplicationEmoji
 
 export class Container {
     public content?: string
@@ -165,6 +170,11 @@ export class Container {
 
     public embed(index: number) {
         return (this.embeds[index] ??= new EmbedBuilder())
+    }
+
+    public unparseMention(type: MessageMentionTypes) {
+        this.allowedMentions.parse ??= ["everyone", "roles", "users"]
+        return (this.allowedMentions.parse = this.allowedMentions.parse.filter((x) => x !== type))
     }
 
     /**

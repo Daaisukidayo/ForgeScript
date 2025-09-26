@@ -1,5 +1,4 @@
-import noop from "../../functions/noop"
-import { Arg, ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction, Return } from "../../structures"
 
 export default new NativeFunction({
     name: "$addApplicationEmoji",

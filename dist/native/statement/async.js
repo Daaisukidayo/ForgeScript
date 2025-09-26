@@ -18,7 +18,7 @@ exports.default = new structures_1.NativeFunction({
     ],
     experimental: true,
     execute(ctx) {
-        void this["resolveArgs"](ctx);
+        void this["resolveArgs"](ctx).catch(() => { });
         return this.success();
     },
 });

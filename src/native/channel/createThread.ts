@@ -1,6 +1,5 @@
 import { BaseChannel, ChannelType, TextChannel } from "discord.js"
 import { ArgType, NativeFunction, Return } from "../../structures"
-import noop from "../../functions/noop"
 
 export default new NativeFunction({
     name: "$createThread",
@@ -39,7 +38,7 @@ export default new NativeFunction({
         },
         {
             name: "reason",
-            description: "Reason for creating thread",
+            description: "The reason for creating thread",
             rest: false,
             type: ArgType.String
         }
@@ -50,8 +49,8 @@ export default new NativeFunction({
         const success = await ch.threads
             .create({
                 name,
-                startMessage: m ?? undefined,
-                reason: reason ?? undefined,
+                startMessage: m || undefined,
+                reason: reason || ctx.reason,
                 type: priv ? ChannelType.PrivateThread : ChannelType.PublicThread
             })
             .catch(ctx.noop)

@@ -29,7 +29,7 @@ exports.default = new structures_1.NativeFunction({
         let count = 0;
         for (let i = 0, len = emotes.length; i < len; i++) {
             const emote = emotes[i];
-            const success = await emote.delete().catch(ctx.noop);
+            const success = await emote.delete(ctx.reason).catch(ctx.noop);
             if (success)
                 count++;
         }

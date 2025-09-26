@@ -49,6 +49,9 @@ export declare class Arg {
     static optionalSoundboardSound(name?: string, desc?: string): IArg<ArgType.SoundboardSound, boolean, false, EnumLike>;
     static restSoundboardSound(name?: string, desc?: string, required?: boolean): IArg<ArgType.SoundboardSound, boolean, true, EnumLike>;
     static requiredSoundboardSound(name?: string, desc?: string): IArg<ArgType.SoundboardSound, true, false, EnumLike>;
+    static optionalForumTag(name?: string, desc?: string): IArg<ArgType.ForumTag, boolean, false, EnumLike>;
+    static requiredForumTag(name?: string, desc?: string): IArg<ArgType.ForumTag, true, false, EnumLike>;
+    static restForumTag(name?: string, desc?: string, required?: boolean): IArg<ArgType.ForumTag, boolean, true, EnumLike>;
     static restTextChannel(name?: string, desc?: string, required?: boolean): IArg<ArgType.TextChannel, boolean, true, EnumLike>;
     static optionalTextChannel(name?: string, desc?: string): IArg<ArgType.TextChannel, boolean, false, EnumLike>;
     static requiredTextChannel(name?: string, desc?: string): IArg<ArgType.TextChannel, true, false, EnumLike>;

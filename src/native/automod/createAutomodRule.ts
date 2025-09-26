@@ -65,7 +65,7 @@ export default new NativeFunction({
             exemptRoles: ctx.automodRule.exemptRoles,
             exemptChannels: ctx.automodRule.exemptChannels,
             enabled: isBoolean(enabled) ? enabled : true,
-            reason: reason || undefined
+            reason: reason || ctx.reason
         }).catch(ctx.noop)
 
         ctx.clearAutomodRuleOptions()

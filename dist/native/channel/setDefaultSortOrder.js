@@ -26,14 +26,14 @@ exports.default = new structures_1.NativeFunction({
         },
         {
             name: "reason",
-            description: "Reason for modifying default sort order",
+            description: "The reason for modifying default sort order",
             rest: false,
             type: structures_1.ArgType.String
         }
     ],
     output: structures_1.ArgType.Boolean,
     async execute(ctx, [chan, sortOrder, reason]) {
-        return this.success(!!(await chan.setDefaultSortOrder(sortOrder || null, reason || undefined).catch(ctx.noop)));
+        return this.success(!!(await chan.setDefaultSortOrder(sortOrder || null, reason || ctx.reason).catch(ctx.noop)));
     },
 });
 //# sourceMappingURL=setDefaultSortOrder.js.map

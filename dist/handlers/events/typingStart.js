@@ -5,6 +5,7 @@ const DiscordEventHandler_1 = require("../../structures/extended/DiscordEventHan
 exports.default = new DiscordEventHandler_1.DiscordEventHandler({
     name: "typingStart",
     version: "1.4.0",
+    description: "This event is fired when a user starts typing",
     listener: async function (typing) {
         const commands = this.commands.get("typingStart");
         for (const command of commands) {
@@ -17,7 +18,6 @@ exports.default = new DiscordEventHandler_1.DiscordEventHandler({
             });
         }
     },
-    description: "This event is fired when a user starts typing",
     intents: ["GuildMessageTyping", "DirectMessageTyping"],
 });
 //# sourceMappingURL=typingStart.js.map

@@ -1,4 +1,4 @@
-import { BaseChannel, SortOrderType, ThreadOnlyChannel } from "discord.js"
+import { BaseChannel, ThreadOnlyChannel } from "discord.js"
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
@@ -25,13 +25,13 @@ export default new NativeFunction({
         },
         {
             name: "reason",
-            description: "Reason for modifying default slowmode",
+            description: "The reason for modifying default slowmode",
             rest: false,
             type: ArgType.String
         }
     ],
     output: ArgType.Boolean,
     async execute(ctx, [ chan, seconds, reason ]) {
-        return this.success(!!(await (chan as ThreadOnlyChannel).setDefaultThreadRateLimitPerUser(seconds, reason || undefined).catch(ctx.noop)))
+        return this.success(!!(await (chan as ThreadOnlyChannel).setDefaultThreadRateLimitPerUser(seconds, reason || ctx.reason).catch(ctx.noop)))
     },
 })

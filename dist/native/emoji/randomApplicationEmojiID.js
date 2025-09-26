@@ -8,7 +8,7 @@ exports.default = new structures_1.NativeFunction({
     unwrap: false,
     output: structures_1.ArgType.ApplicationEmoji,
     async execute(ctx) {
-        const emojis = await ctx.client.application.emojis.fetch().catch(ctx.noop);
+        const emojis = await ctx.fetchApplicationEmojis(true);
         return this.success(emojis ? emojis.randomKey() : null);
     },
 });

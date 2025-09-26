@@ -26,7 +26,7 @@ exports.default = new structures_1.NativeFunction({
     ],
     async execute(ctx, [channel, reason]) {
         const thread = channel;
-        const success = await thread.delete(reason || undefined).catch(ctx.noop);
+        const success = await thread.delete(reason || ctx.reason).catch(ctx.noop);
         return this.success(!!success);
     },
 });

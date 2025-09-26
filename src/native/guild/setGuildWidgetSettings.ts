@@ -43,9 +43,9 @@ export default new NativeFunction({
         return this.success((await guild.setWidgetSettings(
             {
                 channel: chan as NewsChannel | TextChannel | ForumChannel | MediaChannel | VoiceBasedChannel || null,
-                enabled: enabled ?? guild.widgetEnabled ?? false
+                enabled: enabled || guild.widgetEnabled || false
             },
-            reason || undefined
+            reason || ctx.reason
         ).catch(() => false)) !== false)
     },
 })

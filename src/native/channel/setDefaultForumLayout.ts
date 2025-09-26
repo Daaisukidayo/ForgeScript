@@ -26,13 +26,13 @@ export default new NativeFunction({
         },
         {
             name: "reason",
-            description: "Reason for modifying default layout",
+            description: "The reason for modifying default layout",
             rest: false,
             type: ArgType.String
         }
     ],
     output: ArgType.Boolean,
     async execute(ctx, [ chan, layout, reason ]) {
-        return this.success(!!(await (chan as ForumChannel).setDefaultForumLayout(layout, reason || undefined).catch(ctx.noop)))
+        return this.success(!!(await (chan as ForumChannel).setDefaultForumLayout(layout, reason || ctx.reason).catch(ctx.noop)))
     },
 })

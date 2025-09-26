@@ -36,8 +36,9 @@ export default new NativeFunction({
         const name: Return = await this["resolveUnhandledArg"](ctx, 2)
         if (!this["isValidReturnType"](name)) return name
 
+        const c = ctx.clone(ctx.cloneRuntime())
         const data = setInterval(async () => {
-            await this["resolveCode"](ctx, code)
+            await this["resolveCode"](c, code)
         }, time.value as number)
 
         if (name.value) ctx.client.intervals.set(name.value as string, data)

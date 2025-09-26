@@ -23,5 +23,6 @@ exports.default = new DiscordEventHandler_1.DiscordEventHandler({
             });
         }
     },
+    intents: ["GuildVoiceStates"]
 });
 //# sourceMappingURL=voiceChannelEffectSend.js.map

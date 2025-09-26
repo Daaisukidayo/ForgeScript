@@ -52,7 +52,7 @@ exports.default = new structures_1.NativeFunction({
             days: days || 7,
             dry: dry || false,
             roles: roles,
-            reason: reason || undefined,
+            reason: reason || ctx.reason,
         }).catch(ctx.noop)));
     },
 });

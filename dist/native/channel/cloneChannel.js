@@ -25,7 +25,11 @@ exports.default = new structures_1.NativeFunction({
         }
     ],
     async execute(ctx, [raw, name]) {
-        return this.success((await raw.clone({ name: name || raw.name }).catch(ctx.noop))?.id);
+        const channel = await raw.clone({
+            name: name || raw.name,
+            reason: ctx.reason
+        }).catch(ctx.noop);
+        return this.success(channel?.id);
     },
 });
 //# sourceMappingURL=cloneChannel.js.map

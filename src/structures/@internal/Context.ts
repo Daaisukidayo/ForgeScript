@@ -10,7 +10,6 @@ import {
     Emoji,
     Entitlement,
     Guild,
-    GuildEmoji,
     GuildMember,
     Interaction,
     MediaGalleryBuilder,
@@ -20,14 +19,14 @@ import {
     SectionBuilder,
     SoundboardSound,
     Sticker,
+    Subscription,
     User,
 } from "discord.js"
 import { CompiledFunction, IExtendedCompiledFunctionField } from "./CompiledFunction"
 import { Container, Sendable } from "./Container"
-import { IArg, NativeFunction, UnwrapArgs } from "./NativeFunction"
+import { IArg, UnwrapArgs } from "./NativeFunction"
 import { Return, ReturnType } from "./Return"
 import { IRunnable } from "../../core/Interpreter"
-import noop from "../../functions/noop"
 import { ForgeError } from "../forge/ForgeError"
 import { Logger } from "./Logger"
 import { FormData, Headers } from "undici"
@@ -112,6 +111,7 @@ export interface IContextCache {
     automod: AutoModerationActionExecution | null
     sticker: Sticker | null
     sound: SoundboardSound | null
+    subscription: Subscription | null
 }
 
 export class Context {
@@ -132,6 +132,8 @@ export class Context {
     #keywords: Record<string, unknown> = {}
     #environment: Record<string, unknown> = {}
 
+    private _reason?: string
+
     public container: Container
 
     // eslint-disable-next-line no-unused-vars
@@ -148,6 +150,16 @@ export class Context {
     public set obj(o: Sendable) {
         this.runtime.obj = o
         this.clearCache()
+    }
+
+    public set reason(str: string | undefined) {
+        this._reason = str
+    }
+
+    public get reason() {
+        const str = this._reason
+        this._reason = undefined
+        return str
     }
 
     public get cmd() {
@@ -174,6 +186,10 @@ export class Context {
         return this.#cache.entitlement ??= this.obj instanceof Entitlement ? this.obj : null
     }
 
+    public get subscription() {
+        return this.#cache.subscription ??= this.obj instanceof Subscription ? this.obj : null
+    }
+
     public get member() {
         return (this.#cache.member ??=
             this.obj instanceof GuildMember
@@ -184,7 +200,7 @@ export class Context {
     }
 
     public get emoji() {
-        return (this.#cache.emoji ??= this.obj instanceof GuildEmoji ? this.obj : null)
+        return (this.#cache.emoji ??= this.obj instanceof Emoji ? this.obj : null)
     }
 
     public get sticker() {
@@ -300,6 +316,20 @@ export class Context {
 
     public clearAutomodRuleOptions() {
         this.automodRule = {}
+    }
+
+    /**
+     * Fetches all emojis of the application.
+     * @param once Whether to fetch only when the collection is empty.
+     * @returns 
+     */
+    public async fetchApplicationEmojis(once?: boolean) {
+        const { emojis } = this.client.application
+
+        if (once && emojis.cache.size) {
+            return emojis.cache
+        }
+        return await emojis.fetch().catch(this.noop)
     }
 
     public setEnvironmentKey(name: string, value: unknown) {
@@ -448,6 +478,12 @@ export class Context {
         }
         
         return empty
+    }
+
+    public cloneRuntime() : IRunnable {
+        this.runtime.keywords = this.#keywords as Record<string, string>
+        this.runtime.environment = this.#environment
+        return this.runtime
     }
 
     private clearCache() {

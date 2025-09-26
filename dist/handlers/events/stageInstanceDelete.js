@@ -16,6 +16,7 @@ exports.default = new DiscordEventHandler_1.DiscordEventHandler({
                 states: {
                     stage: {
                         new: ch,
+                        old: ch
                     },
                 },
                 data: command.compiled.code,

@@ -29,7 +29,7 @@ exports.default = new structures_1.NativeFunction({
         let count = 0;
         for (let i = 0, len = stickers.length; i < len; i++) {
             const sticker = stickers[i];
-            const success = await g.stickers.delete(sticker).then(x => true).catch(ctx.noop);
+            const success = await g.stickers.delete(sticker, ctx.reason).then(x => true).catch(ctx.noop);
             if (success)
                 count++;
         }

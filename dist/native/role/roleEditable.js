@@ -11,14 +11,14 @@ exports.default = new structures_1.NativeFunction({
     args: [
         {
             name: "guild ID",
-            description: "The guild id to return the role from",
+            description: "The guild to pull the role from",
             rest: false,
             type: structures_1.ArgType.Guild,
             required: true,
         },
         {
             name: "role ID",
-            description: "The role id return its editable state",
+            description: "The role to return its editable state",
             rest: false,
             type: structures_1.ArgType.Role,
             pointer: 0,

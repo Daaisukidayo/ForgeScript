@@ -1,15 +1,15 @@
-import noop from "../../functions/noop"
 import { ArgType, NativeFunction, Return } from "../../structures"
 
 export default new NativeFunction({
     name: "$timeout",
     version: "1.0.0",
-    description: "Times a member out for X milliseconds",
+    description: "Times a member out for X milliseconds, returns bool",
     unwrap: true,
     aliases: [
-        "$memberTimeout"
+        "$memberTimeout",
+        "$timeoutMember"
     ],
-    output: ArgType.Number,
+    output: ArgType.Boolean,
     brackets: true,
     args: [
         {
@@ -41,7 +41,7 @@ export default new NativeFunction({
         },
     ],
     async execute(ctx, [, member, ms, reason]) {
-        const timeout = await member.disableCommunicationUntil(ms ? Date.now() + ms : null, reason || undefined).catch(ctx.noop)
+        const timeout = await member.disableCommunicationUntil(ms ? Date.now() + ms : null, reason || ctx.reason).catch(ctx.noop)
         return this.success(!!timeout)
     },
 })

@@ -4,7 +4,7 @@ const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$editSticker",
     version: "1.4.0",
-    description: "Edits a sticker's data",
+    description: "Edits a sticker on a guild, returns bool",
     brackets: true,
     unwrap: true,
     args: [
@@ -39,7 +39,8 @@ exports.default = new structures_1.NativeFunction({
         return this.success(!!(await s.edit({
             name: name || undefined,
             description: desc || undefined,
-            tags: tags.join(" ") || undefined
+            tags: tags.join(" ") || undefined,
+            reason: ctx.reason
         }).catch(ctx.noop)));
     },
 });

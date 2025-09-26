@@ -3,7 +3,7 @@ import { ArgType, NativeFunction, Return } from "../../structures"
 export default new NativeFunction({
     name: "$webhookEdit",
     version: "1.0.0",
-    description: "Edits webhook with given id",
+    description: "Edits webhook with given id, returns bool",
     brackets: true,
     unwrap: true,
     output: ArgType.Boolean,
@@ -33,6 +33,7 @@ export default new NativeFunction({
             .edit({
                 avatar: avatar || undefined,
                 name: name || undefined,
+                reason: ctx.reason
             })
             .catch(ctx.noop)
 

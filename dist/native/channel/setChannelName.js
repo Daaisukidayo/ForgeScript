@@ -11,7 +11,7 @@ exports.default = new structures_1.NativeFunction({
     args: [
         {
             name: "channel ID",
-            description: "The channel id to set its name",
+            description: "The channel to set its name",
             rest: false,
             check: (i) => "setName" in i,
             type: structures_1.ArgType.Channel,
@@ -26,7 +26,7 @@ exports.default = new structures_1.NativeFunction({
         },
     ],
     async execute(ctx, [channel, name]) {
-        return this.success(!!(await channel.setName(name).catch(ctx.noop)));
+        return this.success(!!(await channel.setName(name, ctx.reason).catch(ctx.noop)));
     },
 });
 //# sourceMappingURL=setChannelName.js.map

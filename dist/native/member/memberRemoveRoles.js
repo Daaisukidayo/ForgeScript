@@ -4,7 +4,7 @@ const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$memberRemoveRoles",
     version: "1.0.0",
-    description: "Removes roles from a member and returns bool",
+    description: "Removes roles from a member, returns bool",
     unwrap: true,
     brackets: true,
     output: structures_1.ArgType.Boolean,
@@ -34,7 +34,7 @@ exports.default = new structures_1.NativeFunction({
     ],
     async execute(ctx, [, member, roles]) {
         member ??= ctx.member;
-        const d = await member.roles.remove(roles).catch(ctx.noop);
+        const d = await member.roles.remove(roles, ctx.reason).catch(ctx.noop);
         return this.success(!!d);
     },
 });

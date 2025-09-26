@@ -36,8 +36,9 @@ exports.default = new structures_1.NativeFunction({
         const name = await this["resolveUnhandledArg"](ctx, 2);
         if (!this["isValidReturnType"](name))
             return name;
+        const c = ctx.clone(ctx.cloneRuntime());
         const data = setTimeout(async () => {
-            await this["resolveCode"](ctx, code);
+            await this["resolveCode"](c, code);
             if (name.value)
                 ctx.client.timeouts.delete(name.value);
         }, time.value);

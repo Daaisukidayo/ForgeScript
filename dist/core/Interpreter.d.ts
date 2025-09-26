@@ -1,4 +1,4 @@
-import { Message, VoiceState, Presence, Role, GuildMember, GuildEmoji, User, GuildAuditLogsEntry, Channel, Guild, StageInstance, Invite, PartialMessage, Sticker, GuildBan, GuildScheduledEvent, Entitlement, PollAnswer, AutoModerationRule, VoiceChannelEffect, SoundboardSound, PartialSoundboardSound } from "discord.js";
+import { AutoModerationRule, Channel, Entitlement, Guild, GuildAuditLogsEntry, GuildBan, GuildEmoji, GuildMember, GuildScheduledEvent, Invite, Message, PartialMessage, PartialSoundboardSound, PollAnswer, Presence, Role, SoundboardSound, StageInstance, Sticker, Subscription, User, VoiceChannelEffect, VoiceState } from "discord.js";
 import { IExtendedCompilationResult } from ".";
 import { Sendable, BaseCommand, Context, Container } from "../structures";
 import { ForgeClient } from "./ForgeClient";
@@ -24,6 +24,7 @@ export interface IStates {
     sticker: Sticker;
     automodRule: AutoModerationRule;
     soundboardSound: SoundboardSound | PartialSoundboardSound;
+    subscription: Subscription;
 }
 export type States = {
     [K in keyof IStates]?: {

@@ -27,6 +27,6 @@ export default new NativeFunction({
     ],
     output: ArgType.Boolean,
     async execute(ctx, [ chan1, chan2 ]) {
-        return this.success(!!(await (chan2 as GuildChannel).permissionOverwrites.set((chan1 as GuildChannel).permissionOverwrites.cache).catch(ctx.noop)))
+        return this.success(!!(await (chan2 as GuildChannel).permissionOverwrites.set((chan1 as GuildChannel).permissionOverwrites.cache, ctx.reason).catch(ctx.noop)))
     },
 })

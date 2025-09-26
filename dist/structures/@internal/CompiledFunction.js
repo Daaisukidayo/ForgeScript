@@ -279,7 +279,7 @@ class CompiledFunction {
         return this.resolveGuildEmoji(ctx, arg, id, ref) ?? await this.resolveApplicationEmoji(ctx, arg, id, ref);
     }
     resolveForumTag(ctx, arg, str, ref) {
-        return this.resolvePointer(arg, ref, ctx.channel)?.availableTags.find((x) => x.id === str || x.name === str);
+        return this.resolvePointer(arg, ref, ctx.channel)?.availableTags.find((x) => x.id === str);
     }
     resolveSticker(ctx, arg, str, ref) {
         const fromUrl = CompiledFunction.CDNIdRegex.exec(str);

@@ -1,6 +1,5 @@
-import { ChannelType, GuildChannelCreateOptions } from "discord.js"
+import { BaseChannel, CategoryChannel, ChannelType, GuildChannelCreateOptions } from "discord.js"
 import { ArgType, NativeFunction, Return } from "../../structures"
-import noop from "../../functions/noop"
 
 export default new NativeFunction({
     name: "$createChannel",
@@ -18,14 +17,14 @@ export default new NativeFunction({
             type: ArgType.Guild,
         },
         {
-            name: "channel name",
+            name: "name",
             description: "The name for the channel",
             rest: false,
             required: true,
             type: ArgType.String,
         },
         {
-            name: "channel type",
+            name: "type",
             description: "The type of the channel, some are not supported",
             rest: false,
             type: ArgType.Enum,
@@ -42,16 +41,19 @@ export default new NativeFunction({
             name: "parent ID",
             description: "The parent id for the channel",
             rest: false,
-            type: ArgType.String,
+            type: ArgType.Channel,
+            check: (i: BaseChannel) => i.type === ChannelType.GuildCategory,
+            pointer: 0,
         },
     ],
-    async execute(ctx, [guild, name, type, topic, parentId]) {
+    async execute(ctx, [guild, name, type, topic, parent]) {
         const ch = await guild.channels
             .create({
                 type: type as GuildChannelCreateOptions["type"],
                 name,
                 topic: topic || undefined,
-                parent: parentId,
+                parent: parent as CategoryChannel,
+                reason: ctx.reason
             })
             .catch(ctx.noop)
         return this.success(ch ? ch.id : undefined)

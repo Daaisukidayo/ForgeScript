@@ -3,7 +3,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const discord_js_1 = require("discord.js");
 const structures_1 = require("../../structures");
 const forumTag_1 = require("../../properties/forumTag");
 const array_1 = __importDefault(require("../../functions/array"));
@@ -22,7 +21,7 @@ exports.default = new structures_1.NativeFunction({
             description: "The channel to get tags of",
             rest: false,
             type: structures_1.ArgType.Channel,
-            check: (i) => i.type === discord_js_1.ChannelType.GuildForum,
+            check: (i) => i.isThreadOnly(),
             required: true
         },
         {

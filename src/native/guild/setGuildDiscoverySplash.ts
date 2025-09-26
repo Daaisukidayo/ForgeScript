@@ -32,6 +32,6 @@ export default new NativeFunction({
     ],
     brackets: true,
     async execute(ctx, [guild, icon, reason]) {
-        return this.success((await guild.setDiscoverySplash(icon || null, reason || undefined).catch(() => false)) !== false)
+        return this.success((await guild.setDiscoverySplash(icon || null, reason || ctx.reason).catch(() => false)) !== false)
     },
 })

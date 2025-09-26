@@ -25,6 +25,6 @@ exports.default = new DiscordEventHandler_1.DiscordEventHandler({
             });
         }
     },
-    intents: ["Guilds", "GuildMessages"],
+    intents: ["GuildMessages"],
 });
 //# sourceMappingURL=messageDeleteBulk.js.map

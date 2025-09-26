@@ -61,7 +61,7 @@ async function default_1(functionsAbsolutePath, mainCategoryName, eventName, war
     const metaOutPath = "./metadata";
     if (!(0, fs_1.existsSync)(metaOutPath))
         (0, fs_1.mkdirSync)(metaOutPath);
-    const toSrcPath = (absPath) => (0, path_1.relative)((0, process_1.cwd)(), absPath).replace(/^dist\//, "src/");
+    const toSrcPath = (absPath) => (0, path_1.relative)((0, process_1.cwd)(), absPath).replace(/\\/g, "/").replace(/^dist\//, "src/");
     (0, fs_1.writeFileSync)((0, path_1.join)(metaOutPath, "paths.json"), JSON.stringify({
         functions: toSrcPath(functionsAbsolutePath),
         ...(eventsAbsolutePath && { events: toSrcPath(eventsAbsolutePath) })

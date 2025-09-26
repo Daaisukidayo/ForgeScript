@@ -34,6 +34,6 @@ exports.default = new DiscordEventHandler_1.DiscordEventHandler({
             });
         }
     },
-    intents: ["GuildMessages"],
+    intents: ["GuildMessages", "DirectMessages"],
 });
 //# sourceMappingURL=messageUpdate.js.map

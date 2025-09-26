@@ -32,7 +32,7 @@ exports.default = new structures_1.NativeFunction({
     ],
     brackets: true,
     async execute(ctx, [, role, emoji]) {
-        return this.success(!!(await role.setUnicodeEmoji(emoji).catch(ctx.noop)));
+        return this.success(!!(await role.setUnicodeEmoji(emoji, ctx.reason).catch(ctx.noop)));
     },
 });
 //# sourceMappingURL=editRoleUnicodeEmoji.js.map

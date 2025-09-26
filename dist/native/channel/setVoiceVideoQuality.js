@@ -27,7 +27,7 @@ exports.default = new structures_1.NativeFunction({
         },
         {
             name: "reason",
-            description: "Reason to change the video quality",
+            description: "The reason to change the video quality",
             rest: false,
             required: false,
             type: structures_1.ArgType.String
@@ -35,7 +35,7 @@ exports.default = new structures_1.NativeFunction({
     ],
     unwrap: true,
     async execute(ctx, [channel, quality, reason]) {
-        return this.success(!!(await channel.setVideoQualityMode(quality, reason || undefined).catch(ctx.noop)));
+        return this.success(!!(await channel.setVideoQualityMode(quality, reason || ctx.reason).catch(ctx.noop)));
     },
 });
 //# sourceMappingURL=setVoiceVideoQuality.js.map

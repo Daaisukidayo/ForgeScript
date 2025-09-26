@@ -33,6 +33,6 @@ export default new NativeFunction({
     ],
     output: ArgType.Boolean,
     async execute(ctx, [guild, enabled, reason]) {
-        return this.success((await guild.setPremiumProgressBarEnabled(enabled, reason || undefined).catch(() => false)) !== false)
+        return this.success((await guild.setPremiumProgressBarEnabled(enabled, reason || ctx.reason).catch(() => false)) !== false)
     },
 })

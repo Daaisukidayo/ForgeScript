@@ -43,7 +43,7 @@ export default new NativeFunction({
         },
         {
             name: "reason",
-            description: "Reason to set the voice region",
+            description: "The reason to set the voice region",
             rest: false,
             required: false,
             type: ArgType.String
@@ -51,6 +51,6 @@ export default new NativeFunction({
     ],
     output: ArgType.Boolean,
     async execute(ctx, [voice, region, reason]) {
-        return this.success(!!(await (voice as VoiceChannel).setRTCRegion(region || null, reason || undefined).catch(ctx.noop)))
+        return this.success(!!(await (voice as VoiceChannel).setRTCRegion(region || null, reason || ctx.reason).catch(ctx.noop)))
     },
 })

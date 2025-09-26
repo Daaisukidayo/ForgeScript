@@ -27,7 +27,7 @@ exports.default = new structures_1.NativeFunction({
     ],
     output: structures_1.ArgType.Boolean,
     async execute(ctx, [chan1, chan2]) {
-        return this.success(!!(await chan2.permissionOverwrites.set(chan1.permissionOverwrites.cache).catch(ctx.noop)));
+        return this.success(!!(await chan2.permissionOverwrites.set(chan1.permissionOverwrites.cache, ctx.reason).catch(ctx.noop)));
     },
 });
 //# sourceMappingURL=cloneChannelPerms.js.map

@@ -1,4 +1,3 @@
-import noop from "../../functions/noop"
 import { ArgType, NativeFunction, Return } from "../../structures"
 
 export default new NativeFunction({
@@ -50,6 +49,7 @@ export default new NativeFunction({
                 attachment: icon,
                 name,
                 roles: roles || undefined,
+                reason: ctx.reason
             })
             .catch(ctx.noop)
 

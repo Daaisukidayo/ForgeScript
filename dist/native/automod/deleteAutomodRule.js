@@ -33,7 +33,7 @@ exports.default = new structures_1.NativeFunction({
     output: structures_1.ArgType.Boolean,
     async execute(ctx, [, rule, reason]) {
         try {
-            await rule.delete(reason || undefined);
+            await rule.delete(reason || ctx.reason);
         }
         catch (error) {
             ctx.noop(error);

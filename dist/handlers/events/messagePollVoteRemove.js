@@ -24,6 +24,6 @@ exports.default = new DiscordEventHandler_1.DiscordEventHandler({
             });
         }
     },
-    intents: ["Guilds", "GuildMessagePolls", "DirectMessagePolls"],
+    intents: ["GuildMessagePolls", "DirectMessagePolls"],
 });
 //# sourceMappingURL=messagePollVoteRemove.js.map

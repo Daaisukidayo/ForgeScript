@@ -14,8 +14,8 @@ export default new NativeFunction({
             rest: false,
         },
         {
-            name: "url",
-            description: "The url for the embed footer",
+            name: "icon",
+            description: "The icon url for the embed footer",
             type: ArgType.String,
             rest: false,
         },

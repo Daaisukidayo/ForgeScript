@@ -1,6 +1,5 @@
 import { BaseChannel, ThreadChannel } from "discord.js"
 import { ArgType, NativeFunction, Return } from "../../structures"
-import noop from "../../functions/noop"
 
 export default new NativeFunction({
     name: "$lockThread",
@@ -28,9 +27,9 @@ export default new NativeFunction({
     ],
     async execute(ctx, [channel, reason]) {
         const thread = (channel ?? ctx.channel) as ThreadChannel
-        if (!thread.isThread()) return this.success(false)
+        if (!thread?.isThread()) return this.success(false)
 
-        const success = await thread.setLocked(true, reason || undefined).catch(ctx.noop)
+        const success = await thread.setLocked(true, reason || ctx.reason).catch(ctx.noop)
 
         return this.success(!!success)
     },

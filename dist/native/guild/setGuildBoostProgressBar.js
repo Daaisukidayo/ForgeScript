@@ -34,7 +34,7 @@ exports.default = new structures_1.NativeFunction({
     ],
     output: structures_1.ArgType.Boolean,
     async execute(ctx, [guild, enabled, reason]) {
-        return this.success((await guild.setPremiumProgressBarEnabled(enabled, reason || undefined).catch(() => false)) !== false);
+        return this.success((await guild.setPremiumProgressBarEnabled(enabled, reason || ctx.reason).catch(() => false)) !== false);
     },
 });
 //# sourceMappingURL=setGuildBoostProgressBar.js.map

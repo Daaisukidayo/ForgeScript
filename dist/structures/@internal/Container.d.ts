@@ -1,5 +1,5 @@
-import { ActionRowBuilder, ApplicationCommandOptionChoiceData, AttachmentBuilder, AutoModerationActionExecution, BaseChannel, Channel, ComponentType, ContainerBuilder, ContainerComponentBuilder, EmbedBuilder, Guild, GuildEmoji, GuildMember, GuildScheduledEvent, Interaction, InteractionEditReplyOptions, InteractionReplyOptions, Invite, Message, MessageActionRowComponentBuilder, MessageMentionOptions, MessageReaction, MessageReplyOptions, ModalBuilder, PollData, Presence, Role, SoundboardSound, Sticker, StickerResolvable, ThreadChannelResolvable, User, VoiceState, WebhookClient } from "discord.js";
-export type Sendable = {} | Sticker | GuildScheduledEvent | Role | Presence | Message | User | GuildMember | BaseChannel | Interaction | VoiceState | WebhookClient | GuildEmoji | Guild | MessageReaction | Invite | AutoModerationActionExecution | SoundboardSound;
+import { ActionRowBuilder, ApplicationCommandOptionChoiceData, ApplicationEmoji, AttachmentBuilder, AutoModerationActionExecution, BaseChannel, Channel, ComponentType, ContainerBuilder, ContainerComponentBuilder, EmbedBuilder, Emoji, Guild, GuildEmoji, GuildMember, GuildScheduledEvent, Interaction, InteractionEditReplyOptions, InteractionReplyOptions, Invite, Message, MessageActionRowComponentBuilder, MessageMentionOptions, MessageMentionTypes, MessageReaction, MessageReplyOptions, ModalBuilder, PollData, Presence, Role, SoundboardSound, Sticker, StickerResolvable, ThreadChannelResolvable, User, VoiceState, WebhookClient } from "discord.js";
+export type Sendable = {} | Sticker | GuildScheduledEvent | Role | Presence | Message | User | GuildMember | BaseChannel | Interaction | VoiceState | WebhookClient | GuildEmoji | Guild | MessageReaction | Invite | AutoModerationActionExecution | SoundboardSound | Emoji | ApplicationEmoji;
 export declare class Container {
     content?: string;
     embeds: EmbedBuilder[];
@@ -32,6 +32,7 @@ export declare class Container {
     send<T = unknown>(obj: Sendable, content?: string, messageID?: string): Promise<T | null>;
     isValidMessage(options: MessageReplyOptions & InteractionReplyOptions & InteractionEditReplyOptions): boolean;
     embed(index: number): EmbedBuilder;
+    unparseMention(type: MessageMentionTypes): MessageMentionTypes[];
     /**
      * Checks if current context is inside a component builder function.
      * @param type The type of the component to check for.

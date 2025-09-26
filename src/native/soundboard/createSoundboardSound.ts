@@ -66,7 +66,7 @@ export default new NativeFunction({
             emojiId: parsed?.id || undefined,
             emojiName: parsed?.id ? undefined : parsed?.name || undefined,
             volume: typeof(volume) === "number" ? volume : undefined,
-            reason: reason || undefined
+            reason: reason || ctx.reason
         }).catch(ctx.noop)
 
         return this.success(sound?.soundId)

@@ -35,7 +35,7 @@ exports.default = new structures_1.NativeFunction({
     ],
     brackets: true,
     async execute(ctx, [guild, level, reason]) {
-        return this.success((await guild.setVerificationLevel(level || null, reason || undefined).catch(() => false)) !== false);
+        return this.success((await guild.setVerificationLevel(level || null, reason || ctx.reason).catch(() => false)) !== false);
     },
 });
 //# sourceMappingURL=setGuildVerificationLevel.js.map

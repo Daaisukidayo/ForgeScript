@@ -1,4 +1,3 @@
-import { MemberProperties, MemberProperty } from "../../properties/member"
 import { StageProperties, StageProperty } from "../../properties/stage"
 import { ArgType, NativeFunction, Return } from "../../structures"
 

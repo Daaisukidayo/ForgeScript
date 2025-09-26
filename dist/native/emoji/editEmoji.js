@@ -48,7 +48,7 @@ exports.default = new structures_1.NativeFunction({
         return this.success(!!(await emoji
             .edit({
             name: name || undefined,
-            reason: reason || undefined,
+            reason: reason || ctx.reason,
             roles: roles || undefined,
         })
             .catch(ctx.noop)));

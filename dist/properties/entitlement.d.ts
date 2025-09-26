@@ -1,4 +1,3 @@
-import { Entitlement } from "discord.js";
 export declare enum EntitlementProperty {
     userID = "userID",
     consumed = "consumed",
@@ -13,5 +12,5 @@ export declare enum EntitlementProperty {
     guildSubscription = "guildSubscription",
     userSubscription = "userSubscription"
 }
-export declare const EntitlementProperties: import("../functions/defineProperties").Properties<typeof EntitlementProperty, Entitlement>;
+export declare const EntitlementProperties: import("../functions/defineProperties").Properties<typeof EntitlementProperty, import("discord.js").Entitlement>;
 //# sourceMappingURL=entitlement.d.ts.map

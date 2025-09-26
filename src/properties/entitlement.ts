@@ -1,4 +1,4 @@
-import { Channel, ChannelType, Collection, Entitlement, EntitlementType, GuildMember } from "discord.js"
+import { EntitlementType } from "discord.js"
 import defineProperties from "../functions/defineProperties"
 import { IStates } from "../core"
 

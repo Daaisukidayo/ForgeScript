@@ -4,7 +4,7 @@ const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$setStickerName",
     version: "1.4.0",
-    description: "Sets a sticker's name",
+    description: "Sets a sticker's name, returns bool",
     brackets: true,
     unwrap: true,
     args: [
@@ -26,7 +26,8 @@ exports.default = new structures_1.NativeFunction({
     output: structures_1.ArgType.Boolean,
     async execute(ctx, [s, n]) {
         return this.success(!!(await s.edit({
-            name: n
+            name: n,
+            reason: ctx.reason
         }).catch(ctx.noop)));
     },
 });

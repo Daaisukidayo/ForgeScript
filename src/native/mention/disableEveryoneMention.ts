@@ -6,8 +6,7 @@ export default new NativeFunction({
     description: "Disables everyone mention",
     unwrap: false,
     execute(ctx) {
-        ctx.container.allowedMentions.parse = ["everyone"]
-
+        ctx.container.unparseMention("everyone")
         return this.success()
     },
 })

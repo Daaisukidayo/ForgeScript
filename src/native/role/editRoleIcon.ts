@@ -31,6 +31,6 @@ export default new NativeFunction({
         },
     ],
     async execute(ctx, [, role, url]) {
-        return this.success(!!(await role.setIcon(url).catch(ctx.noop)))
+        return this.success(!!(await role.setIcon(url, ctx.reason).catch(ctx.noop)))
     },
 })

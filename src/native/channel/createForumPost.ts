@@ -1,6 +1,5 @@
-import { BaseChannel, ChannelType, ForumChannel } from "discord.js"
+import { BaseChannel, ThreadOnlyChannel } from "discord.js"
 import { ArgType, NativeFunction, Return } from "../../structures"
-import noop from "../../functions/noop"
 
 export default new NativeFunction({
     name: "$createForumPost",
@@ -14,7 +13,7 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Channel,
-            check: (i: BaseChannel) => i.type === ChannelType.GuildForum,
+            check: (i: BaseChannel) => i.isThreadOnly(),
             description: "The channel to create a post on",
         },
         {
@@ -39,7 +38,7 @@ export default new NativeFunction({
     ],
     brackets: true,
     async execute(ctx, [channel, title, desc, tags]) {
-        const forum = channel as ForumChannel
+        const forum = channel as ThreadOnlyChannel
 
         ctx.container.content = desc || undefined
 
@@ -48,6 +47,7 @@ export default new NativeFunction({
                 appliedTags: tags,
                 name: title,
                 message: ctx.container.getOptions(),
+                reason: ctx.reason
             })
             .catch(ctx.noop)
 

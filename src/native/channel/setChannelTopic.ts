@@ -1,6 +1,5 @@
 import { BaseChannel, TextChannel } from "discord.js"
 import { ArgType, NativeFunction, Return } from "../../structures"
-import noop from "../../functions/noop"
 
 export default new NativeFunction({
     name: "$setChannelTopic",
@@ -12,7 +11,7 @@ export default new NativeFunction({
     args: [
         {
             name: "channel ID",
-            description: "The channel id to set its topic",
+            description: "The channel to set its topic",
             rest: false,
             check: (i: BaseChannel) => "setTopic" in i,
             type: ArgType.Channel,
@@ -26,6 +25,6 @@ export default new NativeFunction({
         },
     ],
     async execute(ctx, [channel, topic]) {
-        return this.success(!!(await (channel as TextChannel).setTopic(topic || null).catch(ctx.noop)))
+        return this.success(!!(await (channel as TextChannel).setTopic(topic || null, ctx.reason).catch(ctx.noop)))
     },
 })

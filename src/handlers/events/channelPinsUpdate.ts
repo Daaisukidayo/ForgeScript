@@ -18,5 +18,5 @@ export default new DiscordEventHandler({
             })
         }
     },
-    intents: ["Guilds"],
+    intents: ["Guilds", "DirectMessages"],
 })
