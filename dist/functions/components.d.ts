@@ -21,9 +21,10 @@ export declare function buildActionRow(comp: any): ButtonBuilder | StringSelectM
  */
 export declare function buildComponent(comp: any, ctx?: Context): ContainerBuilder | FileBuilder | MediaGalleryBuilder | SectionBuilder | SeparatorBuilder | TextDisplayBuilder | ActionRowBuilder<import("@discordjs/builders").AnyComponentBuilder>;
 /**
- * Adds an action row. This is only needed inside ComponentsV2 functions and should never be used outside this context.
+ * Adds an action row to the components. This is mostly needed inside ComponentsV2 functions.
  * @param ctx The current context.
+ * @param cv2 Whether to set the IsComponentsV2 flag. Defaults to `true`.
  * @returns
  */
-export declare function addActionRow(ctx: Context): void;
+export declare function addActionRow(ctx: Context, cv2?: boolean): void;
 //# sourceMappingURL=components.d.ts.map

@@ -68,12 +68,13 @@ export function buildComponent(comp: any, ctx?: Context) {
 }
 
 /**
- * Adds an action row. This is only needed inside ComponentsV2 functions and should never be used outside this context.
+ * Adds an action row to the components. This is mostly needed inside ComponentsV2 functions.
  * @param ctx The current context.
+ * @param cv2 Whether to set the IsComponentsV2 flag. Defaults to `true`.
  * @returns 
  */
-export function addActionRow(ctx: Context) {
-    ctx.container.isComponentsV2 = true
+export function addActionRow(ctx: Context, cv2: boolean = true) {
+    if (cv2) ctx.container.isComponentsV2 = true
 
     const row = ctx.container.actionRow
     if (!row) return
