@@ -19,4 +19,4 @@ declare const _default: NativeFunction<[{
     type: ArgType.String;
 }], true>;
 export default _default;
-//# sourceMappingURL=fetchGuildPreview.d.ts.map
+//# sourceMappingURL=getGuildPreview.d.ts.map

@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const guild_1 = require("../../properties/guild");
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
-    name: "$fetchGuildPreview",
+    name: "$getGuildPreview",
     version: "2.5.0",
     description: "Returns the preview of a guild",
     brackets: false,
@@ -41,4 +41,4 @@ exports.default = new structures_1.NativeFunction({
         return this.successJSON(preview);
     },
 });
-//# sourceMappingURL=fetchGuildPreview.js.map
+//# sourceMappingURL=getGuildPreview.js.map

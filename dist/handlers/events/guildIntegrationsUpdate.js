@@ -4,6 +4,7 @@ const core_1 = require("../../core");
 const DiscordEventHandler_1 = require("../../structures/extended/DiscordEventHandler");
 exports.default = new DiscordEventHandler_1.DiscordEventHandler({
     name: "guildIntegrationsUpdate",
+    version: "2.5.0",
     description: "This event is fired when an integration is updated on a guild",
     listener: async function (g) {
         const commands = this.commands.get("guildIntegrationsUpdate");

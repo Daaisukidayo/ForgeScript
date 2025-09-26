@@ -4,6 +4,7 @@ const core_1 = require("../../core");
 const DiscordEventHandler_1 = require("../../structures/extended/DiscordEventHandler");
 exports.default = new DiscordEventHandler_1.DiscordEventHandler({
     name: "webhooksUpdate",
+    version: "2.5.0",
     description: "This event is fired when a webhook is updated",
     listener: async function (c) {
         const commands = this.commands.get("webhooksUpdate");

@@ -4,6 +4,7 @@ const subscription_1 = require("../../properties/subscription");
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$oldSubscription",
+    version: "2.5.0",
     description: "Retrieves old data from an event whose context was a subscription instance",
     brackets: true,
     unwrap: true,

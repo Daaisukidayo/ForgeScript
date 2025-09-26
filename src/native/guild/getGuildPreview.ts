@@ -2,7 +2,7 @@ import { GuildPreviewProperties, GuildPreviewProperty } from "../../properties/g
 import { ArgType, NativeFunction, Return } from "../../structures"
 
 export default new NativeFunction({
-    name: "$fetchGuildPreview",
+    name: "$getGuildPreview",
     version: "2.5.0",
     description: "Returns the preview of a guild",
     brackets: false,
