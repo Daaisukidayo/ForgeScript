@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: LGPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { BaseChannel, BaseGuildTextChannel } from "discord.js"
 import { ArgType, NativeFunction, Return } from "../../structures"
 import { WebhookProperties, WebhookProperty } from "../../properties/webhook"

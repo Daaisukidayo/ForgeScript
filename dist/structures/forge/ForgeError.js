@@ -1,4 +1,8 @@
 "use strict";
+/*
+* SPDX-License-Identifier: LGPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ForgeError = exports.ErrorType = void 0;
 var ErrorType;

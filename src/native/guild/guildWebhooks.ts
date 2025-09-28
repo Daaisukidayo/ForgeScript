@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: LGPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { ArgType, NativeFunction, Return } from "../../structures"
 import array from "../../functions/array"
 import { WebhookProperties, WebhookProperty } from "../../properties/webhook"

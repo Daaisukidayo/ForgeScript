@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: LGPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { Embed, EmbedBuilder } from "discord.js"
 import { EmbedProperties, EmbedProperty } from "../../properties/embed"
 import { ArgType, NativeFunction, Return } from "../../structures"

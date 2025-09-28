@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: LGPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 export * from "./base/BaseCommand"
 export * from "./@internal/CompiledFunction"
 export * from "./@internal/Container"

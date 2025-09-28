@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: LGPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { ArgType, IExtendedCompiledFunctionField, NativeFunction, Return } from "../../structures"
 import { addActionRow } from "../../functions/components"
 import { ComponentType, ContainerBuilder, MediaGalleryBuilder } from "discord.js"

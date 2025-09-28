@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: LGPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { InviteProperties, InviteProperty } from "../../properties/invite"
 import { ArgType, NativeFunction } from "../../structures"
 import array from "../../functions/array"

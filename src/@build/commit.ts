@@ -1,13 +1,34 @@
+/*
+* SPDX-License-Identifier: LGPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
+/*
+* SPDX-License-Identifier: LGPL-3.0-or-later
+* Copyright Â© 2025 BotForge
+*/
+
+import { stdin, stdout } from "process"
+import { createInterface } from "readline"
 import { execSync } from "child_process"
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs"
-import prompt from "./functions/prompt"
 import { join } from "path"
 import { platform } from "os"
+
+async function prompt(q: string) {
+    const itf = createInterface(stdin, stdout)
+    return new Promise<string>(r => {
+        itf.question(q, input => {
+            itf.close()
+            r(input)
+        })
+    })
+}
 
 const path = "./metadata"
 if (!existsSync(path)) mkdirSync(path)
 
-const version = require("../package.json").version
+const version = require("../../package.json").version
 
 async function main() {
     let skip = false

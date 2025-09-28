@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: LGPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { UserProperties, UserProperty } from "../../properties/user"
 import { ArgType, NativeFunction, Return } from "../../structures"
 

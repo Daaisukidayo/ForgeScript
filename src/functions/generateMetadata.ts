@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: LGPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs"
 import { EventManager, FunctionManager } from "../managers"
 import { cwd, exit } from "process"

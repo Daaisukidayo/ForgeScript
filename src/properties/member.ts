@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: LGPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { APIInteractionGuildMember, CDN, GuildMember, GuildMemberFlagsBitField, PermissionsBitField, userMention } from "discord.js"
 import defineProperties from "../functions/defineProperties"
 

@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: LGPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { Role } from "discord.js"
 import defineProperties from "../functions/defineProperties"
 import { int2hex } from "../functions/hex"

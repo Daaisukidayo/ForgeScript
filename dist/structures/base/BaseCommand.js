@@ -1,4 +1,8 @@
 "use strict";
+/*
+* SPDX-License-Identifier: LGPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BaseCommand = void 0;
 const core_1 = require("../../core");

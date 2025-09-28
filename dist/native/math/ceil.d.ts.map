@@ -1,1 +1,1 @@
-{"version":3,"file":"ceil.d.ts","sourceRoot":"","sources":["../../../src/native/math/ceil.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,cAAc,EAAU,MAAM,kBAAkB,CAAA;;;;;;;;AAElE,wBAmBE"}
+{"version":3,"file":"ceil.d.ts","sourceRoot":"","sources":["../../../src/native/math/ceil.ts"],"names":[],"mappings":"AAKA,OAAO,EAAE,OAAO,EAAE,cAAc,EAAU,MAAM,kBAAkB,CAAA;;;;;;;;AAElE,wBAmBE"}

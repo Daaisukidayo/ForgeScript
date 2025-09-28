@@ -1,4 +1,8 @@
 "use strict";
+/*
+* SPDX-License-Identifier: LGPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
 Object.defineProperty(exports, "__esModule", { value: true });
 function default_1(n, max) {
     const splitTimes = n % max === 0 ? Math.floor(n / max) : Math.floor(n / max) + 1;

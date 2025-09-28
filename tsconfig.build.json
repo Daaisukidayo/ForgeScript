@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "jsx": "react",
+        "target": "es2022",
+        "module": "commonjs",
+        "rootDir": "./src/@build",
+        "outDir": "./dist/@build",
+        "declaration": true,
+        "declarationMap": true,
+        "sourceMap": true,
+        "strict": true,
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "skipLibCheck": true
+    },
+    "include": ["./src/@build"]
+}

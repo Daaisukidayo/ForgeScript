@@ -1,1 +1,1 @@
-{"version":3,"file":"memberRemoveRoles.d.ts","sourceRoot":"","sources":["../../../src/native/member/memberRemoveRoles.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,cAAc,EAAU,MAAM,kBAAkB,CAAA;;;;;;;;;;;;;;;;;;;;;AAElE,wBAqCE"}
+{"version":3,"file":"memberRemoveRoles.d.ts","sourceRoot":"","sources":["../../../src/native/member/memberRemoveRoles.ts"],"names":[],"mappings":"AAKA,OAAO,EAAE,OAAO,EAAE,cAAc,EAAU,MAAM,kBAAkB,CAAA;;;;;;;;;;;;;;;;;;;;;AAElE,wBAqCE"}

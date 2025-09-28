@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: LGPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { ClientEvents, Collection } from "discord.js"
 import { type ForgeClient } from "../core/ForgeClient"
 import { CommandType } from "../structures/base/BaseCommand"

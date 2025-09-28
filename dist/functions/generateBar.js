@@ -1,4 +1,8 @@
 "use strict";
+/*
+* SPDX-License-Identifier: LGPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.generateAdvancedBar = exports.generateBar = void 0;
 function generateBar(current, max, len = 10, fill = "█", empty = "▒", round = true, fillStart = "", fillEnd = "", emptyStart = "", emptyEnd = "") {

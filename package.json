@@ -6,10 +6,11 @@
   "main": "dist/index.js",
   "scripts": {
     "prepublishOnly": "tsc",
-    "docgen": "tsc && typedoc ./src --out ./docs && node dist/docgen",
+    "build": "tsc -p tsconfig.build.json && node dist/@build/license && tsc -p tsconfig.json",
+    "docgen": "npm run build && typedoc ./src --out ./docs && node dist/docgen",
     "eslint": "eslint ./src/**/* --fix",
-    "commit": "npm run docgen && node dist/commit",
-    "test": "tsc && node dist/__tests__/runner"
+    "commit": "npm run docgen && node dist/@build/commit",
+    "test": "npm run build && node dist/__tests__/runner"
   },
   "keywords": [
     "bdfd",

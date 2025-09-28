@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: LGPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { once } from "events"
 import { join } from "path"
 import { Worker } from "worker_threads"

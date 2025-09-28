@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: LGPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { BaseChannel, GuildForumTagData, ThreadOnlyChannel } from "discord.js"
 import { ArgType, NativeFunction, Return } from "../../structures"
 import { parseSingleEmoji } from "../../functions/parseSingleEmoji"

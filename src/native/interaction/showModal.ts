@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: LGPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import noop from "../../functions/noop"
 import { NativeFunction } from "../../structures"
 

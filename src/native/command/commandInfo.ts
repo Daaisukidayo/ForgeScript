@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: LGPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { ClientEvents, Events } from "discord.js"
 import { ArgType, Context, NativeFunction, Return } from "../../structures"
 

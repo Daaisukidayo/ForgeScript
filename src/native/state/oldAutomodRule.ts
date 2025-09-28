@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: LGPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { AutomodRuleProperties, AutomodRuleProperty } from "../../properties/automodRule"
 import { ArgType, NativeFunction, Return } from "../../structures"
 

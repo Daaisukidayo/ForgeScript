@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: LGPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { ArgType, IArg, INativeFunction, NativeFunction } from "../structures/@internal/NativeFunction"
 import { IRawFunction, Compiler } from "../core"
 import recursiveReaddirSync from "../functions/recursiveReaddirSync"

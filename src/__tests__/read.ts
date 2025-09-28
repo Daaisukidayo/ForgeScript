@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: LGPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { inspect } from "util"
 import { FunctionManager } from "../managers/FunctionManager"
 import { Interpreter } from "../core/Interpreter"

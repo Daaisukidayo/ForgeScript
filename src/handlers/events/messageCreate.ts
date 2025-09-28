@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: LGPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { Interpreter } from "../../core/Interpreter"
 import { DiscordEventHandler } from "../../structures/extended/DiscordEventHandler"
 

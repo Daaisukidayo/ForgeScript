@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: LGPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { hex2int, int2hex } from "../../functions/hex"
 import { ArgType, NativeFunction, Return } from "../../structures"
 
