@@ -1,11 +1,6 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
+* SPDX-License-Identifier: GPL-3.0-or-later
 * Copyright © 2025 BotForge
-*/
-
-/*
-* SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright Â© 2025 BotForge
 */
 
 import { stdin, stdout } from "process"

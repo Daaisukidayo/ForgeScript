@@ -1,6 +1,6 @@
 "use strict";
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
+* SPDX-License-Identifier: GPL-3.0-or-later
 * Copyright © 2025 BotForge
 */
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {

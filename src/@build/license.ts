@@ -1,5 +1,5 @@
 /*
-* SPDX-License-Identifier: LGPL-3.0-or-later
+* SPDX-License-Identifier: GPL-3.0-or-later
 * Copyright © 2025 BotForge
 */
 
@@ -7,7 +7,7 @@ import { existsSync, readFileSync, readdirSync, statSync, writeFileSync } from "
 import { join, resolve } from "path"
 
 const LICENSE = `/*
-* SPDX-License-Identifier: LGPL-3.0-or-later
+* SPDX-License-Identifier: GPL-3.0-or-later
 * Copyright © 2025 BotForge
 */`
 
