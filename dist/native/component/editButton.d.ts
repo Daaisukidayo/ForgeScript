@@ -17,13 +17,11 @@ declare const _default: NativeFunction<[{
     description: string;
     rest: false;
     type: ArgType.String;
-    required: true;
 }, {
     name: string;
     description: string;
     enum: typeof ButtonStyle;
     type: ArgType.Enum;
-    required: true;
     rest: false;
 }, {
     name: string;

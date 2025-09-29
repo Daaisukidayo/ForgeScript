@@ -45,24 +45,22 @@ exports.default = new structures_1.NativeFunction({
         },
         {
             name: "label",
-            description: "The button label",
+            description: "The new button label",
             rest: false,
             type: structures_1.ArgType.String,
-            required: true,
         },
         {
             name: "style",
-            description: "The style for this button",
+            description: "The new style for this button",
             enum: discord_js_1.ButtonStyle,
             type: structures_1.ArgType.Enum,
-            required: true,
             rest: false,
         },
         {
             name: "emoji",
             rest: false,
             type: structures_1.ArgType.String,
-            description: "The emoji for this button",
+            description: "The new emoji for this button",
         },
         {
             name: "disabled",
@@ -80,10 +78,11 @@ exports.default = new structures_1.NativeFunction({
         const btn = components[rowIndex].components.find((x) => "custom_id" in x.data && x.data.custom_id === oldId);
         if (!btn)
             return this.success();
-        style = (0, enum_1.resolveNumericEnum)(discord_js_1.ButtonStyle, style);
-        // @ts-ignore
-        btn.setLabel(label || btn.data.label)
-            .setStyle(style);
+        style = (style ? (0, enum_1.resolveNumericEnum)(discord_js_1.ButtonStyle, style) : btn.data.style);
+        if (label)
+            btn.setLabel(label);
+        if (style)
+            btn.setStyle(style);
         if (emoji)
             btn.setEmoji(emoji);
         if (typeof disabled === "boolean")

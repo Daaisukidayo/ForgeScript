@@ -3,7 +3,7 @@ import { Context } from "../structures";
 /**
  * Checks whether the specified component type is a top level component.
  * @param type The component type.
- * @param actionRow Whether to include action rows when checking. Defaults to true.
+ * @param actionRow Whether to include action rows when checking. Defaults to `true`.
  * @returns
  */
 export declare function isTopLevel(type: ComponentType, actionRow?: boolean): boolean;
