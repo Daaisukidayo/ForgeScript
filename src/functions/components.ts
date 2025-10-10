@@ -12,11 +12,13 @@ import {
     FileBuilder,
     MediaGalleryBuilder,
     MentionableSelectMenuBuilder,
+    MessageActionRowComponentBuilder,
     RoleSelectMenuBuilder,
     SectionBuilder,
     SeparatorBuilder,
     StringSelectMenuBuilder,
     TextDisplayBuilder,
+    TextInputBuilder,
     UserSelectMenuBuilder
 } from "discord.js"
 import { Context } from "../structures"
@@ -70,6 +72,15 @@ export function buildComponent(comp: any, ctx?: Context) {
     const type = comp.type as ComponentType
     if (ctx && isTopLevel(type, false)) ctx.container.isComponentsV2 = true
     return new TopLevelComponentBuilders[type](comp.toJSON?.() ?? comp)
+}
+
+/**
+ * Gets the last component of the current label or action row.
+ * @param ctx The current context.
+ * @returns 
+ */
+export function getLastComponent(ctx: Context): MessageActionRowComponentBuilder | TextInputBuilder | undefined {
+    return (ctx.component.label?.data.component ?? ctx.container.actionRow?.components[0])
 }
 
 /**

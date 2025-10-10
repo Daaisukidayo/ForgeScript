@@ -35,8 +35,11 @@ exports.default = new structures_1.NativeFunction({
             type: structures_1.ArgType.String,
         },
     ],
-    async execute(ctx, [, m, nick]) {
-        return this.success(!!(await m.setNickname(nick, ctx.reason).catch(ctx.noop)));
+    async execute(ctx, [g, m, nick]) {
+        const edit = m.id === ctx.client.user.id
+            ? g.members.editMe({ nick, reason: ctx.reason })
+            : m.setNickname(nick, ctx.reason);
+        return this.success(!!(await edit.catch(ctx.noop)));
     },
 });
 //# sourceMappingURL=memberSetNickname.js.map

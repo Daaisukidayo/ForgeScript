@@ -6,6 +6,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const structures_1 = require("../../structures");
+const components_1 = require("../../functions/components");
 exports.default = new structures_1.NativeFunction({
     name: "$addOption",
     version: "1.0.0",
@@ -48,19 +49,19 @@ exports.default = new structures_1.NativeFunction({
         },
     ],
     execute(ctx, [name, desc, value, emoji, def]) {
-        const menu = ctx.container.actionRow?.components[0];
-        const data = {
-            label: name,
-            description: desc || undefined,
-            value,
-            default: def || false,
-            emoji: emoji
-                ? (0, discord_js_1.parseEmoji)(emoji) ?? {
-                    name: emoji,
-                }
-                : undefined,
-        };
+        const menu = (0, components_1.getLastComponent)(ctx);
         if (menu instanceof discord_js_1.BaseSelectMenuBuilder && "addOptions" in menu) {
+            const data = {
+                label: name,
+                description: desc || undefined,
+                value,
+                default: def || false,
+                emoji: emoji
+                    ? (0, discord_js_1.parseEmoji)(emoji) ?? {
+                        name: emoji,
+                    }
+                    : undefined,
+            };
             menu.addOptions(data);
         }
         return this.success();

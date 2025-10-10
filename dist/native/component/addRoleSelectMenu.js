@@ -56,6 +56,7 @@ exports.default = new structures_1.NativeFunction({
         const menu = new discord_js_1.RoleSelectMenuBuilder()
             .setDefaultRoles(roles)
             .setDisabled(disabled || false)
+            .setRequired(ctx.component.required)
             .setCustomId(id);
         if (placeholder)
             menu.setPlaceholder(placeholder);
@@ -63,7 +64,10 @@ exports.default = new structures_1.NativeFunction({
             menu.setMinValues(min);
         if (max)
             menu.setMaxValues(max);
-        ctx.container.actionRow?.addComponents(menu);
+        if (ctx.container.isInside(discord_js_1.ComponentType.Label))
+            ctx.component.label?.setRoleSelectMenuComponent(menu);
+        else
+            ctx.container.actionRow?.addComponents(menu);
         return this.success();
     }
 });

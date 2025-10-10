@@ -3,13 +3,24 @@ declare const _default: NativeFunction<[{
     name: string;
     description: string;
     rest: false;
-    type: ArgType.String;
     required: true;
+    type: ArgType.String;
+}, {
+    name: string;
+    description: string;
+    rest: false;
+    required: true;
+    type: ArgType.String;
 }, {
     name: string;
     description: string;
     rest: false;
     type: ArgType.String;
-}], true>;
+}, {
+    name: string;
+    description: string;
+    rest: false;
+    type: ArgType.Boolean;
+}], false>;
 export default _default;
-//# sourceMappingURL=input.d.ts.map
+//# sourceMappingURL=addLabel.d.ts.map

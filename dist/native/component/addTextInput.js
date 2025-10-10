@@ -22,7 +22,7 @@ exports.default = new structures_1.NativeFunction({
         },
         {
             name: "name",
-            description: "The field name",
+            description: "The field name, will be overwritten when used inside a label",
             rest: false,
             required: true,
             type: structures_1.ArgType.String,
@@ -65,12 +65,11 @@ exports.default = new structures_1.NativeFunction({
             type: structures_1.ArgType.Number,
         },
     ],
-    execute(ctx, [id, label, type, required, placeholder, value, min, max]) {
+    execute(ctx, [id, name, type, required, placeholder, value, min, max]) {
         const field = new discord_js_1.TextInputBuilder()
             .setCustomId(id)
-            .setLabel(label)
             .setStyle(type || discord_js_1.TextInputStyle.Paragraph)
-            .setRequired(required || false);
+            .setRequired(ctx.component.required || required || false);
         if (placeholder)
             field.setPlaceholder(placeholder);
         if (value)
@@ -79,7 +78,10 @@ exports.default = new structures_1.NativeFunction({
             field.setMinLength(min);
         if (max)
             field.setMaxLength(max);
-        ctx.container.modal?.addComponents(new discord_js_1.ActionRowBuilder().addComponents(field));
+        if (ctx.container.isInside(discord_js_1.ComponentType.Label))
+            ctx.component.label?.setTextInputComponent(field);
+        else
+            ctx.container.modal?.addLabelComponents(new discord_js_1.LabelBuilder().setLabel(name).setTextInputComponent(field));
         return this.success();
     },
 });

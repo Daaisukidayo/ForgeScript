@@ -29,7 +29,7 @@ export default new NativeFunction({
         },
     ],
     execute(ctx, [id, title]) {
-        ctx.container.modal = new ModalBuilder().setCustomId(id).setTitle(title)
+        if (ctx.interaction) ctx.container.modal = new ModalBuilder().setCustomId(id).setTitle(title)
 
         return this.success()
     },

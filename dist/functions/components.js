@@ -4,7 +4,7 @@
 * Copyright © 2025 BotForge
 */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addActionRow = exports.buildComponent = exports.buildActionRow = exports.isTopLevel = void 0;
+exports.addActionRow = exports.getLastComponent = exports.buildComponent = exports.buildActionRow = exports.isTopLevel = void 0;
 const discord_js_1 = require("discord.js");
 const MessageComponentBuilders = {
     [discord_js_1.ComponentType.Button]: discord_js_1.ButtonBuilder,
@@ -56,6 +56,15 @@ function buildComponent(comp, ctx) {
     return new TopLevelComponentBuilders[type](comp.toJSON?.() ?? comp);
 }
 exports.buildComponent = buildComponent;
+/**
+ * Gets the last component of the current label or action row.
+ * @param ctx The current context.
+ * @returns
+ */
+function getLastComponent(ctx) {
+    return (ctx.component.label?.data.component ?? ctx.container.actionRow?.components[0]);
+}
+exports.getLastComponent = getLastComponent;
 /**
  * Adds an action row to the components. This is mostly needed inside ComponentsV2 functions.
  * @param ctx The current context.

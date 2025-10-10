@@ -5,6 +5,7 @@
 
 import { APISelectMenuOption, BaseSelectMenuBuilder, parseEmoji } from "discord.js"
 import { ArgType, NativeFunction, Return } from "../../structures"
+import { getLastComponent } from "../../functions/components"
 
 export default new NativeFunction({
     name: "$addOption",
@@ -48,21 +49,21 @@ export default new NativeFunction({
         },
     ],
     execute(ctx, [name, desc, value, emoji, def]) {
-        const menu = ctx.container.actionRow?.components[0]
-
-        const data: APISelectMenuOption = {
-            label: name,
-            description: desc || undefined,
-            value,
-            default: def || false,
-            emoji: emoji
-                ? (parseEmoji(emoji) as APISelectMenuOption["emoji"]) ?? {
-                    name: emoji,
-                }
-                : undefined,
-        }
+        const menu = getLastComponent(ctx)
 
         if (menu instanceof BaseSelectMenuBuilder && "addOptions" in menu) {
+            const data: APISelectMenuOption = {
+                label: name,
+                description: desc || undefined,
+                value,
+                default: def || false,
+                emoji: emoji
+                    ? (parseEmoji(emoji) as APISelectMenuOption["emoji"]) ?? {
+                        name: emoji,
+                    }
+                    : undefined,
+            }
+
             menu.addOptions(data)
         }
 

@@ -29,7 +29,8 @@ exports.default = new structures_1.NativeFunction({
         },
     ],
     execute(ctx, [id, title]) {
-        ctx.container.modal = new discord_js_1.ModalBuilder().setCustomId(id).setTitle(title);
+        if (ctx.interaction)
+            ctx.container.modal = new discord_js_1.ModalBuilder().setCustomId(id).setTitle(title);
         return this.success();
     },
 });
