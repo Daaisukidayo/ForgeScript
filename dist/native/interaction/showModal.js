@@ -8,7 +8,7 @@ const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$showModal",
     version: "1.4.0",
-    description: "Submits the modal",
+    description: "Shows the modal immediately",
     unwrap: false,
     async execute(ctx) {
         if (ctx.interaction && "showModal" in ctx.interaction && ctx.container.modal) {

@@ -36,15 +36,13 @@ exports.default = new NativeFunction_1.NativeFunction({
     ],
     async execute(ctx) {
         const code = this.data.fields[1];
-        const name = await this["resolveUnhandledArg"](ctx, 0);
-        if (!this["isValidReturnType"](name))
-            return name;
-        const { args, return: rt } = await this["resolveMultipleArgs"](ctx, 2);
+        const { args, return: rt } = await this["resolveMultipleArgs"](ctx, 0, 2);
         if (!this["isValidReturnType"](rt))
             return rt;
-        ctx.localFunctions.set(name.value, {
+        const [name, params] = args;
+        ctx.localFunctions.set(name, {
             code,
-            args: args[0]
+            args: params
         });
         return this.success();
     },

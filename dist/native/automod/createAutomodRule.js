@@ -6,7 +6,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const structures_1 = require("../../structures");
-const lodash_1 = require("lodash");
 exports.default = new structures_1.NativeFunction({
     name: "$createAutomodRule",
     version: "1.5.0",
@@ -69,7 +68,7 @@ exports.default = new structures_1.NativeFunction({
             actions: ctx.automodRule.actions || [],
             exemptRoles: ctx.automodRule.exemptRoles,
             exemptChannels: ctx.automodRule.exemptChannels,
-            enabled: (0, lodash_1.isBoolean)(enabled) ? enabled : true,
+            enabled: typeof (enabled) === "boolean" ? enabled : true,
             reason: reason || ctx.reason
         }).catch(ctx.noop);
         ctx.clearAutomodRuleOptions();

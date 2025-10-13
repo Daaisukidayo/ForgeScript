@@ -34,8 +34,8 @@ exports.default = new structures_1.NativeFunction({
             type: structures_1.ArgType.String
         },
         {
-            name: "desc",
-            description: "Whether to use desc order for iteration count",
+            name: "asc",
+            description: "Whether to use asc order for iteration count",
             rest: false,
             type: structures_1.ArgType.Boolean,
         }
@@ -44,11 +44,11 @@ exports.default = new structures_1.NativeFunction({
         const { args, return: rt } = await this["resolveMultipleArgs"](ctx, 0, 2, 3);
         if (!this["isValidReturnType"](rt))
             return rt;
-        const [times, varName, type] = args;
+        const [times, varName, asc] = args;
         const code = this.data.fields[1];
         let output = "";
-        let condition = type || times === -1;
-        for (let i = condition ? 1 : times; (type ? i <= times : i > 0) || times === -1; condition ? i++ : i--) {
+        let condition = asc || times === -1;
+        for (let i = condition ? 1 : times; (asc ? i <= times : i > 0) || times === -1; condition ? i++ : i--) {
             if (varName)
                 ctx.setEnvironmentKey(varName, i);
             const exec = await this["resolveCode"](ctx, code);

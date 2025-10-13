@@ -8,6 +8,7 @@ const discord_js_1 = require("discord.js");
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$addLabel",
+    version: "2.6.0",
     description: "Adds a new label component to the modal",
     unwrap: false,
     brackets: true,

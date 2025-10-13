@@ -3,13 +3,12 @@
 * Copyright © 2025 BotForge
 */
 
-import noop from "../../functions/noop"
 import { NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$showModal",
     version: "1.4.0",
-    description: "Submits the modal",
+    description: "Shows the modal immediately",
     unwrap: false,
     async execute(ctx) {
         if (ctx.interaction && "showModal" in ctx.interaction && ctx.container.modal) {

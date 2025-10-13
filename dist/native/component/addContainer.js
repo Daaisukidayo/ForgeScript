@@ -43,18 +43,12 @@ exports.default = new structures_1.NativeFunction({
         const resolved = await this["resolveCode"](ctx, code);
         if (!this["isValidReturnType"](resolved))
             return resolved;
-        if (this.displayField(1)) {
-            const color = await this["resolveUnhandledArg"](ctx, 1);
-            if (!this["isValidReturnType"](color))
-                return color;
-            comp.setAccentColor(color.value);
-        }
-        if (this.displayField(2)) {
-            const spoiler = await this["resolveUnhandledArg"](ctx, 2);
-            if (!this["isValidReturnType"](spoiler))
-                return spoiler;
-            comp.setSpoiler(spoiler.value);
-        }
+        const { args, return: rt } = await this["resolveMultipleArgs"](ctx, 1, 2);
+        if (!this["isValidReturnType"](rt))
+            return rt;
+        const [color, spoiler] = args;
+        comp.setAccentColor(color || undefined);
+        comp.setSpoiler(spoiler || undefined);
         (0, components_1.addActionRow)(ctx);
         ctx.container.inside.pop();
         return this.success();
