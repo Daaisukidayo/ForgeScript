@@ -7,6 +7,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$deleteScheduledEvent",
+    version: "2.6.0",
     description: "Deletes a scheduled event from a guild, returns bool",
     unwrap: true,
     brackets: true,

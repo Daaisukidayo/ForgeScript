@@ -60,7 +60,6 @@ export default new NativeFunction({
             rest: false,
             type: ArgType.URL,
         },
-        
     ],
     output: ArgType.ScheduledEvent,
     async execute(ctx, [guild, name, desc, type, start, end, cover]) {

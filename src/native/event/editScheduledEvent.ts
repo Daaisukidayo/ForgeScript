@@ -65,7 +65,6 @@ export default new NativeFunction({
             rest: false,
             type: ArgType.URL,
         },
-        
     ],
     output: ArgType.Boolean,
     async execute(ctx, [, event, name, desc, type, start, end, cover]) {

@@ -8,6 +8,7 @@ const structures_1 = require("../../structures");
 const scheduledEvent_1 = require("../../properties/scheduledEvent");
 exports.default = new structures_1.NativeFunction({
     name: "$getScheduledEvent",
+    version: "2.6.0",
     description: "Returns a scheduled event of a guild",
     unwrap: true,
     brackets: false,
