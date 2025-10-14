@@ -1,4 +1,4 @@
-import { GuildScheduledEvent } from "discord.js";
+import { GuildScheduledEvent, GuildScheduledEventStatus } from "discord.js";
 export declare enum ScheduledEventProperty {
     id = "id",
     userID = "userID",
@@ -14,7 +14,9 @@ export declare enum ScheduledEventProperty {
     cover = "cover",
     entityID = "entityID",
     location = "location",
-    entityType = "entityType"
+    entityType = "entityType",
+    privacyLevel = "privacyLevel",
+    status = "status"
 }
-export declare const ScheduledEventProperties: import("../functions/defineProperties").Properties<typeof ScheduledEventProperty, GuildScheduledEvent<import("discord.js").GuildScheduledEventStatus>>;
+export declare const ScheduledEventProperties: import("../functions/defineProperties").Properties<typeof ScheduledEventProperty, GuildScheduledEvent<GuildScheduledEventStatus>>;
 //# sourceMappingURL=scheduledEvent.d.ts.map

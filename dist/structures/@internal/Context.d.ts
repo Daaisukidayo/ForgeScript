@@ -1,4 +1,4 @@
-import { AnySelectMenuInteraction, AutoModerationActionExecution, AutoModerationActionOptions, AutoModerationTriggerMetadataOptions, BaseChannel, ChatInputCommandInteraction, ContextMenuCommandInteraction, Emoji, Entitlement, Guild, GuildMember, Interaction, LabelBuilder, MediaGalleryBuilder, Message, MessageReaction, Role, SectionBuilder, SoundboardSound, Sticker, Subscription, User } from "discord.js";
+import { AnySelectMenuInteraction, AutoModerationActionExecution, AutoModerationActionOptions, AutoModerationTriggerMetadataOptions, BaseChannel, ChatInputCommandInteraction, ContextMenuCommandInteraction, Emoji, Entitlement, Guild, GuildMember, GuildScheduledEventEntityMetadataOptions, Interaction, LabelBuilder, MediaGalleryBuilder, Message, MessageReaction, Role, SectionBuilder, SoundboardSound, Sticker, Subscription, User, VoiceBasedChannel } from "discord.js";
 import { CompiledFunction, IExtendedCompiledFunctionField } from "./CompiledFunction";
 import { Container, Sendable } from "./Container";
 import { IArg, UnwrapArgs } from "./NativeFunction";
@@ -26,6 +26,10 @@ export interface IAutomodRuleOptions {
     triggerMetadata?: AutoModerationTriggerMetadataOptions;
     exemptRoles?: string[];
     exemptChannels?: string[];
+}
+export interface IScheduledEventOptions {
+    channel?: VoiceBasedChannel;
+    entityMetadata?: GuildScheduledEventEntityMetadataOptions;
 }
 export interface ILocalFunctionData {
     code: IExtendedCompiledFunctionField;
@@ -85,6 +89,7 @@ export declare class Context {
     executionTimestamp: number;
     http: Partial<IHttpOptions>;
     automodRule: Partial<IAutomodRuleOptions>;
+    scheduledEvent: Partial<IScheduledEventOptions>;
     component: Partial<IComponentOptions>;
     timezone: string;
     calendar?: CalendarType;
@@ -119,6 +124,7 @@ export declare class Context {
     handleNotSuccess(fn: CompiledFunction, rt: Return): boolean;
     clearHttpOptions(): void;
     clearAutomodRuleOptions(): void;
+    clearScheduledEventOptions(): void;
     /**
      * Fetches all emojis of the application.
      * @param once Whether to fetch only when the collection is empty.

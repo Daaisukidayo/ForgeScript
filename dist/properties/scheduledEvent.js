@@ -8,6 +8,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ScheduledEventProperties = exports.ScheduledEventProperty = void 0;
+const discord_js_1 = require("discord.js");
 const defineProperties_1 = __importDefault(require("../functions/defineProperties"));
 var ScheduledEventProperty;
 (function (ScheduledEventProperty) {
@@ -26,6 +27,8 @@ var ScheduledEventProperty;
     ScheduledEventProperty["entityID"] = "entityID";
     ScheduledEventProperty["location"] = "location";
     ScheduledEventProperty["entityType"] = "entityType";
+    ScheduledEventProperty["privacyLevel"] = "privacyLevel";
+    ScheduledEventProperty["status"] = "status";
 })(ScheduledEventProperty || (exports.ScheduledEventProperty = ScheduledEventProperty = {}));
 exports.ScheduledEventProperties = (0, defineProperties_1.default)({
     channelID: i => i?.channelId,
@@ -42,6 +45,8 @@ exports.ScheduledEventProperties = (0, defineProperties_1.default)({
     cover: i => i?.coverImageURL(),
     entityID: i => i?.entityId,
     location: i => i?.entityMetadata?.location,
-    entityType: i => i?.entityType
+    entityType: i => discord_js_1.GuildScheduledEventEntityType[i?.entityType],
+    privacyLevel: i => discord_js_1.GuildScheduledEventPrivacyLevel[i?.privacyLevel],
+    status: i => discord_js_1.GuildScheduledEventStatus[i?.status]
 });
 //# sourceMappingURL=scheduledEvent.js.map

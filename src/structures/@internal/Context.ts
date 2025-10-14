@@ -16,6 +16,7 @@ import {
     Entitlement,
     Guild,
     GuildMember,
+    GuildScheduledEventEntityMetadataOptions,
     Interaction,
     LabelBuilder,
     MediaGalleryBuilder,
@@ -27,6 +28,7 @@ import {
     Sticker,
     Subscription,
     User,
+    VoiceBasedChannel,
 } from "discord.js"
 import { CompiledFunction, IExtendedCompiledFunctionField } from "./CompiledFunction"
 import { Container, Sendable } from "./Container"
@@ -64,6 +66,11 @@ export interface IAutomodRuleOptions {
     triggerMetadata?: AutoModerationTriggerMetadataOptions
     exemptRoles?: string[]
     exemptChannels?: string[]
+}
+
+export interface IScheduledEventOptions {
+    channel?: VoiceBasedChannel
+    entityMetadata?: GuildScheduledEventEntityMetadataOptions
 }
 
 export interface ILocalFunctionData {
@@ -131,6 +138,7 @@ export class Context {
     executionTimestamp!: number
     http: Partial<IHttpOptions> = {}
     automodRule: Partial<IAutomodRuleOptions> = {}
+    scheduledEvent: Partial<IScheduledEventOptions> = {}
     component: Partial<IComponentOptions> = {}
     timezone: string = "UTC"
     calendar?: CalendarType
@@ -324,6 +332,10 @@ export class Context {
 
     public clearAutomodRuleOptions() {
         this.automodRule = {}
+    }
+
+    public clearScheduledEventOptions() {
+        this.scheduledEvent = {}
     }
 
     /**

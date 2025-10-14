@@ -45,6 +45,7 @@ class Context {
     executionTimestamp;
     http = {};
     automodRule = {};
+    scheduledEvent = {};
     component = {};
     timezone = "UTC";
     calendar;
@@ -204,6 +205,9 @@ class Context {
     }
     clearAutomodRuleOptions() {
         this.automodRule = {};
+    }
+    clearScheduledEventOptions() {
+        this.scheduledEvent = {};
     }
     /**
      * Fetches all emojis of the application.

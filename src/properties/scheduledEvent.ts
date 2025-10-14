@@ -3,7 +3,7 @@
 * Copyright © 2025 BotForge
 */
 
-import { GuildScheduledEvent } from "discord.js"
+import { GuildScheduledEvent, GuildScheduledEventEntityType, GuildScheduledEventPrivacyLevel, GuildScheduledEventStatus } from "discord.js"
 import defineProperties from "../functions/defineProperties"
 
 export enum ScheduledEventProperty {
@@ -21,7 +21,9 @@ export enum ScheduledEventProperty {
     cover = "cover",
     entityID = "entityID",
     location = "location",
-    entityType = "entityType"
+    entityType = "entityType",
+    privacyLevel = "privacyLevel",
+    status = "status"
 }
 
 export const ScheduledEventProperties = defineProperties<typeof ScheduledEventProperty, GuildScheduledEvent>({
@@ -39,5 +41,7 @@ export const ScheduledEventProperties = defineProperties<typeof ScheduledEventPr
     cover: i => i?.coverImageURL(),
     entityID: i => i?.entityId,
     location: i => i?.entityMetadata?.location,
-    entityType: i => i?.entityType
+    entityType: i => GuildScheduledEventEntityType[i?.entityType!],
+    privacyLevel: i => GuildScheduledEventPrivacyLevel[i?.privacyLevel!],
+    status: i => GuildScheduledEventStatus[i?.status!]
 })
