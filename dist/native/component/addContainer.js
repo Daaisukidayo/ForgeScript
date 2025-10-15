@@ -48,7 +48,7 @@ exports.default = new structures_1.NativeFunction({
             return rt;
         const [color, spoiler] = args;
         comp.setAccentColor(color || undefined);
-        comp.setSpoiler(spoiler || undefined);
+        comp.setSpoiler(spoiler || false);
         (0, components_1.addActionRow)(ctx);
         ctx.container.inside.pop();
         return this.success();

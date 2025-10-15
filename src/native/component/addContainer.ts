@@ -49,7 +49,7 @@ export default new NativeFunction({
         const [ color, spoiler ] = args
 
         comp.setAccentColor(color || undefined)
-        comp.setSpoiler(spoiler || undefined)
+        comp.setSpoiler(spoiler || false)
 
         addActionRow(ctx)
         ctx.container.inside.pop()

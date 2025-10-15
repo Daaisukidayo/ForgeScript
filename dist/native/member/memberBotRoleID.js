@@ -7,6 +7,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$memberBotRoleID",
+    version: "2.6.0",
     description: "Returns the managed bot role of a member, only available for bots",
     unwrap: true,
     brackets: true,

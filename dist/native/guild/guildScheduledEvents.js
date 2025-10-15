@@ -12,6 +12,7 @@ const scheduledEvent_1 = require("../../properties/scheduledEvent");
 const array_1 = __importDefault(require("../../functions/array"));
 exports.default = new structures_1.NativeFunction({
     name: "$guildScheduledEvents",
+    version: "2.6.0",
     description: "Returns all scheduled events of a guild",
     unwrap: true,
     brackets: false,
