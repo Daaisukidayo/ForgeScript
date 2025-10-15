@@ -4,6 +4,7 @@
 * Copyright © 2025 BotForge
 */
 Object.defineProperty(exports, "__esModule", { value: true });
+const lodash_1 = require("lodash");
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$arrayUnique",
@@ -31,7 +32,7 @@ exports.default = new structures_1.NativeFunction({
     execute(ctx, [variable, other]) {
         const arr = ctx.getEnvironmentInstance(Array, variable);
         if (arr !== null) {
-            const unique = [...new Set(arr)];
+            const unique = (0, lodash_1.uniqWith)(arr, lodash_1.isEqual);
             if (other)
                 ctx.setEnvironmentKey(other, unique);
             else

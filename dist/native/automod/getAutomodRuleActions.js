@@ -12,6 +12,7 @@ const automodRule_1 = require("../../properties/automodRule");
 const array_1 = __importDefault(require("../../functions/array"));
 exports.default = new structures_1.NativeFunction({
     name: "$getAutomodRuleActions",
+    version: "2.6.0",
     description: "Returns the actions of an automod rule from a guild",
     unwrap: true,
     brackets: true,
