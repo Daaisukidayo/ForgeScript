@@ -21,7 +21,7 @@ export default new NativeFunction({
         },
         {
             name: "rule ID",
-            description: "The id of the automod rule to delete",
+            description: "The automod rule to delete",
             rest: false,
             required: true,
             type: ArgType.AutomodRule,

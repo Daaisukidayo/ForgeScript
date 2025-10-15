@@ -22,7 +22,7 @@ exports.default = new structures_1.NativeFunction({
         },
         {
             name: "rule ID",
-            description: "The id of the automod rule to edit",
+            description: "The automod rule to edit",
             rest: false,
             required: true,
             type: structures_1.ArgType.AutomodRule,

@@ -4,12 +4,13 @@
 */
 
 import { ArgType, NativeFunction, Return } from "../../structures"
-import { AutomodRuleProperty, AutomodRuleProperties } from "../../properties/automodRule"
+import { AutomodRuleActionProperty, AutomodRuleActionProperties } from "../../properties/automodRule"
+import array from "../../functions/array"
 
 export default new NativeFunction({
-    name: "$getAutomodRule",
-    version: "1.5.0",
-    description: "Returns an automod rule of a guild",
+    name: "$getAutomodRuleActions",
+    version: "2.6.0",
+    description: "Returns the actions of an automod rule from a guild",
     unwrap: true,
     brackets: true,
     args: [
@@ -22,7 +23,7 @@ export default new NativeFunction({
         },
         {
             name: "rule ID",
-            description: "The automod rule to get",
+            description: "The automod rule to get its actions",
             rest: false,
             required: true,
             type: ArgType.AutomodRule,
@@ -30,24 +31,24 @@ export default new NativeFunction({
         },
         {
             name: "property",
-            description: "The property of the automod rule to return",
+            description: "The property of each action to return",
             rest: false,
             type: ArgType.Enum,
-            enum: AutomodRuleProperty
+            enum: AutomodRuleActionProperty
         },
         {
             name: "separator",
-            description: "The separator to use in case of array",
+            description: "The separator to use for every property",
             rest: false,
             type: ArgType.String,
         },
     ],
     output: [
         ArgType.Json,
-        ArgType.Unknown
+        array<ArgType.Unknown>()
     ],
     execute(ctx, [, rule, prop, sep ]) {
-        if (prop) return this.success(AutomodRuleProperties[prop](rule, sep))
-        return this.successJSON(rule)
+        if (prop) return this.success(rule.actions.map((x) => AutomodRuleActionProperties[prop](x)).join(sep ?? ", "))
+        return this.successJSON(rule.actions)
     },
 })
