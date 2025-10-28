@@ -13,8 +13,8 @@ exports.default = new structures_1.NativeFunction({
     unwrap: true,
     args: [
         {
-            name: "id",
-            description: "The webhook id",
+            name: "webhook ID",
+            description: "The webhook to delete",
             rest: false,
             type: structures_1.ArgType.Webhook,
             required: true,

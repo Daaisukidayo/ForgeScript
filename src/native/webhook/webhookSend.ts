@@ -3,7 +3,7 @@
 * Copyright © 2025 BotForge
 */
 
-import { BaseChannel, Message, ThreadChannelResolvable, WebhookClient } from "discord.js"
+import { BaseChannel, Message, WebhookClient } from "discord.js"
 import { ArgType, NativeFunction, Return } from "../../structures"
 
 export default new NativeFunction({

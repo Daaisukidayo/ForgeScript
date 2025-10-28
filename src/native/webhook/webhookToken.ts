@@ -8,21 +8,20 @@ import { ArgType, NativeFunction, Return } from "../../structures"
 export default new NativeFunction({
     name: "$webhookToken",
     version: "1.0.0",
-    description: "Gets webhook token of given id",
+    description: "Returns the token of a webhook",
     brackets: true,
-    output: ArgType.String,
     unwrap: true,
     args: [
         {
-            name: "id",
-            description: "The webhook id",
+            name: "webhook ID",
+            description: "The webhook to pull data from",
             rest: false,
-            type: ArgType.String,
+            type: ArgType.Webhook,
             required: true,
         },
     ],
-    async execute(ctx, [id]) {
-        const web = await ctx.client.fetchWebhook(id).catch(ctx.noop)
-        return this.success(web ? web.token : web)
+    output: ArgType.String,
+    execute(ctx, [web]) {
+        return this.success(web.token)
     },
 })

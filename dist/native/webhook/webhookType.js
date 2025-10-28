@@ -14,15 +14,15 @@ exports.default = new structures_1.NativeFunction({
     unwrap: true,
     args: [
         {
-            name: "id",
-            description: "The webhook id",
+            name: "webhook ID",
+            description: "The webhook to pull data from",
             rest: false,
             type: structures_1.ArgType.Webhook,
             required: true,
         },
     ],
     output: discord_js_1.WebhookType,
-    async execute(ctx, [web]) {
+    execute(ctx, [web]) {
         return this.success(discord_js_1.WebhookType[web.type]);
     },
 });

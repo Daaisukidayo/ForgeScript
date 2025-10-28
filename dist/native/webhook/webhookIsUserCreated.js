@@ -13,15 +13,15 @@ exports.default = new structures_1.NativeFunction({
     unwrap: true,
     args: [
         {
-            name: "id",
-            description: "The webhook id",
+            name: "webhook ID",
+            description: "The webhook to pull data from",
             rest: false,
             type: structures_1.ArgType.Webhook,
             required: true,
         },
     ],
     output: structures_1.ArgType.Boolean,
-    async execute(ctx, [web]) {
+    execute(ctx, [web]) {
         return this.success(web.isUserCreated());
     },
 });

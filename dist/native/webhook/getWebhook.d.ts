@@ -1,3 +1,4 @@
+import { WebhookProperty } from "../../properties/webhook";
 import { ArgType, NativeFunction } from "../../structures";
 declare const _default: NativeFunction<[{
     name: string;
@@ -5,6 +6,12 @@ declare const _default: NativeFunction<[{
     rest: false;
     type: ArgType.Webhook;
     required: true;
+}, {
+    name: string;
+    description: string;
+    rest: false;
+    type: ArgType.Enum;
+    enum: typeof WebhookProperty;
 }], true>;
 export default _default;
-//# sourceMappingURL=webhookURL.d.ts.map
+//# sourceMappingURL=getWebhook.d.ts.map

@@ -8,7 +8,7 @@ const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$roleExists",
     version: "1.0.0",
-    description: "Returns whether an role id exists",
+    description: "Returns whether a role id exists",
     unwrap: true,
     brackets: true,
     output: structures_1.ArgType.Boolean,

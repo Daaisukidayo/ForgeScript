@@ -11,11 +11,10 @@ exports.default = new structures_1.NativeFunction({
     description: "Edits webhook with given id, returns bool",
     brackets: true,
     unwrap: true,
-    output: structures_1.ArgType.Boolean,
     args: [
         {
-            name: "id",
-            description: "The webhook id",
+            name: "webhook ID",
+            description: "The webhook to edit",
             rest: false,
             type: structures_1.ArgType.Webhook,
             required: true,
@@ -33,6 +32,7 @@ exports.default = new structures_1.NativeFunction({
             type: structures_1.ArgType.String,
         },
     ],
+    output: structures_1.ArgType.Boolean,
     async execute(ctx, [web, name, avatar]) {
         const edit = await web
             .edit({

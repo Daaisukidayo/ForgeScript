@@ -8,7 +8,7 @@ import { ArgType, CompiledFunction, NativeFunction, Return } from "../../structu
 export default new NativeFunction({
     name: "$roleExists",
     version: "1.0.0",
-    description: "Returns whether an role id exists",
+    description: "Returns whether a role id exists",
     unwrap: true,
     brackets: true,
     output: ArgType.Boolean,
