@@ -12,13 +12,11 @@ import {
     FileBuilder,
     MediaGalleryBuilder,
     MentionableSelectMenuBuilder,
-    MessageActionRowComponentBuilder,
     RoleSelectMenuBuilder,
     SectionBuilder,
     SeparatorBuilder,
     StringSelectMenuBuilder,
     TextDisplayBuilder,
-    TextInputBuilder,
     UserSelectMenuBuilder
 } from "discord.js"
 import { Context } from "../structures"
@@ -79,7 +77,7 @@ export function buildComponent(comp: any, ctx?: Context) {
  * @param ctx The current context.
  * @returns 
  */
-export function getLastComponent(ctx: Context): MessageActionRowComponentBuilder | TextInputBuilder | undefined {
+export function getLastComponent(ctx: Context) {
     return (ctx.component.label?.data.component ?? ctx.container.actionRow?.components[0])
 }
 

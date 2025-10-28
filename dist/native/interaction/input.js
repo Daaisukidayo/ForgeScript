@@ -8,7 +8,7 @@ const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$input",
     version: "1.0.0",
-    description: "Returns a value from a modal field",
+    description: "Returns the value from a modal field",
     brackets: true,
     unwrap: true,
     args: [
@@ -31,7 +31,11 @@ exports.default = new structures_1.NativeFunction({
         if (!ctx.interaction?.isModalSubmit())
             return this.success();
         const field = ctx.interaction.fields.getField(id);
-        return this.success("value" in field ? field.value : field.values.join(sep ?? ", "));
+        return this.success("value" in field
+            ? field.value
+            : "attachments" in field
+                ? field.attachments.map((x) => x.url).join(sep ?? ", ")
+                : field.values.join(sep ?? ", "));
     },
 });
 //# sourceMappingURL=input.js.map
