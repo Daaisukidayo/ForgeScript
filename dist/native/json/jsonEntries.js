@@ -8,7 +8,7 @@ const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$jsonEntries",
     version: "1.4.0",
-    description: "Gets entries from a json var",
+    description: "Gets entries from a JSON variable",
     brackets: true,
     args: [
         {

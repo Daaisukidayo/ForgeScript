@@ -11,7 +11,7 @@ export default new NativeFunction({
     aliases: [
         "$isValidJSON"
     ],
-    description: "Checks whether given json is valid",
+    description: "Checks whether given JSON is valid",
     unwrap: true,
     brackets: true,
     args: [

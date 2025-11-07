@@ -1,1 +1,1 @@
-{"version":3,"file":"getWebhook.d.ts","sourceRoot":"","sources":["../../../src/native/webhook/getWebhook.ts"],"names":[],"mappings":"AAKA,OAAO,EAAqB,eAAe,EAAE,MAAM,0BAA0B,CAAA;AAC7E,OAAO,EAAE,OAAO,EAAE,cAAc,EAAU,MAAM,kBAAkB,CAAA;;;;;;;;;;;;;;AAElE,wBA6BE"}
+{"version":3,"file":"getWebhook.d.ts","sourceRoot":"","sources":["../../../src/native/webhook/getWebhook.ts"],"names":[],"mappings":"AAKA,OAAO,EAAqB,eAAe,EAAE,MAAM,0BAA0B,CAAA;AAC7E,OAAO,EAAE,OAAO,EAAE,cAAc,EAAU,MAAM,kBAAkB,CAAA;;;;;;;;;;;;;;AAElE,wBA8BE"}

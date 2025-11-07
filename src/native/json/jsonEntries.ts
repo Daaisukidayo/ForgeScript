@@ -8,7 +8,7 @@ import { ArgType, NativeFunction, Return } from "../../structures"
 export default new NativeFunction({
     name: "$jsonEntries",
     version: "1.4.0",
-    description: "Gets entries from a json var",
+    description: "Gets entries from a JSON variable",
     brackets: true,
     args: [
         {

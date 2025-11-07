@@ -13,7 +13,7 @@ exports.default = new structures_1.NativeFunction({
     args: [
         {
             name: "variable",
-            description: "The variable to load it to",
+            description: "The variable to load json to",
             rest: false,
             type: structures_1.ArgType.String,
             required: true,

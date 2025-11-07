@@ -8,7 +8,7 @@ const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$jsonDelete",
     version: "1.4.0",
-    description: "Delete a key from a traversed json",
+    description: "Delete a key from a traversed JSON",
     unwrap: true,
     brackets: true,
     output: structures_1.ArgType.Boolean,

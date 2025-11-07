@@ -8,6 +8,7 @@ const webhook_1 = require("../../properties/webhook");
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$getWebhook",
+    version: "2.6.0",
     description: "Returns a webhook from a channel",
     brackets: true,
     unwrap: true,

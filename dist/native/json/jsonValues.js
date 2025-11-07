@@ -12,7 +12,7 @@ const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$jsonValues",
     version: "1.4.0",
-    description: "Gets values from a json var",
+    description: "Gets values from a JSON variable",
     brackets: true,
     args: [
         {
