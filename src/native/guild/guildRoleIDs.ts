@@ -9,30 +9,41 @@ import { ArgType, NativeFunction } from "../../structures"
 export default new NativeFunction({
     name: "$guildRoleIDs",
     version: "1.3.0",
-    unwrap: true,
-    aliases: [
-        "$serverRoleIDs"
-    ],
-    output: array<ArgType.Role>(),
-    brackets: false,
     description: "Returns every role id of the guild",
+    aliases: [
+        "$serverRoleIDs",
+        "$roleIDs"
+    ],
+    unwrap: true,
+    brackets: false,
     args: [
         {
             name: "guild ID",
+            description: "The guild to get role ids from",
             rest: false,
             required: true,
             type: ArgType.Guild,
-            description: "The guild to get role ids from"
         },
         {
             name: "separator",
             description: "The separator to use for every role",
             rest: false,
             type: ArgType.String
+        },
+        {
+            name: "everyone",
+            description: "Whether to include the @everyone role, defaults to true",
+            rest: false,
+            type: ArgType.Boolean
         }
     ],
-    execute(ctx, [ guild, sep ]) {
-        guild ??= ctx.guild!
-        return this.success(guild?.roles.cache.map(x => x.id).join(sep ?? ", "))
+    output: array<ArgType.Role>(),
+    execute(ctx, [ guild, sep, everyone ]) {
+        return this.success(
+            (guild ?? ctx.guild)?.roles.cache
+                .filter((x) => everyone !== false || x.guild.id !== x.id)
+                .map((x) => x.id)
+                .join(sep ?? ", ")
+        )
     },
 })

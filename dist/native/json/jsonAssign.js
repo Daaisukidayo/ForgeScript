@@ -7,6 +7,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const NativeFunction_1 = require("../../structures/@internal/NativeFunction");
 exports.default = new NativeFunction_1.NativeFunction({
     name: "$jsonAssign",
+    version: "2.6.0",
     description: "Combines multiple JSON objects into a single JSON object",
     brackets: true,
     unwrap: true,
