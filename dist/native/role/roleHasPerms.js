@@ -8,6 +8,7 @@ const discord_js_1 = require("discord.js");
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$roleHasPerms",
+    version: "2.6.0",
     description: "Returns whether the role has all specified perms",
     aliases: [
         "$hasRolePerms"
