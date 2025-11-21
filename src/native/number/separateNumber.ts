@@ -5,7 +5,7 @@
 
 import { ArgType, NativeFunction, Return } from "../../structures"
 
-const NoNumberRegex = /[^0-9.]/g
+export const NoNumberRegex = /[^0-9.-]/g
 
 export default new NativeFunction({
     name: "$separateNumber",

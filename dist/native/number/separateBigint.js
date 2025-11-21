@@ -5,7 +5,7 @@
 */
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
-const NoNumberRegex = /[^0-9.]/g;
+const separateNumber_1 = require("./separateNumber");
 exports.default = new structures_1.NativeFunction({
     name: "$separateBigint",
     version: "1.3.0",
@@ -30,7 +30,7 @@ exports.default = new structures_1.NativeFunction({
     brackets: true,
     execute(ctx, [n, sep]) {
         const t = n.toLocaleString();
-        return this.success(sep ? t.replaceAll(NoNumberRegex, sep) : t);
+        return this.success(sep ? t.replaceAll(separateNumber_1.NoNumberRegex, sep) : t);
     },
 });
 //# sourceMappingURL=separateBigint.js.map
