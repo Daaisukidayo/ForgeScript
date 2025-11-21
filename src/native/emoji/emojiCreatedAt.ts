@@ -15,7 +15,7 @@ export default new NativeFunction({
     args: [
         {
             name: "emoji ID",
-            description: "The emoji id to return its creation timestamp",
+            description: "The emoji to return its creation timestamp",
             rest: false,
             type: ArgType.Emoji,
             required: true,

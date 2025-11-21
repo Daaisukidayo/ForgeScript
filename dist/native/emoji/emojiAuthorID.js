@@ -6,23 +6,23 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
-    name: "$emojiURL",
-    version: "1.0.0",
-    description: "Returns the emoji url",
+    name: "$emojiAuthorID",
+    description: "Returns the author id of an emoji",
     brackets: false,
     unwrap: true,
-    output: structures_1.ArgType.URL,
     args: [
         {
             name: "emoji ID",
-            description: "The emoji to return its url",
+            description: "The emoji to return its author",
             rest: false,
-            type: structures_1.ArgType.Emoji,
             required: true,
+            type: structures_1.ArgType.Emoji,
         },
     ],
+    output: structures_1.ArgType.User,
     execute(ctx, [emoji]) {
-        return this.success((emoji ?? ctx.emoji)?.imageURL());
+        emoji ??= ctx.emoji;
+        return this.success(emoji && "author" in emoji ? emoji.author?.id : undefined);
     },
 });
-//# sourceMappingURL=emojiURL.js.map
+//# sourceMappingURL=emojiAuthorID.js.map

@@ -15,7 +15,7 @@ export default new NativeFunction({
     args: [
         {
             name: "emoji ID",
-            description: "The emoji id to return its guild id",
+            description: "The emoji to return its guild id",
             rest: false,
             type: ArgType.GuildEmoji,
             required: true,

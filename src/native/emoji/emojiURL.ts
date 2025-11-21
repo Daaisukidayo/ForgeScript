@@ -15,7 +15,7 @@ export default new NativeFunction({
     args: [
         {
             name: "emoji ID",
-            description: "The emoji id to return its url",
+            description: "The emoji to return its url",
             rest: false,
             type: ArgType.Emoji,
             required: true,

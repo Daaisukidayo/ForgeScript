@@ -15,7 +15,7 @@ export default new NativeFunction({
     args: [
         {
             name: "emoji ID",
-            description: "The emoji id to return its colons state",
+            description: "The emoji to return its colons state",
             rest: false,
             type: ArgType.Emoji,
             required: true,

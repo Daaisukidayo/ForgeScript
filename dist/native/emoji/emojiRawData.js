@@ -10,7 +10,7 @@ exports.default = new structures_1.NativeFunction({
     version: "1.5.0",
     description: "Returns the raw data of an emoji",
     unwrap: true,
-    brackets: true,
+    brackets: false,
     args: [
         {
             name: "emoji ID",
@@ -22,7 +22,7 @@ exports.default = new structures_1.NativeFunction({
     ],
     output: structures_1.ArgType.Json,
     execute(ctx, [emoji]) {
-        return this.successJSON(emoji.toJSON());
+        return this.successJSON((emoji ?? ctx.emoji)?.toJSON());
     },
 });
 //# sourceMappingURL=emojiRawData.js.map

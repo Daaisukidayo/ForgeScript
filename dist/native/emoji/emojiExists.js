@@ -15,7 +15,7 @@ exports.default = new structures_1.NativeFunction({
     args: [
         {
             name: "emoji ID",
-            description: "The emoji to check",
+            description: "The emoji id to check",
             rest: false,
             required: true,
             type: structures_1.ArgType.String,

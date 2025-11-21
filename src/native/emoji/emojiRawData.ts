@@ -10,7 +10,7 @@ export default new NativeFunction({
     version: "1.5.0",
     description: "Returns the raw data of an emoji",
     unwrap: true,
-    brackets: true,
+    brackets: false,
     args: [
         {
             name: "emoji ID",
@@ -22,6 +22,6 @@ export default new NativeFunction({
     ],
     output: ArgType.Json,
     execute(ctx, [emoji]) {
-        return this.successJSON(emoji.toJSON())
+        return this.successJSON((emoji ?? ctx.emoji)?.toJSON())
     },
 })
