@@ -3,7 +3,6 @@
 * Copyright © 2025 BotForge
 */
 
-import noop from "../../functions/noop"
 import { ArgType, NativeFunction, Return } from "../../structures"
 
 export default new NativeFunction({

@@ -3,7 +3,7 @@
 * Copyright © 2025 BotForge
 */
 
-import { ActivityType, PresenceStatusData, PresenceUpdateStatus } from "discord.js"
+import { ActivityType, PresenceStatusData } from "discord.js"
 import { ArgType, NativeFunction, Return } from "../../structures"
 
 export default new NativeFunction({
