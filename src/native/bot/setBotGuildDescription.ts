@@ -7,7 +7,7 @@ import { ArgType, NativeFunction, Return } from "../../structures"
 
 export default new NativeFunction({
     name: "$setBotGuildDescription",
-    version: "1.5.0",
+    version: "2.6.0",
     description: "Sets the bot description on a guild",
     aliases: [
         "$setBotGuildBio",
