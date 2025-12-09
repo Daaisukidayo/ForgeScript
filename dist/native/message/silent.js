@@ -1,0 +1,17 @@
+"use strict";
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+Object.defineProperty(exports, "__esModule", { value: true });
+const structures_1 = require("../../structures");
+exports.default = new structures_1.NativeFunction({
+    name: "$silent",
+    description: "Marks the response as silent",
+    unwrap: false,
+    execute(ctx) {
+        ctx.container.silent = true;
+        return this.success();
+    },
+});
+//# sourceMappingURL=silent.js.map

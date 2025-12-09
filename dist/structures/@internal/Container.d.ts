@@ -10,6 +10,7 @@ export declare class Container {
     reply: boolean;
     followUp: boolean;
     edit: boolean;
+    silent: boolean;
     ephemeral: boolean;
     tts: boolean;
     update: boolean;

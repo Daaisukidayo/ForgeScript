@@ -22,6 +22,7 @@ class Container {
     reply = false;
     followUp = false;
     edit = false;
+    silent = false;
     ephemeral = false;
     tts = false;
     update = false;
@@ -143,6 +144,7 @@ class Container {
         this.update = false;
         this.ephemeral = false;
         this.withResponse = false;
+        this.silent = false;
         this.edit = false;
         this.tts = false;
         this.isComponentsV2 = false;
@@ -161,6 +163,8 @@ class Container {
         const flags = new Array();
         if (this.ephemeral)
             flags.push(discord_js_2.MessageFlags.Ephemeral);
+        if (this.silent)
+            flags.push(discord_js_2.MessageFlags.SuppressNotifications);
         if (this.isComponentsV2)
             flags.push(discord_js_2.MessageFlags.IsComponentsV2);
         return (content

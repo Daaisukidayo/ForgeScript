@@ -82,6 +82,7 @@ export class Container {
     public reply = false
     public followUp = false
     public edit = false
+    public silent = false
     public ephemeral = false
     public tts = false
     public update = false
@@ -210,6 +211,7 @@ export class Container {
         this.update = false
         this.ephemeral = false
         this.withResponse = false
+        this.silent = false
         this.edit = false
         this.tts = false
         this.isComponentsV2 = false
@@ -230,6 +232,7 @@ export class Container {
 
         const flags = new Array<MessageFlags>()
         if (this.ephemeral) flags.push(MessageFlags.Ephemeral)
+        if (this.silent) flags.push(MessageFlags.SuppressNotifications)
         if (this.isComponentsV2) flags.push(MessageFlags.IsComponentsV2)
 
         return (
