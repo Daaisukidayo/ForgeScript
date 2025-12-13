@@ -11,7 +11,7 @@ export default new NativeFunction({
     description: "Disables all user mentions",
     unwrap: false,
     execute(ctx) {
-        ctx.container.unparseMention("users")
+        ctx.container.unparseMentions("users")
         ctx.container.allowedMentions.users = []
         return this.success()
     },

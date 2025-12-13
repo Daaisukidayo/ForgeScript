@@ -50,6 +50,8 @@ import {
 import noop from "../../functions/noop"
 import { MessageFlags } from "discord.js"
 
+const mentions: MessageMentionTypes[] = ["everyone", "roles", "users"]
+
 export type Sendable =
     | {}
     | Sticker
@@ -178,9 +180,14 @@ export class Container {
         return (this.embeds[index] ??= new EmbedBuilder())
     }
 
-    public unparseMention(type: MessageMentionTypes) {
-        this.allowedMentions.parse ??= ["everyone", "roles", "users"]
-        return (this.allowedMentions.parse = this.allowedMentions.parse.filter((x) => x !== type))
+    public parseMentions(type?: MessageMentionTypes) {
+        this.allowedMentions.parse = type
+            ? [...new Set([...(this.allowedMentions.parse ?? []), type])]
+            : [...mentions]
+    }
+
+    public unparseMentions(type: MessageMentionTypes) {
+        this.allowedMentions.parse = (this.allowedMentions.parse ?? mentions).filter((x) => x !== type)
     }
 
     /**

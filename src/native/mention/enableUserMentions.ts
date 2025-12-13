@@ -10,7 +10,7 @@ export default new NativeFunction({
     version: "1.3.0",
     description: "Only parses these users for mentions",
     unwrap: true,
-    brackets: true,
+    brackets: false,
     args: [
         {
             name: "users",
@@ -21,7 +21,8 @@ export default new NativeFunction({
         }
     ],
     execute(ctx, [ users ]) {
-        ctx.container.allowedMentions.users = users.map(x => x.id)
+        if (this.hasFields) ctx.container.allowedMentions.users = users.map(x => x.id)
+        else ctx.container.parseMentions("users")
         return this.success()
     },
 })

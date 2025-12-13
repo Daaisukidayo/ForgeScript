@@ -12,6 +12,7 @@ exports.Container = void 0;
 const discord_js_1 = require("discord.js");
 const noop_1 = __importDefault(require("../../functions/noop"));
 const discord_js_2 = require("discord.js");
+const mentions = ["everyone", "roles", "users"];
 class Container {
     content;
     embeds = new Array();
@@ -114,9 +115,13 @@ class Container {
     embed(index) {
         return (this.embeds[index] ??= new discord_js_1.EmbedBuilder());
     }
-    unparseMention(type) {
-        this.allowedMentions.parse ??= ["everyone", "roles", "users"];
-        return (this.allowedMentions.parse = this.allowedMentions.parse.filter((x) => x !== type));
+    parseMentions(type) {
+        this.allowedMentions.parse = type
+            ? [...new Set([...(this.allowedMentions.parse ?? []), type])]
+            : [...mentions];
+    }
+    unparseMentions(type) {
+        this.allowedMentions.parse = (this.allowedMentions.parse ?? mentions).filter((x) => x !== type);
     }
     /**
      * Checks if current context is inside a component builder function.

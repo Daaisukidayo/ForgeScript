@@ -10,7 +10,7 @@ exports.default = new structures_1.NativeFunction({
     version: "1.3.0",
     description: "Only parses these roles for mentions",
     unwrap: true,
-    brackets: true,
+    brackets: false,
     args: [
         {
             name: "guild ID",
@@ -29,7 +29,10 @@ exports.default = new structures_1.NativeFunction({
         }
     ],
     execute(ctx, [, roles]) {
-        ctx.container.allowedMentions.roles = roles.map(x => x.id);
+        if (this.hasFields)
+            ctx.container.allowedMentions.roles = roles.map(x => x.id);
+        else
+            ctx.container.parseMentions("roles");
         return this.success();
     },
 });

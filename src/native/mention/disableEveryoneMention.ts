@@ -11,7 +11,7 @@ export default new NativeFunction({
     description: "Disables everyone mention",
     unwrap: false,
     execute(ctx) {
-        ctx.container.unparseMention("everyone")
+        ctx.container.unparseMentions("everyone")
         return this.success()
     },
 })
