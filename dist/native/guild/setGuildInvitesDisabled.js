@@ -7,6 +7,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$setGuildInvitesDisabled",
+    version: "2.6.0",
     description: "Sets the guild's invites disabled for a specific duration, returns bool",
     aliases: ["$setServerInvitesDisabled"],
     unwrap: true,

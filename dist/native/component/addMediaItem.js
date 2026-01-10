@@ -10,7 +10,6 @@ exports.default = new structures_1.NativeFunction({
     name: "$addMediaItem",
     version: "2.4.0",
     description: "Adds a new media gallery item",
-    aliases: ["$addItem"],
     unwrap: true,
     brackets: true,
     args: [
