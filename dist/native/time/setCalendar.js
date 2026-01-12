@@ -9,10 +9,11 @@ const structures_2 = require("../../structures");
 exports.default = new structures_2.NativeFunction({
     name: "$setCalendar",
     version: "1.5.0",
-    aliases: ["$calendar"],
     description: "Sets the calendar for time functions",
+    aliases: ["$calendar"],
     unwrap: true,
     brackets: true,
+    experimental: true,
     args: [
         {
             name: "type",
