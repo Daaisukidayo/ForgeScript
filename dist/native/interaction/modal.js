@@ -1,4 +1,8 @@
 "use strict";
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const structures_1 = require("../../structures");
@@ -25,7 +29,8 @@ exports.default = new structures_1.NativeFunction({
         },
     ],
     execute(ctx, [id, title]) {
-        ctx.container.modal = new discord_js_1.ModalBuilder().setCustomId(id).setTitle(title);
+        if (ctx.interaction)
+            ctx.container.modal = new discord_js_1.ModalBuilder().setCustomId(id).setTitle(title);
         return this.success();
     },
 });

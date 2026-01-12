@@ -3,7 +3,7 @@ import { Context } from "../structures";
 /**
  * Checks whether the specified component type is a top level component.
  * @param type The component type.
- * @param actionRow Whether to include action rows when checking. Defaults to true.
+ * @param actionRow Whether to include action rows when checking. Defaults to `true`.
  * @returns
  */
 export declare function isTopLevel(type: ComponentType, actionRow?: boolean): boolean;
@@ -21,9 +21,16 @@ export declare function buildActionRow(comp: any): ButtonBuilder | StringSelectM
  */
 export declare function buildComponent(comp: any, ctx?: Context): ContainerBuilder | FileBuilder | MediaGalleryBuilder | SectionBuilder | SeparatorBuilder | TextDisplayBuilder | ActionRowBuilder<import("@discordjs/builders").AnyComponentBuilder>;
 /**
- * Adds an action row. This is only needed inside ComponentsV2 functions and should never be used outside this context.
+ * Gets the last component of the current label or action row.
  * @param ctx The current context.
  * @returns
  */
-export declare function addActionRow(ctx: Context): void;
+export declare function getLastComponent(ctx: Context): import("@discordjs/builders").MessageActionRowComponentBuilder | import("@discordjs/builders").TextInputBuilder | import("@discordjs/builders").FileUploadBuilder | undefined;
+/**
+ * Adds an action row to the components. This is mostly needed inside ComponentsV2 functions.
+ * @param ctx The current context.
+ * @param cv2 Whether to set the IsComponentsV2 flag. Defaults to `true`.
+ * @returns
+ */
+export declare function addActionRow(ctx: Context, cv2?: boolean): void;
 //# sourceMappingURL=components.d.ts.map

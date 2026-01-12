@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import {
     ActionRowBuilder,
     ButtonBuilder,
@@ -38,7 +43,7 @@ const TopLevelComponentBuilders = {
 /**
  * Checks whether the specified component type is a top level component.
  * @param type The component type.
- * @param actionRow Whether to include action rows when checking. Defaults to true.
+ * @param actionRow Whether to include action rows when checking. Defaults to `true`.
  * @returns 
  */
 export function isTopLevel(type: ComponentType, actionRow: boolean = true) {
@@ -68,12 +73,22 @@ export function buildComponent(comp: any, ctx?: Context) {
 }
 
 /**
- * Adds an action row. This is only needed inside ComponentsV2 functions and should never be used outside this context.
+ * Gets the last component of the current label or action row.
  * @param ctx The current context.
  * @returns 
  */
-export function addActionRow(ctx: Context) {
-    ctx.container.isComponentsV2 = true
+export function getLastComponent(ctx: Context) {
+    return (ctx.component.label?.data.component ?? ctx.container.actionRow?.components[0])
+}
+
+/**
+ * Adds an action row to the components. This is mostly needed inside ComponentsV2 functions.
+ * @param ctx The current context.
+ * @param cv2 Whether to set the IsComponentsV2 flag. Defaults to `true`.
+ * @returns 
+ */
+export function addActionRow(ctx: Context, cv2: boolean = true) {
+    if (cv2) ctx.container.isComponentsV2 = true
 
     const row = ctx.container.actionRow
     if (!row) return

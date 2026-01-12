@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { ActionRowBuilder, ContainerBuilder, StringSelectMenuBuilder, parseEmoji } from "discord.js"
 import { ArgType, NativeFunction, Return } from "../../structures"
 import { buildComponent } from "../../functions/components"
@@ -11,7 +16,7 @@ export default new NativeFunction({
     args: [
         {
             name: "name",
-            description: "The option name",
+            description: "The option name to find",
             rest: false,
             required: true,
             type: ArgType.String
@@ -25,21 +30,20 @@ export default new NativeFunction({
         },
         {
             name: "description",
-            description: "The description for this option",
+            description: "The new description for this option",
             rest: false,
             type: ArgType.String,
             required: false,
         },
         {
             name: "value",
-            description: "The value to use for this option",
+            description: "The new value for this option",
             rest: false,
-            required: true,
             type: ArgType.String,
         },
         {
             name: "emoji",
-            description: "The emoji to use for this option",
+            description: "The new emoji for this option",
             type: ArgType.String,
             rest: false,
         },

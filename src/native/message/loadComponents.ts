@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { ArgType, NativeFunction } from "../../structures"
 import { buildActionRow, buildComponent, isTopLevel } from "../../functions/components"
 import { ActionRowBuilder, ComponentType } from "discord.js"

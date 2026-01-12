@@ -1,4 +1,4 @@
-import { AutoModerationRule } from "discord.js";
+import { AutoModerationAction, AutoModerationRule } from "discord.js";
 export declare enum AutomodRuleProperty {
     id = "id",
     name = "name",
@@ -18,4 +18,11 @@ export declare enum AutomodRuleProperty {
     mentionRaidProtectionEnabled = "mentionRaidProtectionEnabled"
 }
 export declare const AutomodRuleProperties: import("../functions/defineProperties").Properties<typeof AutomodRuleProperty, AutoModerationRule>;
+export declare enum AutomodRuleActionProperty {
+    type = "type",
+    channelID = "channelID",
+    durationSeconds = "durationSeconds",
+    customMessage = "customMessage"
+}
+export declare const AutomodRuleActionProperties: import("../functions/defineProperties").Properties<typeof AutomodRuleActionProperty, AutoModerationAction>;
 //# sourceMappingURL=automodRule.d.ts.map

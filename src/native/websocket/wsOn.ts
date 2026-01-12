@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import parseJSON from "../../functions/parseJSON"
 import { ArgType, IExtendedCompiledFunctionField, NativeFunction } from "../../structures"
 

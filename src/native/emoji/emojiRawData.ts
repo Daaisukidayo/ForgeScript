@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { ArgType, NativeFunction, Return } from "../../structures"
 
 export default new NativeFunction({
@@ -5,7 +10,7 @@ export default new NativeFunction({
     version: "1.5.0",
     description: "Returns the raw data of an emoji",
     unwrap: true,
-    brackets: true,
+    brackets: false,
     args: [
         {
             name: "emoji ID",
@@ -17,6 +22,6 @@ export default new NativeFunction({
     ],
     output: ArgType.Json,
     execute(ctx, [emoji]) {
-        return this.successJSON(emoji.toJSON())
+        return this.successJSON((emoji ?? ctx.emoji)?.toJSON())
     },
 })

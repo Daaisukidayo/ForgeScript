@@ -1,4 +1,8 @@
 "use strict";
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
@@ -17,7 +21,7 @@ exports.default = new structures_1.NativeFunction({
         },
         {
             name: "rule ID",
-            description: "The id of the automod rule to delete",
+            description: "The automod rule to delete",
             rest: false,
             required: true,
             type: structures_1.ArgType.AutomodRule,

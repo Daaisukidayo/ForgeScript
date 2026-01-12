@@ -1,4 +1,8 @@
 "use strict";
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -8,7 +12,7 @@ const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$jsonValues",
     version: "1.4.0",
-    description: "Gets values from a json var",
+    description: "Gets values from a JSON variable",
     brackets: true,
     args: [
         {

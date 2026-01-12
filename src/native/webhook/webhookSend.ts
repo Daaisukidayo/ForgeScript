@@ -1,4 +1,9 @@
-import { BaseChannel, Message, ThreadChannelResolvable, WebhookClient } from "discord.js"
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
+import { BaseChannel, Message, WebhookClient } from "discord.js"
 import { ArgType, NativeFunction, Return } from "../../structures"
 
 export default new NativeFunction({

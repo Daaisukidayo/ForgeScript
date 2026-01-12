@@ -1,4 +1,8 @@
-import noop from "../../functions/noop"
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { ArgType, NativeFunction, Return } from "../../structures"
 
 export default new NativeFunction({

@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { MediaGalleryItemBuilder } from "discord.js"
 import { ArgType, NativeFunction, Return } from "../../structures"
 
@@ -5,7 +10,6 @@ export default new NativeFunction({
     name: "$addMediaItem",
     version: "2.4.0",
     description: "Adds a new media gallery item",
-    aliases: ["$addItem"],
     unwrap: true,
     brackets: true,
     args: [

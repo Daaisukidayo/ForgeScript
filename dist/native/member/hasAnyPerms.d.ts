@@ -69,6 +69,7 @@ declare const _default: NativeFunction<[{
         readonly SendPolls: bigint;
         readonly UseExternalApps: bigint;
         readonly PinMessages: bigint;
+        readonly BypassSlowmode: bigint;
     };
     required: true;
 }], true>;

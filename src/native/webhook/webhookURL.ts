@@ -1,23 +1,27 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { ArgType, NativeFunction, Return } from "../../structures"
 
 export default new NativeFunction({
     name: "$webhookURL",
     version: "1.0.0",
-    description: "Gets webhook url with given id",
+    description: "Returns the url of a webhook",
     brackets: true,
-    output: ArgType.URL,
     unwrap: true,
     args: [
         {
-            name: "id",
-            description: "The webhook id",
+            name: "webhook ID",
+            description: "The webhook to pull data from",
             rest: false,
-            type: ArgType.String,
+            type: ArgType.Webhook,
             required: true,
         },
     ],
-    async execute(ctx, [id]) {
-        const web = await ctx.client.fetchWebhook(id).catch(ctx.noop)
-        return this.success(web ? web.url : web)
+    output: ArgType.URL,
+    execute(ctx, [web]) {
+        return this.success(web.url)
     },
 })

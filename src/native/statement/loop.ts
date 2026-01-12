@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { ArgType, IExtendedCompiledFunctionField, NativeFunction, Return } from "../../structures"
 
 export default new NativeFunction({
@@ -29,8 +34,8 @@ export default new NativeFunction({
             type: ArgType.String
         },
         {
-            name: "desc",
-            description: "Whether to use desc order for iteration count",
+            name: "asc",
+            description: "Whether to use asc order for iteration count",
             rest: false,
             type: ArgType.Boolean,
         }
@@ -42,13 +47,13 @@ export default new NativeFunction({
         } = await this["resolveMultipleArgs"](ctx, 0, 2, 3)
         if (!this["isValidReturnType"](rt)) return rt
 
-        const [ times, varName, type ] = args
+        const [ times, varName, asc ] = args
         const code = this.data.fields![1] as IExtendedCompiledFunctionField
 
         let output = ""
-        let condition = type || times === -1
+        let condition = asc || times === -1
 
-        for (let i = condition ? 1 : times;(type ? i <= times : i > 0) || times === -1;condition ? i++ : i--) {
+        for (let i = condition ? 1 : times;(asc ? i <= times : i > 0) || times === -1;condition ? i++ : i--) {
             if (varName)
                 ctx.setEnvironmentKey(varName, i)
             

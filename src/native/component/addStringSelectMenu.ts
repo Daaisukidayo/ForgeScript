@@ -1,4 +1,9 @@
-import { StringSelectMenuBuilder } from "discord.js"
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
+import { ComponentType, StringSelectMenuBuilder } from "discord.js"
 import { ArgType, NativeFunction, Return } from "../../structures"
 
 export default new NativeFunction({
@@ -41,13 +46,18 @@ export default new NativeFunction({
         },
     ],
     execute(ctx, [id, placeholder, disabled, min, max]) {
-        const menu = new StringSelectMenuBuilder().setCustomId(id).setDisabled(disabled || false)
+        const menu = new StringSelectMenuBuilder()
+            .setCustomId(id)
+            .setDisabled(disabled || false)
+            .setRequired(ctx.component.required)
 
         if (placeholder) menu.setPlaceholder(placeholder)
         if (min) menu.setMinValues(min)
         if (max) menu.setMaxValues(max)
 
-        ctx.container.actionRow?.addComponents(menu)
+        if (ctx.container.isInside(ComponentType.Label)) ctx.component.label?.setStringSelectMenuComponent(menu)
+        else ctx.container.actionRow?.addComponents(menu)
+
         return this.success()
     },
 })

@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { Interpreter, Compiler } from "../../core"
 import { NativeFunction, ArgType, Logger } from "../../structures"
 

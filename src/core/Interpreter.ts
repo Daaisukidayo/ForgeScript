@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import {
     AutoModerationRule,
     Channel,
@@ -11,6 +16,7 @@ import {
     Invite,
     Message,
     PartialMessage,
+    PartialPollAnswer,
     PartialSoundboardSound,
     PollAnswer,
     Presence,
@@ -24,7 +30,7 @@ import {
     VoiceState
 } from "discord.js"
 import { IExtendedCompilationResult } from "."
-import { Sendable, BaseCommand, Context, Logger, Container, Return } from "../structures"
+import { Sendable, BaseCommand, Context, Logger, Container, Return, ILocalFunctionData } from "../structures"
 import { ForgeClient } from "./ForgeClient"
 
 export interface IStates {
@@ -39,7 +45,7 @@ export interface IStates {
     audit: GuildAuditLogsEntry
     channel: Channel
     guild: Guild
-    poll: PollAnswer
+    poll: PollAnswer | PartialPollAnswer
     entitlement: Entitlement
     ban: GuildBan
     scheduledEvent: GuildScheduledEvent
@@ -110,12 +116,17 @@ export interface IRunnable {
     /**
      * The already existing variables defined with $let
      */
-    keywords?: Record<string, string>
+    keywords?: Record<string, unknown>
 
     /**
      * The already existing env variables
      */
     environment?: Record<string, unknown>
+
+    /**
+     * The already existing local functions
+     */
+    localFunctions?: Record<string, ILocalFunctionData>
 
     /**
      * The args used in the message command

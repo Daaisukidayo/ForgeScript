@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { ErrorType } from "../../structures"
 import { ArgType, NativeFunction } from "../../structures/@internal/NativeFunction"
 
@@ -25,9 +30,9 @@ export default new NativeFunction({
     ],
     output: ArgType.Unknown,
     async execute(ctx, [name, args]) {
-        const func = ctx.localFunctions.get(name)
+        const func = ctx.getLocalFunction(name)
         if (!func) return this.error(ErrorType.UnknownXName, "local function", name)
-        
+
         if (args.length < func.args.length)
             return this.error(
                 ErrorType.Custom,

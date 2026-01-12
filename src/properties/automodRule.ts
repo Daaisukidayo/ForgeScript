@@ -1,4 +1,9 @@
-import { AutoModerationRule, AutoModerationRuleEventType, AutoModerationRuleKeywordPresetType, AutoModerationRuleTriggerType } from "discord.js"
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
+import { AutoModerationAction, AutoModerationActionType, AutoModerationRule, AutoModerationRuleEventType, AutoModerationRuleKeywordPresetType, AutoModerationRuleTriggerType } from "discord.js"
 import defineProperties from "../functions/defineProperties"
 
 export enum AutomodRuleProperty {
@@ -37,4 +42,18 @@ export const AutomodRuleProperties = defineProperties<typeof AutomodRuleProperty
     allowList: (i, sep) => i?.triggerMetadata.allowList.join(sep ?? ", "),
     mentionTotalLimit: (i) => i?.triggerMetadata.mentionTotalLimit,
     mentionRaidProtectionEnabled: (i) => i?.triggerMetadata.mentionRaidProtectionEnabled
+})
+
+export enum AutomodRuleActionProperty {
+    type = "type",
+    channelID = "channelID",
+    durationSeconds = "durationSeconds",
+    customMessage = "customMessage",
+}
+
+export const AutomodRuleActionProperties = defineProperties<typeof AutomodRuleActionProperty, AutoModerationAction>({
+    type: (i) => AutoModerationActionType[i?.type!],
+    channelID: (i) => i?.metadata.channelId,
+    durationSeconds: (i) => i?.metadata.durationSeconds,
+    customMessage: (i) => i?.metadata.customMessage,
 })

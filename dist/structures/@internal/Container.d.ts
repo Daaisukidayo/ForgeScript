@@ -10,6 +10,7 @@ export declare class Container {
     reply: boolean;
     followUp: boolean;
     edit: boolean;
+    silent: boolean;
     ephemeral: boolean;
     tts: boolean;
     update: boolean;
@@ -32,7 +33,8 @@ export declare class Container {
     send<T = unknown>(obj: Sendable, content?: string, messageID?: string): Promise<T | null>;
     isValidMessage(options: MessageReplyOptions & InteractionReplyOptions & InteractionEditReplyOptions): boolean;
     embed(index: number): EmbedBuilder;
-    unparseMention(type: MessageMentionTypes): MessageMentionTypes[];
+    parseMentions(type?: MessageMentionTypes): void;
+    unparseMentions(type: MessageMentionTypes): void;
     /**
      * Checks if current context is inside a component builder function.
      * @param type The type of the component to check for.

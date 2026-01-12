@@ -1,6 +1,10 @@
 "use strict";
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addActionRow = exports.buildComponent = exports.buildActionRow = exports.isTopLevel = void 0;
+exports.addActionRow = exports.getLastComponent = exports.buildComponent = exports.buildActionRow = exports.isTopLevel = void 0;
 const discord_js_1 = require("discord.js");
 const MessageComponentBuilders = {
     [discord_js_1.ComponentType.Button]: discord_js_1.ButtonBuilder,
@@ -22,7 +26,7 @@ const TopLevelComponentBuilders = {
 /**
  * Checks whether the specified component type is a top level component.
  * @param type The component type.
- * @param actionRow Whether to include action rows when checking. Defaults to true.
+ * @param actionRow Whether to include action rows when checking. Defaults to `true`.
  * @returns
  */
 function isTopLevel(type, actionRow = true) {
@@ -53,12 +57,23 @@ function buildComponent(comp, ctx) {
 }
 exports.buildComponent = buildComponent;
 /**
- * Adds an action row. This is only needed inside ComponentsV2 functions and should never be used outside this context.
+ * Gets the last component of the current label or action row.
  * @param ctx The current context.
  * @returns
  */
-function addActionRow(ctx) {
-    ctx.container.isComponentsV2 = true;
+function getLastComponent(ctx) {
+    return (ctx.component.label?.data.component ?? ctx.container.actionRow?.components[0]);
+}
+exports.getLastComponent = getLastComponent;
+/**
+ * Adds an action row to the components. This is mostly needed inside ComponentsV2 functions.
+ * @param ctx The current context.
+ * @param cv2 Whether to set the IsComponentsV2 flag. Defaults to `true`.
+ * @returns
+ */
+function addActionRow(ctx, cv2 = true) {
+    if (cv2)
+        ctx.container.isComponentsV2 = true;
     const row = ctx.container.actionRow;
     if (!row)
         return;

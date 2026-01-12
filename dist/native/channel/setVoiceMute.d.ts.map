@@ -1,1 +1,1 @@
-{"version":3,"file":"setVoiceMute.d.ts","sourceRoot":"","sources":["../../../src/native/channel/setVoiceMute.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,cAAc,EAAE,MAAM,kBAAkB,CAAA;;;;;;;;;;;;;;;;;;;;;AAE1D,wBAqCE"}
+{"version":3,"file":"setVoiceMute.d.ts","sourceRoot":"","sources":["../../../src/native/channel/setVoiceMute.ts"],"names":[],"mappings":"AAKA,OAAO,EAAE,OAAO,EAAE,cAAc,EAAE,MAAM,kBAAkB,CAAA;;;;;;;;;;;;;;;;;;;;;AAE1D,wBAqCE"}

@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { RESTPostAPIApplicationCommandsJSONBody } from "discord.js"
 import { Compiler, IExtendedCompilationResult } from "../../core"
 import { IApplicationCommandData, RegistrationType } from "../../managers/ApplicationCommandManager"

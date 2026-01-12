@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { inspect } from "util"
 import { ErrorType } from "../../structures/forge/ForgeError"
 import { ArgType, NativeFunction } from "../../structures/@internal/NativeFunction"

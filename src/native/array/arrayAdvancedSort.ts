@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { ArgType, IExtendedCompiledFunctionField, NativeFunction, Return } from "../../structures"
 
 async function asyncSort<T>(array: T[], asyncComparator: (a: T, b: T) => Promise<number>): Promise<T[]> {

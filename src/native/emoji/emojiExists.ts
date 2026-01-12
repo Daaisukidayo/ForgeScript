@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { ArgType, CompiledFunction, NativeFunction, Return } from "../../structures"
 
 export default new NativeFunction({
@@ -10,7 +15,7 @@ export default new NativeFunction({
     args: [
         {
             name: "emoji ID",
-            description: "The emoji to check",
+            description: "The emoji id to check",
             rest: false,
             required: true,
             type: ArgType.String,

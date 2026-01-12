@@ -1,7 +1,12 @@
 "use strict";
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.NoNumberRegex = void 0;
 const structures_1 = require("../../structures");
-const NoNumberRegex = /[^0-9.]/g;
+exports.NoNumberRegex = /[^0-9.-]/g;
 exports.default = new structures_1.NativeFunction({
     name: "$separateNumber",
     version: "1.0.0",
@@ -26,7 +31,7 @@ exports.default = new structures_1.NativeFunction({
     brackets: true,
     execute(ctx, [n, sep]) {
         const t = n.toLocaleString();
-        return this.success(sep ? t.replaceAll(NoNumberRegex, sep) : t);
+        return this.success(sep ? t.replaceAll(exports.NoNumberRegex, sep) : t);
     },
 });
 //# sourceMappingURL=separateNumber.js.map

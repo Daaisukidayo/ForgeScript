@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { inspect } from "util"
 import { CompiledFunction } from "../structures/@internal/CompiledFunction"
 import { ErrorType, ForgeError } from "../structures/forge/ForgeError"

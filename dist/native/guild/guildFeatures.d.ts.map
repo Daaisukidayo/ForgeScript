@@ -1,1 +1,1 @@
-{"version":3,"file":"guildFeatures.d.ts","sourceRoot":"","sources":["../../../src/native/guild/guildFeatures.ts"],"names":[],"mappings":"AAEA,OAAO,EAAE,OAAO,EAAE,cAAc,EAAU,MAAM,kBAAkB,CAAA;;;;;;;;;;;;;AAElE,wBA4BE"}
+{"version":3,"file":"guildFeatures.d.ts","sourceRoot":"","sources":["../../../src/native/guild/guildFeatures.ts"],"names":[],"mappings":"AAOA,OAAO,EAAE,OAAO,EAAE,cAAc,EAAU,MAAM,kBAAkB,CAAA;;;;;;;;;;;;;AAElE,wBA4BE"}

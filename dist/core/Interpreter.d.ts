@@ -1,6 +1,6 @@
-import { AutoModerationRule, Channel, Entitlement, Guild, GuildAuditLogsEntry, GuildBan, GuildEmoji, GuildMember, GuildScheduledEvent, Invite, Message, PartialMessage, PartialSoundboardSound, PollAnswer, Presence, Role, SoundboardSound, StageInstance, Sticker, Subscription, User, VoiceChannelEffect, VoiceState } from "discord.js";
+import { AutoModerationRule, Channel, Entitlement, Guild, GuildAuditLogsEntry, GuildBan, GuildEmoji, GuildMember, GuildScheduledEvent, Invite, Message, PartialMessage, PartialPollAnswer, PartialSoundboardSound, PollAnswer, Presence, Role, SoundboardSound, StageInstance, Sticker, Subscription, User, VoiceChannelEffect, VoiceState } from "discord.js";
 import { IExtendedCompilationResult } from ".";
-import { Sendable, BaseCommand, Context, Container } from "../structures";
+import { Sendable, BaseCommand, Context, Container, ILocalFunctionData } from "../structures";
 import { ForgeClient } from "./ForgeClient";
 export interface IStates {
     message: Message;
@@ -14,7 +14,7 @@ export interface IStates {
     audit: GuildAuditLogsEntry;
     channel: Channel;
     guild: Guild;
-    poll: PollAnswer;
+    poll: PollAnswer | PartialPollAnswer;
     entitlement: Entitlement;
     ban: GuildBan;
     scheduledEvent: GuildScheduledEvent;
@@ -73,11 +73,15 @@ export interface IRunnable {
     /**
      * The already existing variables defined with $let
      */
-    keywords?: Record<string, string>;
+    keywords?: Record<string, unknown>;
     /**
      * The already existing env variables
      */
     environment?: Record<string, unknown>;
+    /**
+     * The already existing local functions
+     */
+    localFunctions?: Record<string, ILocalFunctionData>;
     /**
      * The args used in the message command
      */

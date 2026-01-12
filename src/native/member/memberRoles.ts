@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { APIInteractionGuildMember, GuildMember } from "discord.js"
 import array from "../../functions/array"
 import { ArgType, NativeFunction, Return } from "../../structures"

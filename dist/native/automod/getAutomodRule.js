@@ -1,4 +1,8 @@
 "use strict";
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 const automodRule_1 = require("../../properties/automodRule");
@@ -18,7 +22,7 @@ exports.default = new structures_1.NativeFunction({
         },
         {
             name: "rule ID",
-            description: "The id of the automod rule to get",
+            description: "The automod rule to get",
             rest: false,
             required: true,
             type: structures_1.ArgType.AutomodRule,
@@ -42,7 +46,7 @@ exports.default = new structures_1.NativeFunction({
         structures_1.ArgType.Json,
         structures_1.ArgType.Unknown
     ],
-    async execute(ctx, [, rule, prop, sep]) {
+    execute(ctx, [, rule, prop, sep]) {
         if (prop)
             return this.success(automodRule_1.AutomodRuleProperties[prop](rule, sep));
         return this.successJSON(rule);

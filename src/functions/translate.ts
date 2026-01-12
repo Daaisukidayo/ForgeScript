@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { Locale, SnowflakeUtil } from "discord.js"
 import { ArgType, IArg, IEvent, INativeFunction, Logger } from "../structures"
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs"

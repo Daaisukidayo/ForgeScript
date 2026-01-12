@@ -1,4 +1,8 @@
 "use strict";
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -15,7 +19,7 @@ exports.default = new structures_1.NativeFunction({
     args: [
         {
             name: "emoji ID",
-            description: "The emoji id to return its roles",
+            description: "The emoji to return its roles",
             rest: false,
             type: structures_1.ArgType.GuildEmoji,
             required: true,

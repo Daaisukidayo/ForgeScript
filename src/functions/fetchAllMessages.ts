@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { Collection, Message, TextBasedChannel } from "discord.js"
 
 export default async function (ch: TextBasedChannel) {

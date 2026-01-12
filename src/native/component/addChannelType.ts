@@ -1,5 +1,11 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { ChannelSelectMenuBuilder, ChannelType } from "discord.js"
 import { ArgType, NativeFunction } from "../../structures"
+import { getLastComponent } from "../../functions/components"
 
 export default new NativeFunction({
     name: "$addChannelType",
@@ -19,7 +25,7 @@ export default new NativeFunction({
         }
     ],
     execute(ctx, [ types ]) {
-        const menu = ctx.container.actionRow?.components[0]
+        const menu = getLastComponent(ctx)
         if (menu instanceof ChannelSelectMenuBuilder) {
             menu.addChannelTypes(types)
         }

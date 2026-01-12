@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { ApplicationCommandOptionType, ApplicationCommandType } from "discord.js"
 import { ApplicationCommand } from "../../structures"
 import { RegistrationType } from "../../managers"

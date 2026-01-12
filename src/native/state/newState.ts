@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { VoiceStateProperties, VoiceStateProperty } from "../../properties/voiceState"
 import { ArgType, NativeFunction, Return } from "../../structures"
 

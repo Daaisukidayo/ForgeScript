@@ -1,4 +1,5 @@
 import { ArgType, NativeFunction } from "../../structures";
+export declare const NoNumberRegex: RegExp;
 declare const _default: NativeFunction<[{
     name: string;
     description: string;

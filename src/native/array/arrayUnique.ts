@@ -1,3 +1,9 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
+import { isEqual, uniqWith } from "lodash"
 import { ArgType, NativeFunction, Return } from "../../structures"
 
 export default new NativeFunction({
@@ -26,7 +32,7 @@ export default new NativeFunction({
     execute(ctx, [variable, other]) {
         const arr = ctx.getEnvironmentInstance(Array, variable)
         if (arr !== null) {
-            const unique = [...new Set(arr)]
+            const unique = uniqWith(arr, isEqual)
 
             if (other)
                 ctx.setEnvironmentKey(other, unique)

@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { StickerProperties, StickerProperty } from "../../properties/sticker"
 import { ArgType, NativeFunction, Return } from "../../structures"
 

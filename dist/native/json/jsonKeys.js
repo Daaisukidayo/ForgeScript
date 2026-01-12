@@ -1,10 +1,14 @@
 "use strict";
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$jsonKeys",
     version: "1.4.0",
-    description: "Gets keys from a json var",
+    description: "Gets keys from a JSON variable",
     brackets: true,
     args: [
         {

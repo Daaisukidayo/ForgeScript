@@ -1,8 +1,11 @@
 "use strict";
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const structures_1 = require("../../structures");
-const lodash_1 = require("lodash");
 exports.default = new structures_1.NativeFunction({
     name: "$editAutomodRule",
     version: "1.5.0",
@@ -19,7 +22,7 @@ exports.default = new structures_1.NativeFunction({
         },
         {
             name: "rule ID",
-            description: "The id of the automod rule to edit",
+            description: "The automod rule to edit",
             rest: false,
             required: true,
             type: structures_1.ArgType.AutomodRule,
@@ -62,7 +65,7 @@ exports.default = new structures_1.NativeFunction({
             actions: ctx.automodRule.actions || undefined,
             exemptRoles: ctx.automodRule.exemptRoles || undefined,
             exemptChannels: ctx.automodRule.exemptChannels || undefined,
-            enabled: (0, lodash_1.isBoolean)(enabled) ? enabled : undefined,
+            enabled: typeof (enabled) === "boolean" ? enabled : undefined,
             reason: reason || ctx.reason
         }).catch(ctx.noop);
         ctx.clearAutomodRuleOptions();

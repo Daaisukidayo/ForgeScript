@@ -1,4 +1,8 @@
 "use strict";
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const structures_1 = require("../../structures");
@@ -51,6 +55,7 @@ exports.default = new structures_1.NativeFunction({
         const menu = new discord_js_1.ChannelSelectMenuBuilder()
             .setDefaultChannels(channels)
             .setDisabled(disabled || false)
+            .setRequired(ctx.component.required)
             .setCustomId(id);
         if (placeholder)
             menu.setPlaceholder(placeholder);
@@ -58,7 +63,10 @@ exports.default = new structures_1.NativeFunction({
             menu.setMinValues(min);
         if (max)
             menu.setMaxValues(max);
-        ctx.container.actionRow?.addComponents(menu);
+        if (ctx.container.isInside(discord_js_1.ComponentType.Label))
+            ctx.component.label?.setChannelSelectMenuComponent(menu);
+        else
+            ctx.container.actionRow?.addComponents(menu);
         return this.success();
     }
 });

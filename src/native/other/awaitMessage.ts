@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { BaseChannel, TextBasedChannel, TextChannel } from "discord.js"
 import { ArgType, IExtendedCompiledFunctionConditionField, NativeFunction, Return } from "../../structures"
 import noop from "../../functions/noop"

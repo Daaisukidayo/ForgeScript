@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { ActionRow, ActionRowBuilder, ButtonBuilder, ButtonStyle, MessageActionRowComponent } from "discord.js"
 import { ArgType, NativeFunction, Return } from "../../structures"
 import { resolveNumericEnum } from "../../functions/enum"
@@ -40,24 +45,22 @@ export default new NativeFunction({
         },
         {
             name: "label",
-            description: "The button label",
+            description: "The new button label",
             rest: false,
             type: ArgType.String,
-            required: true,
         },
         {
             name: "style",
-            description: "The style for this button",
+            description: "The new style for this button",
             enum: ButtonStyle,
             type: ArgType.Enum,
-            required: true,
             rest: false,
         },
         {
             name: "emoji",
             rest: false,
             type: ArgType.String,
-            description: "The emoji for this button",
+            description: "The new emoji for this button",
         },
         {
             name: "disabled",
@@ -80,12 +83,10 @@ export default new NativeFunction({
         ) as ButtonBuilder
 
         if (!btn) return this.success()
-        style = resolveNumericEnum(ButtonStyle, style)
+        style = (style ? resolveNumericEnum(ButtonStyle, style) : btn.data.style)
 
-        // @ts-ignore
-        btn.setLabel(label || btn.data.label)
-            .setStyle(style)
-
+        if (label) btn.setLabel(label)
+        if (style) btn.setStyle(style)
         if (emoji) btn.setEmoji(emoji)
         if (typeof disabled === "boolean") btn.setDisabled(disabled)
 

@@ -1,4 +1,8 @@
 "use strict";
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -35,7 +39,7 @@ exports.ActivityProperties = (0, defineProperties_1.default)({
     endTimestamp: (i) => i?.timestamps?.end?.getTime(),
     startTimestamp: (i) => i?.timestamps?.start?.getTime(),
     partyID: (i) => i?.party?.id,
-    partySize: (i) => i?.party?.size[0],
+    partySize: (i) => i?.party?.size?.[0],
     syncID: (i) => i?.syncId,
     url: (i) => i?.url,
     largeText: (i) => i?.assets?.largeText,

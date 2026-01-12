@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import array from "../../functions/array"
 import { ArgType, NativeFunction, Return } from "../../structures"
 
@@ -11,7 +16,7 @@ export default new NativeFunction({
     args: [
         {
             name: "emoji ID",
-            description: "The emoji id to return its roles",
+            description: "The emoji to return its roles",
             rest: false,
             type: ArgType.GuildEmoji,
             required: true,

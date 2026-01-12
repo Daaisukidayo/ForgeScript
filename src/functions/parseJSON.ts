@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 export const JSONStartRegex = /^[[{]/
 export const JSONEndRegex = /^[\]}]/
 export const JSONNumberRegex = /^\d+$/

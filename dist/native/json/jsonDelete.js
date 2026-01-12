@@ -1,10 +1,14 @@
 "use strict";
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$jsonDelete",
     version: "1.4.0",
-    description: "Delete a key from a traversed json",
+    description: "Deletes a key from a traversed JSON",
     unwrap: true,
     brackets: true,
     output: structures_1.ArgType.Boolean,

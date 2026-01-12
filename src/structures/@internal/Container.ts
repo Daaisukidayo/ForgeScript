@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 /* eslint-disable indent */
 import {
     ActionRowBuilder,
@@ -45,6 +50,8 @@ import {
 import noop from "../../functions/noop"
 import { MessageFlags } from "discord.js"
 
+const mentions: MessageMentionTypes[] = ["everyone", "roles", "users"]
+
 export type Sendable =
     | {}
     | Sticker
@@ -77,6 +84,7 @@ export class Container {
     public reply = false
     public followUp = false
     public edit = false
+    public silent = false
     public ephemeral = false
     public tts = false
     public update = false
@@ -172,9 +180,14 @@ export class Container {
         return (this.embeds[index] ??= new EmbedBuilder())
     }
 
-    public unparseMention(type: MessageMentionTypes) {
-        this.allowedMentions.parse ??= ["everyone", "roles", "users"]
-        return (this.allowedMentions.parse = this.allowedMentions.parse.filter((x) => x !== type))
+    public parseMentions(type?: MessageMentionTypes) {
+        this.allowedMentions.parse = type
+            ? [...new Set([...(this.allowedMentions.parse ?? []), type])]
+            : [...mentions]
+    }
+
+    public unparseMentions(type: MessageMentionTypes) {
+        this.allowedMentions.parse = (this.allowedMentions.parse ?? mentions).filter((x) => x !== type)
     }
 
     /**
@@ -205,6 +218,7 @@ export class Container {
         this.update = false
         this.ephemeral = false
         this.withResponse = false
+        this.silent = false
         this.edit = false
         this.tts = false
         this.isComponentsV2 = false
@@ -225,6 +239,7 @@ export class Container {
 
         const flags = new Array<MessageFlags>()
         if (this.ephemeral) flags.push(MessageFlags.Ephemeral)
+        if (this.silent) flags.push(MessageFlags.SuppressNotifications)
         if (this.isComponentsV2) flags.push(MessageFlags.IsComponentsV2)
 
         return (

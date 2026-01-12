@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { ArgType, Context, IArg, IExtendedCompiledFunctionConditionField, NativeFunction } from ".."
 import { IExtendedCompilationResult, Compiler, Interpreter } from "../../core"
 import isTrue from "../../functions/isTrue"

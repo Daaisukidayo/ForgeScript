@@ -1,1 +1,1 @@
-{"version":3,"file":"loop.d.ts","sourceRoot":"","sources":["../../../src/native/statement/loop.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAkC,cAAc,EAAU,MAAM,kBAAkB,CAAA;;;;;;;;;;;;;;;;;;;;;;;;AAElG,wBA6DE"}
+{"version":3,"file":"loop.d.ts","sourceRoot":"","sources":["../../../src/native/statement/loop.ts"],"names":[],"mappings":"AAKA,OAAO,EAAE,OAAO,EAAkC,cAAc,EAAU,MAAM,kBAAkB,CAAA;;;;;;;;;;;;;;;;;;;;;;;;AAElG,wBA6DE"}

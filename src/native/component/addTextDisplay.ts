@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { ComponentType, ContainerBuilder, TextDisplayBuilder } from "discord.js"
 import { ArgType, NativeFunction, Return } from "../../structures"
 import { addActionRow } from "../../functions/components"
@@ -22,7 +27,8 @@ export default new NativeFunction({
         const comp = ctx.container.components.at(-1)
         const text = new TextDisplayBuilder().setContent(content)
 
-        if (ctx.container.isInside(ComponentType.Section)) ctx.component.section?.addTextDisplayComponents(text)
+        if (ctx.container.modal) ctx.container.modal.addTextDisplayComponents(text)
+        else if (ctx.container.isInside(ComponentType.Section)) ctx.component.section?.addTextDisplayComponents(text)
         else if (comp instanceof ContainerBuilder && ctx.container.isInside(ComponentType.Container)) 
             comp.addTextDisplayComponents(text)
         else ctx.container.components.push(text)

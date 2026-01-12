@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { BaseChannel, DefaultReactionEmoji, ThreadOnlyChannel } from "discord.js"
 import { ArgType, NativeFunction } from "../../structures"
 import { parseSingleEmoji } from "../../functions/parseSingleEmoji"

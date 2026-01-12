@@ -1,9 +1,14 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { ArgType, CompiledFunction, NativeFunction, Return } from "../../structures"
 
 export default new NativeFunction({
     name: "$roleExists",
     version: "1.0.0",
-    description: "Returns whether an role id exists",
+    description: "Returns whether a role id exists",
     unwrap: true,
     brackets: true,
     output: ArgType.Boolean,

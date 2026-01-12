@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { deflateSync, inflateSync } from "zlib"
 import { ArgType, NativeFunction, Return } from "../../structures"
 

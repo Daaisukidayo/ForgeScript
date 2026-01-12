@@ -1,4 +1,8 @@
 "use strict";
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
@@ -6,7 +10,7 @@ exports.default = new structures_1.NativeFunction({
     version: "1.5.0",
     description: "Returns the raw data of an emoji",
     unwrap: true,
-    brackets: true,
+    brackets: false,
     args: [
         {
             name: "emoji ID",
@@ -18,7 +22,7 @@ exports.default = new structures_1.NativeFunction({
     ],
     output: structures_1.ArgType.Json,
     execute(ctx, [emoji]) {
-        return this.successJSON(emoji.toJSON());
+        return this.successJSON((emoji ?? ctx.emoji)?.toJSON());
     },
 });
 //# sourceMappingURL=emojiRawData.js.map

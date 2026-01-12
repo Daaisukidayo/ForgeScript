@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { ComponentType, GatewayIntentBits, Locale, StickerFormatType } from "discord.js"
 import generateMetadata from "./functions/generateMetadata"
 import { NativeEventName } from "./managers"

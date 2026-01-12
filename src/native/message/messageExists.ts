@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { BaseChannel, TextChannel } from "discord.js"
 import { ArgType, CompiledFunction, NativeFunction, Return } from "../../structures"
 

@@ -1,4 +1,8 @@
 "use strict";
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const structures_1 = require("../../structures");
@@ -12,7 +16,7 @@ exports.default = new structures_1.NativeFunction({
     args: [
         {
             name: "name",
-            description: "The option name",
+            description: "The option name to find",
             rest: false,
             required: true,
             type: structures_1.ArgType.String
@@ -26,21 +30,20 @@ exports.default = new structures_1.NativeFunction({
         },
         {
             name: "description",
-            description: "The description for this option",
+            description: "The new description for this option",
             rest: false,
             type: structures_1.ArgType.String,
             required: false,
         },
         {
             name: "value",
-            description: "The value to use for this option",
+            description: "The new value for this option",
             rest: false,
-            required: true,
             type: structures_1.ArgType.String,
         },
         {
             name: "emoji",
-            description: "The emoji to use for this option",
+            description: "The new emoji for this option",
             type: structures_1.ArgType.String,
             rest: false,
         },

@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { WebhookType } from "discord.js"
 import { ArgType, NativeFunction, Return } from "../../structures"
 
@@ -9,15 +14,15 @@ export default new NativeFunction({
     unwrap: true,
     args: [
         {
-            name: "id",
-            description: "The webhook id",
+            name: "webhook ID",
+            description: "The webhook to pull data from",
             rest: false,
             type: ArgType.Webhook,
             required: true,
         },
     ],
     output: WebhookType,
-    async execute(ctx, [web]) {
+    execute(ctx, [web]) {
         return this.success(WebhookType[web.type])
     },
 })

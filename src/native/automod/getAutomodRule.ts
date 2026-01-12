@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { ArgType, NativeFunction, Return } from "../../structures"
 import { AutomodRuleProperty, AutomodRuleProperties } from "../../properties/automodRule"
 
@@ -17,7 +22,7 @@ export default new NativeFunction({
         },
         {
             name: "rule ID",
-            description: "The id of the automod rule to get",
+            description: "The automod rule to get",
             rest: false,
             required: true,
             type: ArgType.AutomodRule,
@@ -41,7 +46,7 @@ export default new NativeFunction({
         ArgType.Json,
         ArgType.Unknown
     ],
-    async execute(ctx, [, rule, prop, sep ]) {
+    execute(ctx, [, rule, prop, sep ]) {
         if (prop) return this.success(AutomodRuleProperties[prop](rule, sep))
         return this.successJSON(rule)
     },

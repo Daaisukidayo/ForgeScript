@@ -1,6 +1,10 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { AutoModerationRuleEventType } from "discord.js"
 import { ArgType, NativeFunction, Return } from "../../structures"
-import { isBoolean } from "lodash"
 
 export default new NativeFunction({
     name: "$editAutomodRule",
@@ -18,7 +22,7 @@ export default new NativeFunction({
         },
         {
             name: "rule ID",
-            description: "The id of the automod rule to edit",
+            description: "The automod rule to edit",
             rest: false,
             required: true,
             type: ArgType.AutomodRule,
@@ -61,7 +65,7 @@ export default new NativeFunction({
             actions: ctx.automodRule.actions || undefined,
             exemptRoles: ctx.automodRule.exemptRoles || undefined,
             exemptChannels: ctx.automodRule.exemptChannels || undefined,
-            enabled: isBoolean(enabled) ? enabled : undefined,
+            enabled: typeof(enabled) === "boolean" ? enabled : undefined,
             reason: reason || ctx.reason
         }).catch(ctx.noop)
 

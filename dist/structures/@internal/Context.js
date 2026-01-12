@@ -1,4 +1,8 @@
 "use strict";
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -41,12 +45,13 @@ class Context {
     executionTimestamp;
     http = {};
     automodRule = {};
+    scheduledEvent = {};
     component = {};
     timezone = "UTC";
     calendar;
-    localFunctions = new Map();
     #keywords = {};
     #environment = {};
+    #localFunctions = {};
     _reason;
     container;
     // eslint-disable-next-line no-unused-vars
@@ -56,6 +61,8 @@ class Context {
             this.#environment = runtime.environment;
         if (runtime.keywords)
             this.#keywords = runtime.keywords;
+        if (runtime.localFunctions)
+            this.#localFunctions = runtime.localFunctions;
         this.container = runtime.container ??= new Container_1.Container();
     }
     get client() {
@@ -201,6 +208,9 @@ class Context {
     clearAutomodRuleOptions() {
         this.automodRule = {};
     }
+    clearScheduledEventOptions() {
+        this.scheduledEvent = {};
+    }
     /**
      * Fetches all emojis of the application.
      * @param once Whether to fetch only when the collection is empty.
@@ -272,6 +282,15 @@ class Context {
     hasKeyword(name) {
         return name in this.#keywords;
     }
+    getLocalFunction(name) {
+        return this.#localFunctions[name];
+    }
+    deleteLocalFunction(name) {
+        return delete this.#localFunctions[name];
+    }
+    setLocalFunction(name, data) {
+        return (this.#localFunctions[name] = data);
+    }
     clearKeywords() {
         this.#keywords = {};
     }
@@ -315,13 +334,14 @@ class Context {
         return new Context({ ...this.runtime });
     }
     /**
-     * Clones keywords and environment vars
+     * Clones keywords, environment vars, and local functions.
      * @returns
      */
     clone(props, syncVars = false) {
         const empty = this.cloneEmpty();
         empty.#keywords = syncVars ? this.#keywords : { ...this.#keywords };
         empty.#environment = syncVars ? this.#environment : { ...this.#environment };
+        empty.#localFunctions = syncVars ? this.#localFunctions : { ...this.#localFunctions };
         if (props) {
             const keys = Object.keys(props);
             for (let i = 0, len = keys.length; i < len; i++) {
@@ -334,6 +354,7 @@ class Context {
     cloneRuntime() {
         this.runtime.keywords = this.#keywords;
         this.runtime.environment = this.#environment;
+        this.runtime.localFunctions = this.#localFunctions;
         return this.runtime;
     }
     clearCache() {

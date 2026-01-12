@@ -1,4 +1,8 @@
 "use strict";
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Compiler = exports.Conditions = exports.Operators = exports.OperatorType = void 0;
 const CompiledFunction_1 = require("../structures/@internal/CompiledFunction");

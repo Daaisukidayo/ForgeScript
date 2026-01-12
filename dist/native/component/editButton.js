@@ -1,4 +1,8 @@
 "use strict";
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const structures_1 = require("../../structures");
@@ -26,24 +30,22 @@ exports.default = new structures_1.NativeFunction({
         },
         {
             name: "label",
-            description: "The button label",
+            description: "The new button label",
             rest: false,
             type: structures_1.ArgType.String,
-            required: true,
         },
         {
             name: "style",
-            description: "The style for this button",
+            description: "The new style for this button",
             enum: discord_js_1.ButtonStyle,
             type: structures_1.ArgType.Enum,
-            required: true,
             rest: false,
         },
         {
             name: "emoji",
             rest: false,
             type: structures_1.ArgType.String,
-            description: "The emoji for this button",
+            description: "The new emoji for this button",
         },
         {
             name: "disabled",
@@ -64,10 +66,11 @@ exports.default = new structures_1.NativeFunction({
         (x) => "custom_id" in x.data && x.data.custom_id === oldId);
         if (!btn)
             return this.success();
-        style = (0, enum_1.resolveNumericEnum)(discord_js_1.ButtonStyle, style);
-        // @ts-ignore
-        btn.setLabel(label || btn.data.label)
-            .setStyle(style);
+        style = (style ? (0, enum_1.resolveNumericEnum)(discord_js_1.ButtonStyle, style) : btn.data.style);
+        if (label)
+            btn.setLabel(label);
+        if (style)
+            btn.setStyle(style);
         if (emoji)
             btn.setEmoji(emoji);
         if (typeof disabled === "boolean")

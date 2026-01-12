@@ -1,4 +1,5 @@
 */__tests__/
+*/@build/
 docs/
 src/
 metadata/
@@ -8,6 +9,7 @@ CONTRIBUTING.md
 EXTENSIONS.md
 .env
 tsconfig.json
+tsconfig.build.json
 .eslintrc.json
 .prettierrc
 .prettierignore

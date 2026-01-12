@@ -1,10 +1,15 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import parseJSON from "../../functions/parseJSON"
 import { ArgType, NativeFunction, Return } from "../../structures"
 
 export default new NativeFunction({
     name: "$jsonSet",
     version: "1.2.0",
-    description: "Adds a json key with a value",
+    description: "Adds a JSON key with a value",
     unwrap: true,
     brackets: true,
     args: [

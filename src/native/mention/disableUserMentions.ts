@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { NativeFunction } from "../../structures"
 
 export default new NativeFunction({
@@ -6,7 +11,7 @@ export default new NativeFunction({
     description: "Disables all user mentions",
     unwrap: false,
     execute(ctx) {
-        ctx.container.unparseMention("users")
+        ctx.container.unparseMentions("users")
         ctx.container.allowedMentions.users = []
         return this.success()
     },

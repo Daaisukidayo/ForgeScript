@@ -1,4 +1,4 @@
-import { AnySelectMenuInteraction, AutoModerationActionExecution, AutoModerationActionOptions, AutoModerationTriggerMetadataOptions, BaseChannel, ChatInputCommandInteraction, ContextMenuCommandInteraction, Emoji, Entitlement, Guild, GuildMember, Interaction, MediaGalleryBuilder, Message, MessageReaction, Role, SectionBuilder, SoundboardSound, Sticker, Subscription, User } from "discord.js";
+import { AnySelectMenuInteraction, AutoModerationActionExecution, AutoModerationActionOptions, AutoModerationTriggerMetadataOptions, BaseChannel, ChatInputCommandInteraction, ContextMenuCommandInteraction, Emoji, Entitlement, Guild, GuildMember, GuildScheduledEventEntityMetadataOptions, Interaction, LabelBuilder, MediaGalleryBuilder, Message, MessageReaction, Role, SectionBuilder, SoundboardSound, Sticker, Subscription, User, VoiceBasedChannel } from "discord.js";
 import { CompiledFunction, IExtendedCompiledFunctionField } from "./CompiledFunction";
 import { Container, Sendable } from "./Container";
 import { IArg, UnwrapArgs } from "./NativeFunction";
@@ -27,6 +27,10 @@ export interface IAutomodRuleOptions {
     exemptRoles?: string[];
     exemptChannels?: string[];
 }
+export interface IScheduledEventOptions {
+    channel?: VoiceBasedChannel;
+    entityMetadata?: GuildScheduledEventEntityMetadataOptions;
+}
 export interface ILocalFunctionData {
     code: IExtendedCompiledFunctionField;
     args: string[];
@@ -34,6 +38,8 @@ export interface ILocalFunctionData {
 export interface IComponentOptions {
     section: SectionBuilder;
     gallery: MediaGalleryBuilder;
+    label: LabelBuilder;
+    required?: boolean;
 }
 export declare enum CalendarType {
     Buddhist = "buddhist",
@@ -83,10 +89,10 @@ export declare class Context {
     executionTimestamp: number;
     http: Partial<IHttpOptions>;
     automodRule: Partial<IAutomodRuleOptions>;
+    scheduledEvent: Partial<IScheduledEventOptions>;
     component: Partial<IComponentOptions>;
     timezone: string;
     calendar?: CalendarType;
-    localFunctions: Map<string, ILocalFunctionData>;
     private _reason?;
     container: Container;
     constructor(runtime: IRunnable);
@@ -117,6 +123,7 @@ export declare class Context {
     handleNotSuccess(fn: CompiledFunction, rt: Return): boolean;
     clearHttpOptions(): void;
     clearAutomodRuleOptions(): void;
+    clearScheduledEventOptions(): void;
     /**
      * Fetches all emojis of the application.
      * @param once Whether to fetch only when the collection is empty.
@@ -133,6 +140,9 @@ export declare class Context {
     deleteKeyword(name: string): boolean;
     setKeyword(name: string, value: unknown): unknown;
     hasKeyword(name: string): boolean;
+    getLocalFunction(name: string): ILocalFunctionData;
+    deleteLocalFunction(name: string): boolean;
+    setLocalFunction(name: string, data: ILocalFunctionData): ILocalFunctionData;
     clearKeywords(): void;
     clearEnvironment(): void;
     isSelectMenu(): this is this & {
@@ -162,7 +172,7 @@ export declare class Context {
     };
     cloneEmpty(): Context;
     /**
-     * Clones keywords and environment vars
+     * Clones keywords, environment vars, and local functions.
      * @returns
      */
     clone(props?: Partial<IRunnable>, syncVars?: boolean): Context;

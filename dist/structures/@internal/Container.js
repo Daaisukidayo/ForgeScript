@@ -1,4 +1,8 @@
 "use strict";
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -8,6 +12,7 @@ exports.Container = void 0;
 const discord_js_1 = require("discord.js");
 const noop_1 = __importDefault(require("../../functions/noop"));
 const discord_js_2 = require("discord.js");
+const mentions = ["everyone", "roles", "users"];
 class Container {
     content;
     embeds = new Array();
@@ -18,6 +23,7 @@ class Container {
     reply = false;
     followUp = false;
     edit = false;
+    silent = false;
     ephemeral = false;
     tts = false;
     update = false;
@@ -109,9 +115,13 @@ class Container {
     embed(index) {
         return (this.embeds[index] ??= new discord_js_1.EmbedBuilder());
     }
-    unparseMention(type) {
-        this.allowedMentions.parse ??= ["everyone", "roles", "users"];
-        return (this.allowedMentions.parse = this.allowedMentions.parse.filter((x) => x !== type));
+    parseMentions(type) {
+        this.allowedMentions.parse = type
+            ? [...new Set([...(this.allowedMentions.parse ?? []), type])]
+            : [...mentions];
+    }
+    unparseMentions(type) {
+        this.allowedMentions.parse = (this.allowedMentions.parse ?? mentions).filter((x) => x !== type);
     }
     /**
      * Checks if current context is inside a component builder function.
@@ -139,6 +149,7 @@ class Container {
         this.update = false;
         this.ephemeral = false;
         this.withResponse = false;
+        this.silent = false;
         this.edit = false;
         this.tts = false;
         this.isComponentsV2 = false;
@@ -157,6 +168,8 @@ class Container {
         const flags = new Array();
         if (this.ephemeral)
             flags.push(discord_js_2.MessageFlags.Ephemeral);
+        if (this.silent)
+            flags.push(discord_js_2.MessageFlags.SuppressNotifications);
         if (this.isComponentsV2)
             flags.push(discord_js_2.MessageFlags.IsComponentsV2);
         return (content

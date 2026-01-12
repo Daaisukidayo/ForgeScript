@@ -1,4 +1,8 @@
 "use strict";
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
@@ -7,7 +11,7 @@ exports.default = new structures_1.NativeFunction({
     aliases: [
         "$isValidJSON"
     ],
-    description: "Checks whether given json is valid",
+    description: "Checks whether given JSON is valid",
     unwrap: true,
     brackets: true,
     args: [

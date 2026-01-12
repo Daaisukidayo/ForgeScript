@@ -1,9 +1,13 @@
 "use strict";
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AutomodRuleProperties = exports.AutomodRuleProperty = void 0;
+exports.AutomodRuleActionProperties = exports.AutomodRuleActionProperty = exports.AutomodRuleProperties = exports.AutomodRuleProperty = void 0;
 const discord_js_1 = require("discord.js");
 const defineProperties_1 = __importDefault(require("../functions/defineProperties"));
 var AutomodRuleProperty;
@@ -42,5 +46,18 @@ exports.AutomodRuleProperties = (0, defineProperties_1.default)({
     allowList: (i, sep) => i?.triggerMetadata.allowList.join(sep ?? ", "),
     mentionTotalLimit: (i) => i?.triggerMetadata.mentionTotalLimit,
     mentionRaidProtectionEnabled: (i) => i?.triggerMetadata.mentionRaidProtectionEnabled
+});
+var AutomodRuleActionProperty;
+(function (AutomodRuleActionProperty) {
+    AutomodRuleActionProperty["type"] = "type";
+    AutomodRuleActionProperty["channelID"] = "channelID";
+    AutomodRuleActionProperty["durationSeconds"] = "durationSeconds";
+    AutomodRuleActionProperty["customMessage"] = "customMessage";
+})(AutomodRuleActionProperty || (exports.AutomodRuleActionProperty = AutomodRuleActionProperty = {}));
+exports.AutomodRuleActionProperties = (0, defineProperties_1.default)({
+    type: (i) => discord_js_1.AutoModerationActionType[i?.type],
+    channelID: (i) => i?.metadata.channelId,
+    durationSeconds: (i) => i?.metadata.durationSeconds,
+    customMessage: (i) => i?.metadata.customMessage,
 });
 //# sourceMappingURL=automodRule.js.map

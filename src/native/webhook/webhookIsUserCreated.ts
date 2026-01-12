@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { ArgType, NativeFunction, Return } from "../../structures"
 
 export default new NativeFunction({
@@ -8,15 +13,15 @@ export default new NativeFunction({
     unwrap: true,
     args: [
         {
-            name: "id",
-            description: "The webhook id",
+            name: "webhook ID",
+            description: "The webhook to pull data from",
             rest: false,
             type: ArgType.Webhook,
             required: true,
         },
     ],
     output: ArgType.Boolean,
-    async execute(ctx, [web]) {
+    execute(ctx, [web]) {
         return this.success(web.isUserCreated())
     },
 })

@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { ArgType, NativeFunction, Return } from "../../structures"
 
 export default new NativeFunction({
@@ -8,7 +13,7 @@ export default new NativeFunction({
     args: [
         {
             name: "variable",
-            description: "The variable to load it to",
+            description: "The variable to load json to",
             rest: false,
             type: ArgType.String,
             required: true,

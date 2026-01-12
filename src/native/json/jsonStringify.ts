@@ -1,7 +1,9 @@
-import { stringify } from "querystring"
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { ArgType, NativeFunction } from "../../structures/@internal/NativeFunction"
-import { Return } from "../../structures/@internal/Return"
-import { allowedNodeEnvironmentFlags } from "process"
 
 export default new NativeFunction({
     name: "$jsonStringify",

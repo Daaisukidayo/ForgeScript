@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { ActionRow, BaseChannel, MessageActionRowComponent } from "discord.js"
 import { ArgType, NativeFunction, Return } from "../../structures"
 import { ComponentProperties, ComponentProperty } from "../../properties/component"

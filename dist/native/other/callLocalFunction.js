@@ -1,4 +1,8 @@
 "use strict";
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 const NativeFunction_1 = require("../../structures/@internal/NativeFunction");
@@ -26,7 +30,7 @@ exports.default = new NativeFunction_1.NativeFunction({
     ],
     output: NativeFunction_1.ArgType.Unknown,
     async execute(ctx, [name, args]) {
-        const func = ctx.localFunctions.get(name);
+        const func = ctx.getLocalFunction(name);
         if (!func)
             return this.error(structures_1.ErrorType.UnknownXName, "local function", name);
         if (args.length < func.args.length)

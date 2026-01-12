@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { Locale } from "discord.js"
 import { NativeFunction } from "../../structures/@internal/NativeFunction"
 import { Return } from "../../structures/@internal/Return"

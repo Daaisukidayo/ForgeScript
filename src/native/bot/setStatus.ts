@@ -1,4 +1,9 @@
-import { ActivityType, PresenceStatusData, PresenceUpdateStatus } from "discord.js"
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
+import { ActivityType, PresenceStatusData } from "discord.js"
 import { ArgType, NativeFunction, Return } from "../../structures"
 
 export default new NativeFunction({

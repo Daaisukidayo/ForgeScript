@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { InteractionContextType } from "discord.js"
 import { ArgType, NativeFunction, Return } from "../../structures"
 

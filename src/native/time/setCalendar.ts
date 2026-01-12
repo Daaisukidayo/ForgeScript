@@ -1,13 +1,19 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { CalendarType } from "../../structures"
 import { ArgType, NativeFunction, Return } from "../../structures"
 
 export default new NativeFunction({
     name: "$setCalendar",
     version: "1.5.0",
-    aliases: ["$calendar"],
     description: "Sets the calendar for time functions",
+    aliases: ["$calendar"],
     unwrap: true,
     brackets: true,
+    experimental: true,
     args: [
         {
             name: "type",

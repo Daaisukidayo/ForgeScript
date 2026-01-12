@@ -1,4 +1,8 @@
 "use strict";
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
@@ -9,8 +13,8 @@ exports.default = new structures_1.NativeFunction({
     unwrap: true,
     args: [
         {
-            name: "id",
-            description: "The webhook id",
+            name: "webhook ID",
+            description: "The webhook to delete",
             rest: false,
             type: structures_1.ArgType.Webhook,
             required: true,

@@ -1,24 +1,42 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { ArgType, NativeFunction, Return } from "../../structures"
 
 export default new NativeFunction({
     name: "$input",
     version: "1.0.0",
-    description: "Returns a value from a text field",
+    description: "Returns the value from a modal field",
     brackets: true,
     unwrap: true,
-    output: ArgType.String,
     args: [
         {
             name: "custom ID",
-            description: "The custom id to get the input field value",
+            description: "The custom id to get its field value",
             rest: false,
             type: ArgType.String,
             required: true,
         },
+        {
+            name: "separator",
+            description: "The separator to use in case of array",
+            rest: false,
+            type: ArgType.String,
+        },
     ],
-    execute(ctx, [id]) {
+    output: ArgType.String,
+    execute(ctx, [id, sep]) {
+        if (!ctx.interaction?.isModalSubmit()) return this.success()
+        const field = ctx.interaction.fields.getField(id)
+
         return this.success(
-            ctx.interaction?.isModalSubmit() ? ctx.interaction.fields.getTextInputValue(id) : undefined
+            "value" in field
+                ? field.value
+                : "attachments" in field
+                    ? field.attachments.map((x) => x.url).join(sep ?? ", ")
+                    : field.values.join(sep ?? ", ")
         )
     },
 })

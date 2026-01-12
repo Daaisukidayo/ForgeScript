@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { Activity, ActivityType } from "discord.js"
 import defineProperties from "../functions/defineProperties"
 
@@ -30,7 +35,7 @@ export const ActivityProperties = defineProperties<typeof ActivityProperty, Acti
     endTimestamp: (i) => i?.timestamps?.end?.getTime(),
     startTimestamp: (i) => i?.timestamps?.start?.getTime(),
     partyID: (i) => i?.party?.id,
-    partySize: (i) => i?.party?.size[0],
+    partySize: (i) => i?.party?.size?.[0],
     syncID: (i) => i?.syncId,
     url: (i) => i?.url,
     largeText: (i) => i?.assets?.largeText,

@@ -1,10 +1,15 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import array from "../../functions/array"
 import { ArgType, NativeFunction, Return } from "../../structures"
 
 export default new NativeFunction({
     name: "$jsonValues",
     version: "1.4.0",
-    description: "Gets values from a json var",
+    description: "Gets values from a JSON variable",
     brackets: true,
     args: [
         {

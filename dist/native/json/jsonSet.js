@@ -1,4 +1,8 @@
 "use strict";
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -8,7 +12,7 @@ const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$jsonSet",
     version: "1.2.0",
-    description: "Adds a json key with a value",
+    description: "Adds a JSON key with a value",
     unwrap: true,
     brackets: true,
     args: [

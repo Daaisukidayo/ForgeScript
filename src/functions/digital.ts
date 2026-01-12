@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 const DigitalFormatRegex = /^(?:(\d+):)?([0-5]?\d):([0-5]?\d)$/
 
 export function parseDigital(ms: number): string {

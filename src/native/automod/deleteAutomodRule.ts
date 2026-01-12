@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { ArgType, NativeFunction, Return } from "../../structures"
 
 export default new NativeFunction({
@@ -16,7 +21,7 @@ export default new NativeFunction({
         },
         {
             name: "rule ID",
-            description: "The id of the automod rule to delete",
+            description: "The automod rule to delete",
             rest: false,
             required: true,
             type: ArgType.AutomodRule,

@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { ArgType, NativeFunction, Return } from "../../structures"
 
 export default new NativeFunction({
@@ -10,7 +15,7 @@ export default new NativeFunction({
     args: [
         {
             name: "emoji ID",
-            description: "The emoji id to return its creation timestamp",
+            description: "The emoji to return its creation timestamp",
             rest: false,
             type: ArgType.Emoji,
             required: true,

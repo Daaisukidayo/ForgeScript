@@ -1,1 +1,1 @@
-{"version":3,"file":"randomChannelID.d.ts","sourceRoot":"","sources":["../../../src/native/channel/randomChannelID.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,WAAW,EAAE,MAAM,YAAY,CAAA;AACxC,OAAO,EAAE,OAAO,EAAE,cAAc,EAAU,MAAM,kBAAkB,CAAA;;;;;;;;;AAElE,wBAyBE"}
+{"version":3,"file":"randomChannelID.d.ts","sourceRoot":"","sources":["../../../src/native/channel/randomChannelID.ts"],"names":[],"mappings":"AAKA,OAAO,EAAE,WAAW,EAAE,MAAM,YAAY,CAAA;AACxC,OAAO,EAAE,OAAO,EAAE,cAAc,EAAU,MAAM,kBAAkB,CAAA;;;;;;;;;AAElE,wBAyBE"}

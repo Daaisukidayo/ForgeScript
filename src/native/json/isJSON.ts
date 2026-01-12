@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
@@ -6,7 +11,7 @@ export default new NativeFunction({
     aliases: [
         "$isValidJSON"
     ],
-    description: "Checks whether given json is valid",
+    description: "Checks whether given JSON is valid",
     unwrap: true,
     brackets: true,
     args: [

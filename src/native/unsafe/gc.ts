@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { execArgv } from "process"
 import { ArgType, NativeFunction } from "../../structures"
 

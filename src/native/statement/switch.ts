@@ -1,3 +1,8 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { ArgType, CompiledFunction, IExtendedCompiledFunctionField, NativeFunction, Return } from "../../structures"
 import _case from "./case"
 

@@ -1,7 +1,12 @@
 "use strict";
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const structures_1 = require("../../structures");
+const components_1 = require("../../functions/components");
 exports.default = new structures_1.NativeFunction({
     name: "$setChannelType",
     version: "1.5.0",
@@ -20,7 +25,7 @@ exports.default = new structures_1.NativeFunction({
         }
     ],
     execute(ctx, [types]) {
-        const menu = ctx.container.actionRow?.components[0];
+        const menu = (0, components_1.getLastComponent)(ctx);
         if (menu instanceof discord_js_1.ChannelSelectMenuBuilder) {
             menu.setChannelTypes(types);
         }

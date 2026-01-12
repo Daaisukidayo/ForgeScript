@@ -1,6 +1,11 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-or-later
+* Copyright © 2025 BotForge
+*/
+
 import { ArgType, NativeFunction, Return } from "../../structures"
 
-const NoNumberRegex = /[^0-9.]/g
+export const NoNumberRegex = /[^0-9.-]/g
 
 export default new NativeFunction({
     name: "$separateNumber",

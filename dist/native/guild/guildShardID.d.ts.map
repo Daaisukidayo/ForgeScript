@@ -1,1 +1,1 @@
-{"version":3,"file":"guildShardID.d.ts","sourceRoot":"","sources":["../../../src/native/guild/guildShardID.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,cAAc,EAAU,MAAM,kBAAkB,CAAA;;;;;;;;AAElE,wBAsBE"}
+{"version":3,"file":"guildShardID.d.ts","sourceRoot":"","sources":["../../../src/native/guild/guildShardID.ts"],"names":[],"mappings":"AAKA,OAAO,EAAE,OAAO,EAAE,cAAc,EAAU,MAAM,kBAAkB,CAAA;;;;;;;;AAElE,wBAsBE"}
