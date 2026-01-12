@@ -93,7 +93,6 @@ export declare class Context {
     component: Partial<IComponentOptions>;
     timezone: string;
     calendar?: CalendarType;
-    localFunctions: Map<string, ILocalFunctionData>;
     private _reason?;
     container: Container;
     constructor(runtime: IRunnable);
@@ -141,6 +140,9 @@ export declare class Context {
     deleteKeyword(name: string): boolean;
     setKeyword(name: string, value: unknown): unknown;
     hasKeyword(name: string): boolean;
+    getLocalFunction(name: string): ILocalFunctionData;
+    deleteLocalFunction(name: string): boolean;
+    setLocalFunction(name: string, data: ILocalFunctionData): ILocalFunctionData;
     clearKeywords(): void;
     clearEnvironment(): void;
     isSelectMenu(): this is this & {
@@ -170,7 +172,7 @@ export declare class Context {
     };
     cloneEmpty(): Context;
     /**
-     * Clones keywords and environment vars
+     * Clones keywords, environment vars, and local functions.
      * @returns
      */
     clone(props?: Partial<IRunnable>, syncVars?: boolean): Context;

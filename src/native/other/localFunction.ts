@@ -42,7 +42,7 @@ export default new NativeFunction({
         if (!this["isValidReturnType"](rt)) return rt
         const [ name, params ] = args
 
-        ctx.localFunctions.set(name, { 
+        ctx.setLocalFunction(name, { 
             code,
             args: params
         })

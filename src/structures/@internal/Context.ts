@@ -143,10 +143,9 @@ export class Context {
     timezone: string = "UTC"
     calendar?: CalendarType
 
-    localFunctions: Map<string, ILocalFunctionData> = new Map()
-
     #keywords: Record<string, unknown> = {}
     #environment: Record<string, unknown> = {}
+    #localFunctions: Record<string, ILocalFunctionData> = {}
 
     private _reason?: string
 
@@ -156,6 +155,7 @@ export class Context {
     public constructor(public readonly runtime: IRunnable) {
         if (runtime.environment) this.#environment = runtime.environment
         if (runtime.keywords) this.#keywords = runtime.keywords
+        if (runtime.localFunctions) this.#localFunctions = runtime.localFunctions
         this.container = runtime.container ??= new Container()
     }
 
@@ -358,7 +358,7 @@ export class Context {
 
     public traverseDeleteEnvironmentKey(...keys: string[]) {
         let data = this.#environment
-        for (let i = 0, len = keys.length - 1;i < len;i++) {
+        for (let i = 0, len = keys.length - 1; i < len; i++) {
             const key = keys[i]
             if (!(key in data))
                 return false
@@ -373,7 +373,7 @@ export class Context {
 
     public traverseAddEnvironmentKey(value: unknown, ...keys: string[]) {
         let data = this.#environment
-        for (let i = 0, len = keys.length - 1;i < len;i++) {
+        for (let i = 0, len = keys.length - 1; i < len; i++) {
             const key = keys[i]
             if (!(key in data))
                 return false
@@ -393,7 +393,7 @@ export class Context {
     public static traverseGetValue(previous: object, ...args: string[]) {
         if (!previous)
             return previous
-        
+
         for (let i = 0, len = args.length; i < len; i++) {
             const key = args[i]
             if (!(key in previous)) return
@@ -422,6 +422,18 @@ export class Context {
 
     public hasKeyword(name: string) {
         return name in this.#keywords
+    }
+
+    public getLocalFunction(name: string) {
+        return this.#localFunctions[name]
+    }
+
+    public deleteLocalFunction(name: string) {
+        return delete this.#localFunctions[name]
+    }
+
+    public setLocalFunction(name: string, data: ILocalFunctionData) {
+        return (this.#localFunctions[name] = data)
     }
 
     public clearKeywords() {
@@ -476,33 +488,35 @@ export class Context {
     }
 
     public cloneEmpty() {
-        return new Context({...this.runtime})
+        return new Context({ ...this.runtime })
     }
 
     /**
-     * Clones keywords and environment vars
+     * Clones keywords, environment vars, and local functions.
      * @returns 
      */
     public clone(props?: Partial<IRunnable>, syncVars = false) {
         const empty = this.cloneEmpty()
 
-        empty.#keywords = syncVars ? this.#keywords : {...this.#keywords}
-        empty.#environment = syncVars ? this.#environment : {...this.#environment}
+        empty.#keywords = syncVars ? this.#keywords : { ...this.#keywords }
+        empty.#environment = syncVars ? this.#environment : { ...this.#environment }
+        empty.#localFunctions = syncVars ? this.#localFunctions : { ...this.#localFunctions }
 
         if (props) {
             const keys = Object.keys(props)
-            for (let i = 0, len = keys.length;i < len;i++) {
+            for (let i = 0, len = keys.length; i < len; i++) {
                 const key = keys[i]
                 Reflect.set(empty.runtime, key, props[key as keyof IRunnable])
             }
         }
-        
+
         return empty
     }
 
-    public cloneRuntime() : IRunnable {
-        this.runtime.keywords = this.#keywords as Record<string, string>
+    public cloneRuntime(): IRunnable {
+        this.runtime.keywords = this.#keywords
         this.runtime.environment = this.#environment
+        this.runtime.localFunctions = this.#localFunctions
         return this.runtime
     }
 

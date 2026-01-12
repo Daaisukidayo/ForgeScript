@@ -30,7 +30,7 @@ import {
     VoiceState
 } from "discord.js"
 import { IExtendedCompilationResult } from "."
-import { Sendable, BaseCommand, Context, Logger, Container, Return } from "../structures"
+import { Sendable, BaseCommand, Context, Logger, Container, Return, ILocalFunctionData } from "../structures"
 import { ForgeClient } from "./ForgeClient"
 
 export interface IStates {
@@ -116,12 +116,17 @@ export interface IRunnable {
     /**
      * The already existing variables defined with $let
      */
-    keywords?: Record<string, string>
+    keywords?: Record<string, unknown>
 
     /**
      * The already existing env variables
      */
     environment?: Record<string, unknown>
+
+    /**
+     * The already existing local functions
+     */
+    localFunctions?: Record<string, ILocalFunctionData>
 
     /**
      * The args used in the message command
