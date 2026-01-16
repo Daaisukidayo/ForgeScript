@@ -20,7 +20,7 @@ export default new NativeFunction({
             rest: false,
             required: true,
             type: ArgType.Channel,
-            check: (i: BaseChannel) => !i.isDMBased(),
+            check: (i: BaseChannel) => "createInvite" in i,
         },
         {
             name: "max uses",

@@ -305,7 +305,7 @@ export class CompiledFunction<T extends [...IArg[]] = IArg[], Unwrap extends boo
     }
 
     private resolveJson(ctx: Context, arg: IArg, str: string, ref: Array<unknown>) {
-        return parseJSON(str)
+        return parseJSON(str, false)
     }
 
     private resolveUser(ctx: Context, arg: IArg, str: string, ref: Array<unknown>) {
