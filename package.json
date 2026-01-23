@@ -33,7 +33,7 @@
   ],
   "author": "ruben40000",
   "contributors": [],
-  "license": "GPL-3.0",
+  "license": "LGPL-3.0-or-later",
   "devDependencies": {
     "@iamtraction/google-translate": "^2.0.1",
     "@types/cli-color": "^2.0.6",
