@@ -21,9 +21,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.generateMetadata = void 0;
+exports.array = exports.defineProperties = exports.generateMetadata = void 0;
 const generateMetadata_1 = __importDefault(require("./functions/generateMetadata"));
 exports.generateMetadata = generateMetadata_1.default;
+const defineProperties_1 = __importDefault(require("./functions/defineProperties"));
+exports.defineProperties = defineProperties_1.default;
+const array_1 = __importDefault(require("./functions/array"));
+exports.array = array_1.default;
 __exportStar(require("./managers"), exports);
 __exportStar(require("./structures"), exports);
 __exportStar(require("./core"), exports);

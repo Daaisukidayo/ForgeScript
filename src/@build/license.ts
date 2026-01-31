@@ -8,7 +8,7 @@ import { join, resolve } from "path"
 
 const LICENSE = `/*
 * SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
+* Copyright © ${new Date().getFullYear()} BotForge
 */`
 
 const dir = resolve("src")

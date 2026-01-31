@@ -8,7 +8,7 @@ const fs_1 = require("fs");
 const path_1 = require("path");
 const LICENSE = `/*
 * SPDX-License-Identifier: LGPL-3.0-or-later
-* Copyright © 2026 BotForge
+* Copyright © ${new Date().getFullYear()} BotForge
 */`;
 const dir = (0, path_1.resolve)("src");
 const HeaderRegex = /^\s*\/\*[\s\S]*?SPDX-License-Identifier:[\s\S]*?\*\/\s*/;

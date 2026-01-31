@@ -3,8 +3,7 @@
 * Copyright © 2026 BotForge
 */
 
-import { VoiceState } from "discord.js"
-import { EnumLike, GetEnum } from "../structures"
+import { EnumLike } from "../structures"
 
 export type Properties<Enum extends EnumLike, Type> = {
     [P in keyof Enum]: (v?: Type | null, sep?: string | null, index?: number | null) => null | undefined | string | number | boolean
