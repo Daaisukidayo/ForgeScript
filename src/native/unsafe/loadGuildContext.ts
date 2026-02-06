@@ -13,7 +13,7 @@ export default new NativeFunction({
         "$asGuildContext"
     ],
     brackets: true,
-    description: "Loads a guild instance to the current context, this is not reversible and is adviced to use with $scope.",
+    description: "Loads a guild instance to the current context, this is not reversible and is adviced to use with $scope",
     unwrap: true,
     args: [
         {

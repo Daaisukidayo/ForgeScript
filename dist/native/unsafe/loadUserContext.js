@@ -13,7 +13,7 @@ exports.default = new structures_1.NativeFunction({
         "$asUserContext"
     ],
     brackets: true,
-    description: "Loads a user instance to the current context, this is not reversible and is adviced to use with $scope.",
+    description: "Loads a user instance to the current context, this is not reversible and is adviced to use with $scope",
     unwrap: true,
     args: [
         {

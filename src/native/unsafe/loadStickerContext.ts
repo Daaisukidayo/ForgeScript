@@ -13,7 +13,7 @@ export default new NativeFunction({
         "$asStickerContext"
     ],
     brackets: true,
-    description: "Loads a sticker instance to the current context, this is not reversible and is adviced to use with $scope.",
+    description: "Loads a sticker instance to the current context, this is not reversible and is adviced to use with $scope",
     unwrap: true,
     args: [
         {
