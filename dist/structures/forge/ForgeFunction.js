@@ -10,10 +10,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ForgeFunction = void 0;
 const __1 = require("..");
 const core_1 = require("../../core");
-const isTrue_1 = __importDefault(require("../../functions/isTrue"));
 const managers_1 = require("../../managers");
 const Return_1 = require("../@internal/Return");
 const ForgeError_1 = require("./ForgeError");
+const isTrue_1 = __importDefault(require("../../functions/isTrue"));
 class ForgeFunction {
     data;
     compiled;
@@ -42,7 +42,7 @@ class ForgeFunction {
             async execute(ctx, args) {
                 if (!this.fn.data.unwrap) {
                     if (!this.data.fields || this.data.fields.length === 0) {
-                        return outer.call(ctx, args ?? []);
+                        return outer.call(ctx, this, args ?? []);
                     }
                     const condition = await this["resolveCondition"](ctx, this.data.fields[0]);
                     if (!this["isValidReturnType"](condition))
@@ -53,15 +53,15 @@ class ForgeFunction {
                     const params = await this["resolveMultipleArgs"](ctx, ...this.data.fields.slice(1).map((_, i) => i + 1));
                     if (!this["isValidReturnType"](params.return))
                         return params.return;
-                    return outer.call(ctx, params.args);
+                    return outer.call(ctx, this, params.args);
                 }
                 else {
-                    return outer.call(ctx, args ?? []);
+                    return outer.call(ctx, this, args ?? []);
                 }
             }
         });
     }
-    async call(ctx, args) {
+    async call(ctx, fn, args) {
         this.compiled ??= core_1.Compiler.compile(this.data.code, this.data.path);
         const params = Array.isArray(this.data.params) ? this.data.params : [];
         const required = params.filter(param => typeof param === "string" || param.required !== false);
@@ -77,7 +77,7 @@ class ForgeFunction {
             allowTopLevelReturn: true,
             data: this.compiled
         }));
-        return new Return_1.Return(result === null ? Return_1.ReturnType.Stop : Return_1.ReturnType.Success, result);
+        return result === null ? fn.stop() : fn.success(result);
     }
 }
 exports.ForgeFunction = ForgeFunction;

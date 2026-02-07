@@ -11,6 +11,7 @@ const path_1 = __importDefault(require("path"));
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$pathExtensionName",
+    version: "2.7.0",
     description: "Returns the extension name of a path",
     aliases: ["$pathExtName"],
     unwrap: true,

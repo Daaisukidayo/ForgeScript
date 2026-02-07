@@ -3,12 +3,12 @@
 * Copyright © 2026 BotForge
 */
 
-import { ArgType, Context, IArg, IExtendedCompiledFunctionConditionField, NativeFunction } from ".."
+import { ArgType, CompiledFunction, Context, IArg, IExtendedCompiledFunctionConditionField, NativeFunction } from ".."
 import { IExtendedCompilationResult, Compiler, Interpreter } from "../../core"
-import isTrue from "../../functions/isTrue"
 import { FunctionManager } from "../../managers"
 import { Return, ReturnType } from "../@internal/Return"
 import { ForgeError, ErrorType } from "./ForgeError"
+import isTrue from "../../functions/isTrue"
 
 export interface IForgeFunctionParam {
     name: string
@@ -33,7 +33,7 @@ export class ForgeFunction {
         if (!Array.isArray(data.params))
             data.params = []
     }
-    
+
     public populate() {
         FunctionManager.add(this.asNative())
     }
@@ -55,7 +55,7 @@ export class ForgeFunction {
             async execute(ctx, args: string[]) {
                 if (!this.fn.data.unwrap) {
                     if (!this.data.fields || this.data.fields.length === 0) {
-                        return outer.call(ctx, args ?? [])
+                        return outer.call(ctx, this, args ?? [])
                     }
                     const condition = await this["resolveCondition"](ctx, this.data.fields[0] as IExtendedCompiledFunctionConditionField)
                     if (!this["isValidReturnType"](condition))
@@ -66,15 +66,15 @@ export class ForgeFunction {
                     const params = await this["resolveMultipleArgs"](ctx, ...this.data.fields.slice(1).map((_, i) => i + 1))
                     if (!this["isValidReturnType"](params.return))
                         return params.return
-                    return outer.call(ctx, params.args)
+                    return outer.call(ctx, this, params.args)
                 } else {
-                    return outer.call(ctx, args ?? [])
+                    return outer.call(ctx, this, args ?? [])
                 }
             }
         })
     }
 
-    async call(ctx: Context, args: string[]) {
+    async call(ctx: Context, fn: CompiledFunction, args: string[]) {
         this.compiled ??= Compiler.compile(this.data.code, this.data.path)
 
         const params = Array.isArray(this.data.params) ? this.data.params : []
@@ -102,6 +102,6 @@ export class ForgeFunction {
             data: this.compiled
         }))
 
-        return new Return(result === null ? ReturnType.Stop : ReturnType.Success, result)
+        return result === null ? fn.stop() : fn.success(result)
     }
 }

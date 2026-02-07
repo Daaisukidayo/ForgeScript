@@ -32,7 +32,7 @@ exports.default = new NativeFunction_1.NativeFunction({
         const fn = ctx.client.functions.get(name);
         if (!fn)
             return this.error(ForgeError_1.ErrorType.UnknownXName, "function", name);
-        return fn.call(ctx, args);
+        return fn.call(ctx, this, args);
     },
 });
 //# sourceMappingURL=callFunction.js.map
