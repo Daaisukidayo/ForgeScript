@@ -129,7 +129,7 @@ export declare class Context {
      * @param once Whether to fetch only when the collection is empty.
      * @returns
      */
-    fetchApplicationEmojis(once?: boolean): Promise<void | import("@discordjs/collection").Collection<string, import("discord.js").ApplicationEmoji>>;
+    fetchApplicationEmojis(once?: boolean): Promise<void | import("discord.js").Collection<string, import("discord.js").ApplicationEmoji>>;
     setEnvironmentKey(name: string, value: unknown): unknown;
     traverseDeleteEnvironmentKey(...keys: string[]): boolean | any[];
     traverseAddEnvironmentKey(value: unknown, ...keys: string[]): boolean;

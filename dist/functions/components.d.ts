@@ -19,13 +19,13 @@ export declare function buildActionRow(comp: any): ButtonBuilder | StringSelectM
  * @param ctx The current context, if any.
  * @returns
  */
-export declare function buildComponent(comp: any, ctx?: Context): ContainerBuilder | FileBuilder | MediaGalleryBuilder | SectionBuilder | SeparatorBuilder | TextDisplayBuilder | ActionRowBuilder<import("@discordjs/builders").AnyComponentBuilder>;
+export declare function buildComponent(comp: any, ctx?: Context): ContainerBuilder | FileBuilder | MediaGalleryBuilder | SectionBuilder | SeparatorBuilder | TextDisplayBuilder | ActionRowBuilder<import("discord.js").AnyComponentBuilder>;
 /**
  * Gets the last component of the current label or action row.
  * @param ctx The current context.
  * @returns
  */
-export declare function getLastComponent(ctx: Context): import("@discordjs/builders").MessageActionRowComponentBuilder | import("@discordjs/builders").TextInputBuilder | import("@discordjs/builders").FileUploadBuilder | undefined;
+export declare function getLastComponent(ctx: Context): import("discord.js").MessageActionRowComponentBuilder | import("@discordjs/builders").TextInputBuilder | import("discord.js").FileUploadBuilder | undefined;
 /**
  * Adds an action row to the components. This is mostly needed inside ComponentsV2 functions.
  * @param ctx The current context.

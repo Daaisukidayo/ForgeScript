@@ -1,4 +1,5 @@
 /// <reference types="node" />
+/// <reference types="node" />
 import { ArgType, NativeFunction } from "../../structures";
 export declare function deriveKey(key: string): Buffer;
 export declare function encrypt(text: string, key: string): string;

@@ -36,16 +36,11 @@ export declare class CompiledFunction<T extends [...IArg[]] = IArg[], Unwrap ext
     get display(): string;
     /**
      * Resolves fields of a function.
-     * @param ctx
-     * @returns
      */
     private resolveArgs;
     private resolveMultipleArgs;
     /**
      * Does not account for condition fields.
-     * @param ctx
-     * @param index
-     * @returns
      */
     private resolveUnhandledArg;
     private resolveCondition;

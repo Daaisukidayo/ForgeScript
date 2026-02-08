@@ -12,12 +12,12 @@ const discord_js_1 = require("discord.js");
 const fs_1 = require("fs");
 const util_1 = require("util");
 const constants_1 = require("../../constants");
-const parseJSON_1 = __importDefault(require("../../functions/parseJSON"));
 const managers_1 = require("../../managers");
 const ForgeError_1 = require("../forge/ForgeError");
 const NativeFunction_1 = require("./NativeFunction");
 const Return_1 = require("./Return");
 const hex_1 = require("../../functions/hex");
+const parseJSON_1 = __importDefault(require("../../functions/parseJSON"));
 class CompiledFunction {
     static OverwriteSymbolMapping = {
         "/": null,
@@ -81,8 +81,6 @@ class CompiledFunction {
     }
     /**
      * Resolves fields of a function.
-     * @param ctx
-     * @returns
      */
     async resolveArgs(ctx) {
         const args = new Array(this.fn.data.args?.length ?? 0);
@@ -115,9 +113,6 @@ class CompiledFunction {
     }
     /**
      * Does not account for condition fields.
-     * @param ctx
-     * @param index
-     * @returns
      */
     async resolveUnhandledArg(ctx, i, ref = []) {
         const arg = this.fn.data.args[i];

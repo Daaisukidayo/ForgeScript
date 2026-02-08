@@ -17,14 +17,13 @@ import { existsSync } from "fs"
 import { inspect } from "util"
 import { TimeParser } from "../../constants"
 import { ICompiledFunctionConditionField, ICompiledFunctionField, ICompiledFunction } from "../../core"
-import parseJSON from "../../functions/parseJSON"
 import { FunctionManager } from "../../managers"
 import { ErrorType, GetErrorArgs, ForgeError } from "../forge/ForgeError"
 import { Context } from "./Context"
 import { IArg, UnwrapArgs, NativeFunction, ArgType, OverwritePermission } from "./NativeFunction"
 import { Return, ReturnType, ReturnValue } from "./Return"
 import { resolveColor } from "../../functions/hex"
-import noop from "../../functions/noop"
+import parseJSON from "../../functions/parseJSON"
 
 export interface IExtendedCompiledFunctionConditionField extends Omit<ICompiledFunctionConditionField, "rhs" | "lhs"> {
     lhs: IExtendedCompiledFunctionField
@@ -118,8 +117,6 @@ export class CompiledFunction<T extends [...IArg[]] = IArg[], Unwrap extends boo
 
     /**
      * Resolves fields of a function.
-     * @param ctx
-     * @returns
      */
     private async resolveArgs(ctx: Context): Promise<Return> {
         const args = new Array(this.fn.data.args?.length ?? 0) as UnwrapArgs<T>
@@ -161,9 +158,6 @@ export class CompiledFunction<T extends [...IArg[]] = IArg[], Unwrap extends boo
 
     /**
      * Does not account for condition fields.
-     * @param ctx
-     * @param index
-     * @returns
      */
     private async resolveUnhandledArg(ctx: Context, i: number, ref: any[] = []): Promise<Return> {
         const arg = this.fn.data.args![i]
