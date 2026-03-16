@@ -3,7 +3,7 @@
 * Copyright © 2026 BotForge
 */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 import { ColorResolvable } from "discord.js"
 
 export default new NativeFunction({
@@ -11,7 +11,7 @@ export default new NativeFunction({
     version: "1.0.7",
     description: "Edits a role on a guild, returns boolean",
     unwrap: true,
-    output: ArgType.Boolean,
+    brackets: true,
     args: [
         {
             name: "guild ID",
@@ -65,15 +65,15 @@ export default new NativeFunction({
             type: ArgType.Permission,
         },
     ],
-    brackets: true,
+    output: ArgType.Boolean,
     async execute(ctx, [, role, name, color, icon, hoist, mentionable, perms]) {
         const edit = await role.edit({
             colors: !color ? undefined : { primaryColor: color as ColorResolvable },
-            hoist: hoist || undefined,
-            icon: icon || undefined,
-            mentionable: mentionable || undefined,
+            mentionable: typeof(mentionable) === "boolean" ? mentionable : undefined,
+            hoist: typeof(hoist) === "boolean" ? hoist : undefined,
             name: name || undefined,
-            permissions: perms || undefined,
+            icon: icon || undefined,
+            permissions: perms?.length ? perms : undefined,
             reason: ctx.reason
         }).catch(ctx.noop)
 

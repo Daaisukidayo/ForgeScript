@@ -10,7 +10,7 @@ exports.default = new structures_1.NativeFunction({
     version: "1.0.7",
     description: "Edits a role on a guild, returns boolean",
     unwrap: true,
-    output: structures_1.ArgType.Boolean,
+    brackets: true,
     args: [
         {
             name: "guild ID",
@@ -64,15 +64,15 @@ exports.default = new structures_1.NativeFunction({
             type: structures_1.ArgType.Permission,
         },
     ],
-    brackets: true,
+    output: structures_1.ArgType.Boolean,
     async execute(ctx, [, role, name, color, icon, hoist, mentionable, perms]) {
         const edit = await role.edit({
             colors: !color ? undefined : { primaryColor: color },
-            hoist: hoist || undefined,
-            icon: icon || undefined,
-            mentionable: mentionable || undefined,
+            mentionable: typeof (mentionable) === "boolean" ? mentionable : undefined,
+            hoist: typeof (hoist) === "boolean" ? hoist : undefined,
             name: name || undefined,
-            permissions: perms || undefined,
+            icon: icon || undefined,
+            permissions: perms?.length ? perms : undefined,
             reason: ctx.reason
         }).catch(ctx.noop);
         return this.success(!!edit);
