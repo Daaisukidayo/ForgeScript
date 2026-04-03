@@ -4,7 +4,7 @@
 */
 
 import { ActionRowBuilder, ContainerBuilder, StringSelectMenuBuilder } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 import { buildComponent } from "../../functions/components"
 
 export default new NativeFunction({

@@ -39,7 +39,6 @@ export interface IComponentOptions {
     section: SectionBuilder;
     gallery: MediaGalleryBuilder;
     label: LabelBuilder;
-    required?: boolean;
 }
 export declare enum CalendarType {
     Buddhist = "buddhist",

@@ -3,7 +3,7 @@
 * Copyright © 2026 BotForge
 */
 
-import { ArgType, IExtendedCompiledFunctionField, NativeFunction, Return } from "../../structures"
+import { ArgType, IExtendedCompiledFunctionField, NativeFunction } from "../../structures"
 import { addActionRow } from "../../functions/components"
 import { ComponentType, ContainerBuilder, SectionBuilder } from "discord.js"
 

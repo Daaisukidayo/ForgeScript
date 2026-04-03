@@ -4,7 +4,7 @@
 */
 
 import { APISelectMenuOption, BaseSelectMenuBuilder, parseEmoji } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 import { getLastComponent } from "../../functions/components"
 
 export default new NativeFunction({

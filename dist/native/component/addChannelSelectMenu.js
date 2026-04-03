@@ -45,17 +45,16 @@ exports.default = new structures_1.NativeFunction({
             type: structures_1.ArgType.Boolean
         },
         {
-            name: "default channels",
-            rest: true,
-            type: structures_1.ArgType.String,
-            description: "The default selected channels to use"
-        }
+            name: "required",
+            description: "Whether this menu is required inside a modal",
+            rest: false,
+            type: structures_1.ArgType.Boolean,
+        },
     ],
-    execute(ctx, [id, placeholder, min, max, disabled, channels]) {
+    execute(ctx, [id, placeholder, min, max, disabled, required]) {
         const menu = new discord_js_1.ChannelSelectMenuBuilder()
-            .setDefaultChannels(channels)
             .setDisabled(disabled || false)
-            .setRequired(ctx.component.required)
+            .setRequired(required || false)
             .setCustomId(id);
         if (placeholder)
             menu.setPlaceholder(placeholder);

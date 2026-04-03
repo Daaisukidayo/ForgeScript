@@ -4,7 +4,7 @@
 */
 
 import { ActionRowBuilder, createComponentBuilder, StringSelectMenuBuilder } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$addStringSelectMenuTo",

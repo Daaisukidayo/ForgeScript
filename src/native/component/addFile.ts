@@ -4,7 +4,7 @@
 */
 
 import { ComponentType, ContainerBuilder, FileBuilder } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 import { addActionRow } from "../../functions/components"
 
 export default new NativeFunction({

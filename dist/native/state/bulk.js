@@ -10,9 +10,8 @@ exports.default = new structures_1.NativeFunction({
     name: "$bulk",
     version: "1.4.0",
     description: "Retrieves data from an event whose context was a bulk delete event",
-    brackets: true,
+    brackets: false,
     unwrap: true,
-    output: structures_1.ArgType.Unknown,
     args: [
         {
             name: "property",
@@ -29,8 +28,15 @@ exports.default = new structures_1.NativeFunction({
             type: structures_1.ArgType.String,
         },
     ],
+    output: [
+        structures_1.ArgType.Unknown,
+        structures_1.ArgType.Json
+    ],
     execute(ctx, [prop, sep]) {
-        return this.success(bulk_1.BulkProperties[prop](ctx.states?.bulk?.new, sep));
+        const bulk = ctx.states?.bulk?.new;
+        if (this.hasFields)
+            return this.success(bulk_1.BulkProperties[prop](bulk, sep));
+        return this.successJSON(bulk);
     },
 });
 //# sourceMappingURL=bulk.js.map

@@ -28,6 +28,7 @@ var MessageProperty;
     MessageProperty["url"] = "url";
     MessageProperty["attachments"] = "attachments";
     MessageProperty["stickers"] = "stickers";
+    MessageProperty["embeds"] = "embeds";
 })(MessageProperty || (exports.MessageProperty = MessageProperty = {}));
 exports.MessageProperties = (0, defineProperties_1.default)({
     content: (m) => m?.content,
@@ -46,5 +47,6 @@ exports.MessageProperties = (0, defineProperties_1.default)({
     url: (m) => m?.url,
     attachments: (m, sep) => m?.attachments.map(x => x.url).join(sep ?? ", "),
     stickers: (m, sep) => m?.stickers.map(x => x.url).join(sep ?? ", "),
+    embeds: (m) => (m && "embeds" in m ? JSON.stringify(m.embeds, undefined, 4) : null),
 });
 //# sourceMappingURL=message.js.map

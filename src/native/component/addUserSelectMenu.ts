@@ -46,17 +46,16 @@ export default new NativeFunction({
             type: ArgType.Boolean
         },
         {
-            name: "default users",
-            rest: true,
-            type: ArgType.String,
-            description: "The default selected users to use",
-        }
+            name: "required",
+            description: "Whether this menu is required inside a modal",
+            rest: false,
+            type: ArgType.Boolean,
+        },
     ],
-    execute(ctx, [ id, placeholder, min, max, disabled, users ]) {
+    execute(ctx, [ id, placeholder, min, max, disabled, required ]) {
         const menu = new UserSelectMenuBuilder()
-            .setDefaultUsers(users)
             .setDisabled(disabled || false)
-            .setRequired(ctx.component.required)
+            .setRequired(required || false)
             .setCustomId(id)
 
         if (placeholder) menu.setPlaceholder(placeholder)

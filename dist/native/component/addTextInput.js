@@ -69,7 +69,7 @@ exports.default = new structures_1.NativeFunction({
         const field = new discord_js_1.TextInputBuilder()
             .setCustomId(id)
             .setStyle(type || discord_js_1.TextInputStyle.Paragraph)
-            .setRequired(ctx.component.required || required || false);
+            .setRequired(required || false);
         if (placeholder)
             field.setPlaceholder(placeholder);
         if (value)

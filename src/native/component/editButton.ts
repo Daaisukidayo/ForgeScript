@@ -4,7 +4,7 @@
 */
 
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, ContainerBuilder } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 import { resolveNumericEnum } from "../../functions/enum"
 
 export default new NativeFunction({

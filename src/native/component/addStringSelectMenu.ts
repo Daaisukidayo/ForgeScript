@@ -4,7 +4,7 @@
 */
 
 import { ComponentType, StringSelectMenuBuilder } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$addStringSelectMenu",
@@ -44,12 +44,18 @@ export default new NativeFunction({
             rest: false,
             type: ArgType.Number,
         },
+        {
+            name: "required",
+            description: "Whether this menu is required inside a modal",
+            rest: false,
+            type: ArgType.Boolean,
+        },
     ],
-    execute(ctx, [id, placeholder, disabled, min, max]) {
+    execute(ctx, [id, placeholder, disabled, min, max, required]) {
         const menu = new StringSelectMenuBuilder()
             .setCustomId(id)
             .setDisabled(disabled || false)
-            .setRequired(ctx.component.required)
+            .setRequired(required || false)
 
         if (placeholder) menu.setPlaceholder(placeholder)
         if (min) menu.setMinValues(min)

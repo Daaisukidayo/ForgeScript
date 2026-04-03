@@ -23,6 +23,7 @@ export enum MessageProperty {
     url = "url",
     attachments = "attachments",
     stickers = "stickers",
+    embeds = "embeds",
 }
 
 export const MessageProperties = defineProperties<typeof MessageProperty, Message | MessageSnapshot>({
@@ -42,4 +43,5 @@ export const MessageProperties = defineProperties<typeof MessageProperty, Messag
     url: (m) => m?.url,
     attachments: (m, sep) => m?.attachments.map(x => x.url).join(sep ?? ", "),
     stickers: (m, sep) => m?.stickers.map(x => x.url).join(sep ?? ", "),
+    embeds: (m) => (m && "embeds" in m ? JSON.stringify(m.embeds, undefined, 4) : null),
 })

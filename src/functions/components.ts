@@ -7,16 +7,22 @@ import {
     ActionRowBuilder,
     ButtonBuilder,
     ChannelSelectMenuBuilder,
+    CheckboxBuilder,
+    CheckboxGroupBuilder,
     ComponentType,
     ContainerBuilder,
     FileBuilder,
+    FileUploadBuilder,
     MediaGalleryBuilder,
     MentionableSelectMenuBuilder,
+    MessageActionRowComponentBuilder,
+    RadioGroupBuilder,
     RoleSelectMenuBuilder,
     SectionBuilder,
     SeparatorBuilder,
     StringSelectMenuBuilder,
     TextDisplayBuilder,
+    TextInputBuilder,
     UserSelectMenuBuilder
 } from "discord.js"
 import { Context } from "../structures"
@@ -77,7 +83,7 @@ export function buildComponent(comp: any, ctx?: Context) {
  * @param ctx The current context.
  * @returns 
  */
-export function getLastComponent(ctx: Context) {
+export function getLastComponent(ctx: Context): MessageActionRowComponentBuilder | TextInputBuilder | CheckboxBuilder | CheckboxGroupBuilder | FileUploadBuilder | RadioGroupBuilder | undefined {
     return (ctx.component.label?.data.component ?? ctx.container.actionRow?.components[0])
 }
 
@@ -95,7 +101,7 @@ export function addActionRow(ctx: Context, cv2: boolean = true) {
 
     const comp = ctx.container.components.at(-1)
 
-    if (comp instanceof ContainerBuilder && ctx.container.isInside(ComponentType.Container)) 
+    if (comp instanceof ContainerBuilder && ctx.container.isInside(ComponentType.Container))
         comp.addActionRowComponents(row)
     else ctx.container.components.push(row)
 

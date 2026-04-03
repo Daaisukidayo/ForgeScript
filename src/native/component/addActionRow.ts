@@ -4,7 +4,7 @@
 */
 
 import { ActionRowBuilder } from "discord.js"
-import { NativeFunction, Return } from "../../structures"
+import { NativeFunction } from "../../structures"
 import { addActionRow } from "../../functions/components"
 
 export default new NativeFunction({

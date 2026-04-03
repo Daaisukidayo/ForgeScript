@@ -4,7 +4,7 @@
 */
 
 import { ActionRowBuilder, createComponentBuilder } from "discord.js"
-import { ArgType, Container, IExtendedCompiledFunctionField, NativeFunction, Return } from "../../structures"
+import { ArgType, Container, IExtendedCompiledFunctionField, NativeFunction } from "../../structures"
 import { addActionRow } from "../../functions/components"
 
 export default new NativeFunction({

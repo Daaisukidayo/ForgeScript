@@ -4,7 +4,7 @@
 */
 
 import { ActionRow, ActionRowBuilder, MessageActionRowComponent, MessageActionRowComponentBuilder } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$enableComponentsOf",
