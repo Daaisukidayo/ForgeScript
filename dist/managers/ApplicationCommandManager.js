@@ -185,7 +185,7 @@ class ApplicationCommandManager {
                     return JSON.parse((0, fs_1.readFileSync)(configPath, "utf-8"));
                 }
                 catch (err) {
-                    throw new Error(`Error reading config.json in ${folderPath}: ${err}`);
+                    throw new Error(`Error reading config.json in ${folderPath}: `, { cause: err });
                 }
             }
             return null;

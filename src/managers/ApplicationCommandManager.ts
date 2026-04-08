@@ -235,7 +235,7 @@ export class ApplicationCommandManager {
                 try {
                     return JSON.parse(readFileSync(configPath, "utf-8"))
                 } catch (err) {
-                    throw new Error(`Error reading config.json in ${folderPath}: ${err}`)
+                    throw new Error(`Error reading config.json in ${folderPath}: `, { cause: err })
                 }
             }
             return null
