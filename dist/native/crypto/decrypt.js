@@ -4,7 +4,7 @@
 * Copyright © 2026 BotForge
 */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.decrypt = void 0;
+exports.decrypt = decrypt;
 const crypto_1 = require("crypto");
 const structures_1 = require("../../structures");
 const encrypt_1 = require("./encrypt");
@@ -19,7 +19,6 @@ function decrypt(text, key) {
     decrypted += decipher.final("utf-8");
     return decrypted;
 }
-exports.decrypt = decrypt;
 exports.default = new structures_1.NativeFunction({
     name: "$decrypt",
     version: "1.5.0",

@@ -19,7 +19,6 @@ class EventManager {
         this.client = client;
     }
     static loadNative() {
-        // eslint-disable-next-line no-undef
         EventManager.load(exports.NativeEventName, __dirname + "/../handlers/events");
     }
     load(name, ...events) {

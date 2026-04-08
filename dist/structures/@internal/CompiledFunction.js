@@ -419,14 +419,12 @@ class CompiledFunction {
         return this.error(ForgeError_1.ErrorType.Custom, msg);
     }
     async execute(ctx) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         if (!this.fn.data.unwrap)
             return this.fn.data.execute.call(this, ctx);
         const args = await this.resolveArgs(ctx);
         if (!this.isValidReturnType(args))
             return args;
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         return this.fn.data.execute.call(this, ctx, args.value ?? []);
     }
@@ -476,7 +474,7 @@ class CompiledFunction {
         return new Return_1.Return(Return_1.ReturnType.Success, value);
     }
     success(value = null) {
-        return new Return_1.Return(Return_1.ReturnType.Success, this.data.negated ? null : this.data.count !== null && typeof (value) === "string" ? (value !== "" ? value.split(this.data.count).length : 0) : value);
+        return new Return_1.Return(Return_1.ReturnType.Success, this.data.negated ? null : this.data.count !== null && typeof value === "string" ? (value !== "" ? value.split(this.data.count).length : 0) : value);
     }
 }
 exports.CompiledFunction = CompiledFunction;

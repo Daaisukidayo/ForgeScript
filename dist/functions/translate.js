@@ -4,7 +4,7 @@
 * Copyright © 2026 BotForge
 */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.translateData = void 0;
+exports.translateData = translateData;
 const structures_1 = require("../structures");
 const fs_1 = require("fs");
 const crypto_1 = require("crypto");
@@ -154,5 +154,4 @@ async function translateData(options) {
         await (0, thread_1.terminate)(...workers);
     }
 }
-exports.translateData = translateData;
 //# sourceMappingURL=translate.js.map

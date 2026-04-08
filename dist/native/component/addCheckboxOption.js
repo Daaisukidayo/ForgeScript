@@ -9,6 +9,7 @@ const structures_1 = require("../../structures");
 const components_1 = require("../../functions/components");
 exports.default = new structures_1.NativeFunction({
     name: "$addCheckboxOption",
+    version: "2.7.0",
     description: "Adds a new option to the newest checkbox group component",
     unwrap: true,
     brackets: true,

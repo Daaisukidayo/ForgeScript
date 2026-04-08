@@ -4,7 +4,7 @@
 */
 
 import { readFileSync } from "fs"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$readFile",
@@ -29,9 +29,7 @@ export default new NativeFunction({
         },
     ],
     execute(ctx, [path, encoding]) {
-        // eslint-disable-next-line no-undef
         const txt = readFileSync(path, { encoding: (encoding as BufferEncoding) || "utf-8" })
-
         return this.success(txt)
     },
 })

@@ -8,6 +8,7 @@ const discord_js_1 = require("discord.js");
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$addCheckboxGroup",
+    version: "2.7.0",
     description: "Adds a new checkbox group component to the newest modal label",
     unwrap: true,
     brackets: true,

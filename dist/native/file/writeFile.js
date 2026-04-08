@@ -35,7 +35,6 @@ exports.default = new structures_1.NativeFunction({
         },
     ],
     execute(ctx, [path, data, encoding]) {
-        // eslint-disable-next-line no-undef
         (0, fs_1.writeFileSync)(path, data, { encoding: encoding || "utf-8" });
         return this.success();
     },

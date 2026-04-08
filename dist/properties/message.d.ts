@@ -18,5 +18,5 @@ export declare enum MessageProperty {
     stickers = "stickers",
     embeds = "embeds"
 }
-export declare const MessageProperties: import("../functions/defineProperties").Properties<typeof MessageProperty, Message<boolean> | MessageSnapshot>;
+export declare const MessageProperties: import("..").Properties<typeof MessageProperty, Message<boolean> | MessageSnapshot>;
 //# sourceMappingURL=message.d.ts.map

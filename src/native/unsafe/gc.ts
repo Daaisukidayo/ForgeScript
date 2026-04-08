@@ -13,11 +13,6 @@ export default new NativeFunction({
     unwrap: false,
     output: ArgType.Boolean,
     execute(ctx) {
-        return this.success(
-            execArgv.includes("--expose-gc") ?
-                // eslint-disable-next-line no-undef
-                (gc!(), true) : 
-                false
-        )
+        return this.success(execArgv.includes("--expose-gc") ? (gc!(), true) : false)
     },
 })

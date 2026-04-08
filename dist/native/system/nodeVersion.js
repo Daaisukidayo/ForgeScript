@@ -12,7 +12,6 @@ exports.default = new structures_1.NativeFunction({
     unwrap: false,
     output: structures_1.ArgType.String,
     execute(ctx) {
-        // eslint-disable-next-line no-undef
         return this.success(process.version);
     },
 });

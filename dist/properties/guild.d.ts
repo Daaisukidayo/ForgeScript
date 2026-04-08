@@ -23,7 +23,7 @@ export declare enum GuildProperty {
     approximateMemberCount = "approximateMemberCount",
     approximatePresenceCount = "approximatePresenceCount"
 }
-export declare const GuildProperties: import("../functions/defineProperties").Properties<typeof GuildProperty, Guild>;
+export declare const GuildProperties: import("..").Properties<typeof GuildProperty, Guild>;
 export declare enum GuildPreviewProperty {
     id = "id",
     name = "name",
@@ -38,5 +38,5 @@ export declare enum GuildPreviewProperty {
     approximateMemberCount = "approximateMemberCount",
     approximatePresenceCount = "approximatePresenceCount"
 }
-export declare const GuildPreviewProperties: import("../functions/defineProperties").Properties<typeof GuildPreviewProperty, GuildPreview>;
+export declare const GuildPreviewProperties: import("..").Properties<typeof GuildPreviewProperty, GuildPreview>;
 //# sourceMappingURL=guild.d.ts.map

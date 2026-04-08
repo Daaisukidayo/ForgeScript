@@ -3,9 +3,8 @@
 * Copyright © 2026 BotForge
 */
 
-/* eslint-disable no-undef */
-import { cpus, loadavg } from "os"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { loadavg } from "os"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$cpu",

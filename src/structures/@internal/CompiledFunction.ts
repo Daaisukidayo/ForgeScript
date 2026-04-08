@@ -517,14 +517,12 @@ export class CompiledFunction<T extends [...IArg[]] = IArg[], Unwrap extends boo
     }
 
     public async execute(ctx: Context): Promise<Return> {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         if (!this.fn.data.unwrap) return this.fn.data.execute.call(this, ctx)
 
         const args = await this.resolveArgs(ctx)
         if (!this.isValidReturnType(args)) return args
 
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         return this.fn.data.execute.call(this, ctx, args.value ?? [])
     }
@@ -589,6 +587,6 @@ export class CompiledFunction<T extends [...IArg[]] = IArg[], Unwrap extends boo
     }
 
     public success(value: ReturnValue<ReturnType.Success> = null) {
-        return new Return(ReturnType.Success, this.data.negated ? null : this.data.count !== null && typeof(value) === "string" ? (value !== "" ? value.split(this.data.count).length : 0) : value)
+        return new Return(ReturnType.Success, this.data.negated ? null : this.data.count !== null && typeof value === "string" ? (value !== "" ? value.split(this.data.count).length : 0) : value)
     }
 }

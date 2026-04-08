@@ -9,6 +9,7 @@ const structures_1 = require("../../structures");
 const components_1 = require("../../functions/components");
 exports.default = new structures_1.NativeFunction({
     name: "$addRadioOption",
+    version: "2.7.0",
     description: "Adds a new option to the newest radio group component",
     unwrap: true,
     brackets: true,

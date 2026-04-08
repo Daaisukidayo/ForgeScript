@@ -22,7 +22,6 @@ exports.default = new structures_1.NativeFunction({
         },
     ],
     execute(ctx, [path]) {
-        // eslint-disable-next-line no-undef
         (0, fs_1.rmSync)(path, { recursive: true });
         return this.success();
     },

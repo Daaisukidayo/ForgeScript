@@ -26,5 +26,5 @@ export declare enum MemberProperty {
     permissions = "permissions",
     avatarDecoration = "avatarDecoration"
 }
-export declare const MemberProperties: import("../functions/defineProperties").Properties<typeof MemberProperty, GuildMember | APIInteractionGuildMember>;
+export declare const MemberProperties: import("..").Properties<typeof MemberProperty, GuildMember | APIInteractionGuildMember>;
 //# sourceMappingURL=member.d.ts.map

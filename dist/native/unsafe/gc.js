@@ -13,10 +13,7 @@ exports.default = new structures_1.NativeFunction({
     unwrap: false,
     output: structures_1.ArgType.Boolean,
     execute(ctx) {
-        return this.success(process_1.execArgv.includes("--expose-gc") ?
-            // eslint-disable-next-line no-undef
-            (gc(), true) :
-            false);
+        return this.success(process_1.execArgv.includes("--expose-gc") ? (gc(), true) : false);
     },
 });
 //# sourceMappingURL=gc.js.map

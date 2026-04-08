@@ -102,7 +102,7 @@ export declare class Context {
     get cmd(): import("..").BaseCommand<unknown> | null;
     get obj(): Sendable;
     get args(): string[];
-    get states(): import("../../core/Interpreter").States | undefined;
+    get states(): import("../..").States | undefined;
     get automod(): AutoModerationActionExecution | null;
     get entitlement(): Entitlement | null;
     get subscription(): Subscription | null;
@@ -166,8 +166,8 @@ export declare class Context {
     } as K]: ClassInstance<T>; })[K] | null;
     private error;
     get getExtension(): {
-        <B extends boolean>(name: string, required?: B | undefined): B extends true ? import("..").ForgeExtension : import("..").ForgeExtension | null;
-        <T extends ClassType, B_1 extends boolean>(type: string | T, required?: B_1 | undefined): B_1 extends true ? ClassInstance<T> : ClassInstance<T> | null;
+        <B extends boolean>(name: string, required?: B): B extends true ? import("..").ForgeExtension : import("..").ForgeExtension | null;
+        <T extends ClassType, B extends boolean>(type: T | string, required?: B): B extends true ? ClassInstance<T> : ClassInstance<T> | null;
     };
     cloneEmpty(): Context;
     /**

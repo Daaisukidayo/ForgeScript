@@ -4,7 +4,7 @@
 */
 
 import { rmSync } from "fs"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$deleteFile",
@@ -22,9 +22,7 @@ export default new NativeFunction({
         },
     ],
     execute(ctx, [path]) {
-        // eslint-disable-next-line no-undef
         rmSync(path, { recursive: true })
-
         return this.success()
     },
 })

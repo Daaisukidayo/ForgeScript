@@ -4,8 +4,8 @@
 * Copyright © 2026 BotForge
 */
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = defineProperties;
 function defineProperties(props) {
     return props;
 }
-exports.default = defineProperties;
 //# sourceMappingURL=defineProperties.js.map

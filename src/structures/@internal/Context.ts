@@ -131,7 +131,6 @@ export interface IContextCache {
 export class Context {
     #cache: Partial<IContextCache> = {};
 
-    // eslint-disable-next-line no-undef
     [props: PropertyKey]: unknown
 
     executionTimestamp!: number
@@ -150,7 +149,7 @@ export class Context {
 
     public container: Container
 
-    // eslint-disable-next-line no-unused-vars
+
     public constructor(public readonly runtime: IRunnable) {
         if (runtime.environment) this.#environment = runtime.environment
         if (runtime.keywords) this.#keywords = runtime.keywords

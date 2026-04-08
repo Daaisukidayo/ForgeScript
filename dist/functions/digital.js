@@ -4,7 +4,8 @@
 * Copyright © 2026 BotForge
 */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.unparseDigital = exports.parseDigital = void 0;
+exports.parseDigital = parseDigital;
+exports.unparseDigital = unparseDigital;
 const DigitalFormatRegex = /^(?:(\d+):)?([0-5]?\d):([0-5]?\d)$/;
 function parseDigital(ms) {
     const hours = Math.floor(ms / (1000 * 60 * 60));
@@ -15,7 +16,6 @@ function parseDigital(ms) {
     const SS = String(seconds).padStart(2, "0");
     return `${HH}:${MM}:${SS}`;
 }
-exports.parseDigital = parseDigital;
 function unparseDigital(digital) {
     const match = digital.match(DigitalFormatRegex);
     if (!match)
@@ -27,5 +27,4 @@ function unparseDigital(digital) {
     const ms = (h * 3600000) + (m * 60000) + (s * 1000);
     return isNaN(ms) ? 0 : ms;
 }
-exports.unparseDigital = unparseDigital;
 //# sourceMappingURL=digital.js.map

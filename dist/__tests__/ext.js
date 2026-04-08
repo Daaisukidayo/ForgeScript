@@ -19,7 +19,6 @@ class MyExtension extends ForgeExtension_1.ForgeExtension {
     version = "1.0.0";
     random;
     init(client) {
-        // eslint-disable-next-line no-undef
         this.load((0, node_path_1.join)(__dirname, "custom"));
         this.random = new RndManager(client);
     }

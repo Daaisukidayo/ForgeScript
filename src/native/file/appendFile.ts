@@ -4,7 +4,7 @@
 */
 
 import { appendFileSync } from "fs"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$appendFile",
@@ -35,9 +35,7 @@ export default new NativeFunction({
         },
     ],
     execute(ctx, [path, data, encoding]) {
-        // eslint-disable-next-line no-undef
         appendFileSync(path, data, { encoding: (encoding as BufferEncoding) || "utf-8" })
-
         return this.success()
     },
 })

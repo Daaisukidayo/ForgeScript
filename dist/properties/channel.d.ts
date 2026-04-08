@@ -18,5 +18,5 @@ export declare enum ChannelProperty {
     archived = "archived",
     locked = "locked"
 }
-export declare const ChannelProperties: import("../functions/defineProperties").Properties<typeof ChannelProperty, Channel>;
+export declare const ChannelProperties: import("..").Properties<typeof ChannelProperty, Channel>;
 //# sourceMappingURL=channel.d.ts.map

@@ -62,7 +62,6 @@ export class ForgeFunction {
                         return condition
                     else if (!isTrue(condition))
                         return this.stop()
-                    // eslint-disable-next-line no-unsafe-optional-chaining
                     const params = await this["resolveMultipleArgs"](ctx, ...this.data.fields.slice(1).map((_, i) => i + 1))
                     if (!this["isValidReturnType"](params.return))
                         return params.return

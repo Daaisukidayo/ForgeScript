@@ -140,6 +140,5 @@ client.commands.add({
     $addChoice[tmr;land]
     `,
 });
-// eslint-disable-next-line no-undef
 client.login(process.env.TOKEN);
 //# sourceMappingURL=client.js.map

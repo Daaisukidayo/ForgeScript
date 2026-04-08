@@ -4,6 +4,7 @@
 * Copyright © 2026 BotForge
 */
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = default_1;
 async function default_1(ch) {
     const arr = new Array();
     let lastId = undefined;
@@ -21,5 +22,4 @@ async function default_1(ch) {
     }
     return arr;
 }
-exports.default = default_1;
 //# sourceMappingURL=fetchAllMessages.js.map

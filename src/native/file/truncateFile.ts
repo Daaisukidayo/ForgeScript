@@ -4,7 +4,7 @@
 */
 
 import { truncateSync } from "fs"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$truncateFile",
@@ -29,9 +29,7 @@ export default new NativeFunction({
         },
     ],
     execute(ctx, [path, data]) {
-        // eslint-disable-next-line no-undef
         truncateSync(path, data)
-
         return this.success()
     },
 })

@@ -54,7 +54,6 @@ class Context {
     #localFunctions = {};
     _reason;
     container;
-    // eslint-disable-next-line no-unused-vars
     constructor(runtime) {
         this.runtime = runtime;
         if (runtime.environment)

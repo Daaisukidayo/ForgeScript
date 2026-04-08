@@ -3,8 +3,7 @@
 * Copyright © 2026 BotForge
 */
 
-/* eslint-disable no-undef */
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$coroutine",

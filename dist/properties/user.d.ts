@@ -16,5 +16,5 @@ export declare enum UserProperty {
     primaryGuildEnabled = "primaryGuildEnabled",
     primaryGuildID = "primaryGuildID"
 }
-export declare const UserProperties: import("../functions/defineProperties").Properties<typeof UserProperty, User>;
+export declare const UserProperties: import("..").Properties<typeof UserProperty, User>;
 //# sourceMappingURL=user.d.ts.map

@@ -131,7 +131,6 @@ export class ForgeClient extends Client<true> {
     public readonly intervals = new Map<string, globalThis.NodeJS.Timeout>()
     public readonly globalVariables: Record<string, string> = {};
 
-    // eslint-disable-next-line no-undef
     [x: PropertyKey]: unknown
 
     public constructor(options: IRawForgeClientOptions) {
