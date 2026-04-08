@@ -19,7 +19,7 @@ const OutputRegex = /output:(array(<[A-Za-z.]+>)?\((\w+)?\)|(\w+)|ArgType.(\w+)|
 
 function getOutputValues(fn: INativeFunction<IArg[]>, txt: string, enums: Record<string, string[]>) {
     const output = OutputRegex.exec(txt.replace(/[^0-9A-Za-z:,.[\]<>()|]/gm, ""))?.[1].replace(/[[\]]/g, "").trim()
-    
+
     if (!output) {
         if (fn.output) {
             Logger.error(`OUTPUT LOOKUP FAILURE: in ${fn.name}, out: ${output}`)
@@ -65,7 +65,16 @@ function getOutputValues(fn: INativeFunction<IArg[]>, txt: string, enums: Record
     return arr
 }
 
-export default async function(functionsAbsolutePath: string, mainCategoryName?: string, eventName?: string, warnOnNoOutput = false, expose?: Record<string, EnumLike>, eventsAbsolutePath?: string, translate: Array<string | Locale> = []) {
+export default async function (
+    functionsAbsolutePath: string,
+    mainCategoryName?: string,
+    eventName?: string,
+    warnOnNoOutput = false,
+    expose?: Record<string, EnumLike>,
+    eventsAbsolutePath?: string,
+    /** @deprecated This parameter is no longer being used. */
+    translate: Array<string | Locale> = []
+) {
     let total = 0
     const enums: Record<string, string[]> = {}
 
@@ -106,7 +115,7 @@ export default async function(functionsAbsolutePath: string, mainCategoryName?: 
                     }
                 }
             }
-            
+
             const output = getOutputValues(fn.data, txt, enums)
             if (output?.length)
                 Reflect.set(fn.data, "output", output)
@@ -128,28 +137,28 @@ export default async function(functionsAbsolutePath: string, mainCategoryName?: 
                 txt = txt.replace(FunctionCategoryRegex, "")
                 modified = true
             }
-    
+
             if (!fn.data.version) {
                 fn.data.version = v
                 txt = txt.replace(FunctionNameRegex, `$1,\n    version: "${v}",`)
                 modified = true
             }
-    
+
             if (modified)
                 writeFileSync(nativePath, txt)
         }
-    
+
         if (warnOnNoOutput)
             Logger.warn(`${total.toLocaleString()} functions are missing output value`)
 
         writeFileSync(join(metaOutPath, "enums.json"), JSON.stringify(enums), "utf-8")
         writeFileSync(join(metaOutPath, "functions.json"), JSON.stringify(FunctionManager.toJSON()))
     }
-    
+
     if (eventName) {
         if (!eventsAbsolutePath)
             throw new Error("An absolute path to events must be provided")
-            
+
         Logger.info(`Loading events from ${eventsAbsolutePath}`)
         EventManager.load(eventName, eventsAbsolutePath)
         const events = Object.values(EventManager["Loaded"]![eventName]!)
@@ -168,6 +177,7 @@ export default async function(functionsAbsolutePath: string, mainCategoryName?: 
         writeFileSync(join(metaOutPath, "events.json"), JSON.stringify(EventManager.toJSON(eventName)))
     }
 
+    /* Deprecated.
     if (translate.length) {
         Logger.info("Now translating data, hold tight...")
         await translateData({
@@ -175,5 +185,5 @@ export default async function(functionsAbsolutePath: string, mainCategoryName?: 
             events: eventName ? Object.values(EventManager["Loaded"]![eventName]!).map(x => x.data as unknown as IEvent<unknown, keyof unknown>) : [],
             functions: [...FunctionManager["Functions"].values()].map(x => x.data)
         })
-    }
+    } */
 }

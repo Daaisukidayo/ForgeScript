@@ -10,7 +10,6 @@ const managers_1 = require("../managers");
 const process_1 = require("process");
 const structures_1 = require("../structures");
 const enum_1 = require("./enum");
-const translate_1 = require("./translate");
 const path_1 = require("path");
 const FunctionNameRegex = /(name: "\$?(\w+)"),?/m;
 const FunctionCategoryRegex = /\r?\n(.*)(category: "\$?(\w+)"),?/m;
@@ -55,7 +54,9 @@ function getOutputValues(fn, txt, enums) {
     }
     return arr;
 }
-async function default_1(functionsAbsolutePath, mainCategoryName, eventName, warnOnNoOutput = false, expose, eventsAbsolutePath, translate = []) {
+async function default_1(functionsAbsolutePath, mainCategoryName, eventName, warnOnNoOutput = false, expose, eventsAbsolutePath, 
+/** @deprecated This parameter is no longer being used. */
+translate = []) {
     let total = 0;
     const enums = {};
     if (expose?.length)
@@ -139,13 +140,14 @@ async function default_1(functionsAbsolutePath, mainCategoryName, eventName, war
         }
         (0, fs_1.writeFileSync)((0, path_1.join)(metaOutPath, "events.json"), JSON.stringify(managers_1.EventManager.toJSON(eventName)));
     }
+    /* Deprecated.
     if (translate.length) {
-        structures_1.Logger.info("Now translating data, hold tight...");
-        await (0, translate_1.translateData)({
+        Logger.info("Now translating data, hold tight...")
+        await translateData({
             languages: translate,
-            events: eventName ? Object.values(managers_1.EventManager["Loaded"][eventName]).map(x => x.data) : [],
-            functions: [...managers_1.FunctionManager["Functions"].values()].map(x => x.data)
-        });
-    }
+            events: eventName ? Object.values(EventManager["Loaded"]![eventName]!).map(x => x.data as unknown as IEvent<unknown, keyof unknown>) : [],
+            functions: [...FunctionManager["Functions"].values()].map(x => x.data)
+        })
+    } */
 }
 //# sourceMappingURL=generateMetadata.js.map

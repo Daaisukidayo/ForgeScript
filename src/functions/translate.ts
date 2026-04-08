@@ -3,12 +3,10 @@
 * Copyright © 2026 BotForge
 */
 
-import { Locale, SnowflakeUtil } from "discord.js"
-import { ArgType, IArg, IEvent, INativeFunction, Logger } from "../structures"
+import { Locale } from "discord.js"
+import { IArg, IEvent, INativeFunction, Logger } from "../structures"
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs"
 import { createHash } from "crypto"
-import { capitalize } from "lodash"
-import { exit, memoryUsage } from "process"
 import { TimeParser } from "../constants"
 import { generateBar } from "./generateBar"
 import { join } from "path"

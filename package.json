@@ -36,7 +36,6 @@
   "license": "LGPL-3.0-or-later",
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@iamtraction/google-translate": "^2.0.1",
     "@types/cli-color": "^2.0.6",
     "@types/express": "^5.0.6",
     "@types/lodash": "^4.14.198",

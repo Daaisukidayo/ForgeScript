@@ -11,6 +11,7 @@ export interface ITranslateData {
     locale: string
 }
 
+/* Translation package not installed.
 parentPort?.on("message", async function(msg: ITranslateData) {
     const translate = await import("@iamtraction/google-translate").then(x => x.default)
     for (;;) {
@@ -23,4 +24,4 @@ parentPort?.on("message", async function(msg: ITranslateData) {
         parentPort?.postMessage(txt.text)
         break
     }
-})
+}) */
