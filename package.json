@@ -39,24 +39,24 @@
     "@types/cli-color": "^2.0.6",
     "@types/express": "^5.0.6",
     "@types/lodash": "^4.14.198",
-    "@types/node": "^25.5.2",
-    "@typescript-eslint/eslint-plugin": "^8.58.1",
-    "@typescript-eslint/parser": "^8.58.1",
-    "dotenv": "^17.4.1",
+    "@types/node": "^25.6.0",
+    "@typescript-eslint/eslint-plugin": "^8.58.2",
+    "@typescript-eslint/parser": "^8.58.2",
+    "dotenv": "^17.4.2",
     "eslint": "^10.2.0",
     "eslint-config-prettier": "^10.1.8",
     "express": "^5.2.1",
-    "globals": "^17.4.0",
-    "prettier": "^3.8.1",
-    "typedoc": "^0.28.18",
+    "globals": "^17.5.0",
+    "prettier": "^3.8.3",
+    "typedoc": "^0.28.19",
     "typescript": "^6.0.2"
   },
   "dependencies": {
     "chalk": "^5.6.2",
-    "discord.js": "^14.26.2",
+    "discord.js": "^14.26.3",
     "ms-utility": "^3.3.0",
     "tiny-typed-emitter": "^2.1.0",
-    "undici": "^7.24.7"
+    "undici": "^7.25.0"
   },
   "engines": {
     "node": ">=16.11.0"

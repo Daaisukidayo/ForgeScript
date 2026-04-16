@@ -4,7 +4,7 @@
 */
 
 import { statSync } from "fs"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$isFile",
@@ -23,6 +23,10 @@ export default new NativeFunction({
         },
     ],
     execute(ctx, [path]) {
-        return this.success(statSync(path).isFile())
+        try {
+            return this.success(statSync(path).isFile())
+        } catch {
+            return this.success(false)
+        }
     },
 })

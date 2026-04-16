@@ -23,7 +23,12 @@ exports.default = new structures_1.NativeFunction({
         },
     ],
     execute(ctx, [path]) {
-        return this.success((0, fs_1.statSync)(path).isDirectory());
+        try {
+            return this.success((0, fs_1.statSync)(path).isDirectory());
+        }
+        catch {
+            return this.success(false);
+        }
     },
 });
 //# sourceMappingURL=isDirectory.js.map

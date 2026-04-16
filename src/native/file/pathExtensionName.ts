@@ -3,7 +3,7 @@
 * Copyright © 2026 BotForge
 */
 
-import path from "path"
+import { extname } from "path"
 import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
@@ -24,6 +24,6 @@ export default new NativeFunction({
     ],
     output: ArgType.String,
     execute(ctx, [p]) {
-        return this.success(path.extname(p))
+        return this.success(extname(p))
     },
 })
