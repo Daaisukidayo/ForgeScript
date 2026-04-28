@@ -3,7 +3,8 @@
 * Copyright © 2026 BotForge
 */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ComponentType } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$input",
@@ -34,7 +35,7 @@ export default new NativeFunction({
         return this.success(
             "value" in field
                 ? field.value
-                : "attachments" in field
+                : ("attachments" in field && field.id === ComponentType.FileUpload)
                     ? field.attachments.map((x) => x.url).join(sep ?? ", ")
                     : field.values.join(sep ?? ", ")
         )
