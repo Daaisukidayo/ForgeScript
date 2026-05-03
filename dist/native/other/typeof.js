@@ -31,7 +31,7 @@ exports.default = new structures_1.NativeFunction({
             type = "boolean";
         else if (exports.BigIntFormatRegex.test(arg))
             type = "bigint";
-        else if (!!arg.trim() && !isNaN(Number(arg)))
+        else if (arg === "NaN" || (!!arg.trim() && !isNaN(Number(arg))))
             type = "number";
         else {
             try {
