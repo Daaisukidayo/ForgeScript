@@ -19,4 +19,4 @@ declare const _default: NativeFunction<[{
     type: ArgType.String;
 }], true>;
 export default _default;
-//# sourceMappingURL=kickMember.d.ts.map
+//# sourceMappingURL=kick.d.ts.map

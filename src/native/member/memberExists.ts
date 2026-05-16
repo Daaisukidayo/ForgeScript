@@ -3,12 +3,12 @@
 * Copyright © 2026 BotForge
 */
 
-import { ArgType, CompiledFunction, NativeFunction, Return } from "../../structures"
+import { ArgType, CompiledFunction, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$memberExists",
     version: "1.0.0",
-    description: "Returns whether an member id exists",
+    description: "Returns whether a member id exists on a guild",
     unwrap: true,
     brackets: true,
     output: ArgType.Boolean,

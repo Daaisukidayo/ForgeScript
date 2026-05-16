@@ -12,7 +12,7 @@ exports.default = new structures_1.NativeFunction({
         "$includes"
     ],
     output: structures_1.ArgType.Boolean,
-    description: "Checks whether a string contains a set of other trings",
+    description: "Checks whether a string contains a set of other strings",
     unwrap: true,
     args: [
         {

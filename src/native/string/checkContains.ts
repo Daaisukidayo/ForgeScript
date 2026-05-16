@@ -12,7 +12,7 @@ export default new NativeFunction({
         "$includes"
     ],
     output: ArgType.Boolean,
-    description: "Checks whether a string contains a set of other trings",
+    description: "Checks whether a string contains a set of other strings",
     unwrap: true,
     args: [
         {
