@@ -34,7 +34,7 @@ exports.default = new structures_1.NativeFunction({
         const field = ctx.interaction.fields.getField(id);
         return this.success("value" in field
             ? field.value
-            : (field.type === discord_js_1.ComponentType.FileUpload)
+            : ("attachments" in field && field.type === discord_js_1.ComponentType.FileUpload)
                 ? field.attachments.map((x) => x.url).join(sep ?? ", ")
                 : field.values.join(sep ?? ", "));
     },

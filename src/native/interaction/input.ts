@@ -35,7 +35,7 @@ export default new NativeFunction({
         return this.success(
             "value" in field
                 ? field.value
-                : (field.type === ComponentType.FileUpload)
+                : ("attachments" in field && field.type === ComponentType.FileUpload)
                     ? field.attachments.map((x) => x.url).join(sep ?? ", ")
                     : field.values.join(sep ?? ", ")
         )
