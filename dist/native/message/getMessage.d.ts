@@ -21,7 +21,6 @@ declare const _default: NativeFunction<[{
     rest: false;
     type: ArgType.Enum;
     enum: typeof MessageProperty;
-    required: true;
 }, {
     name: string;
     description: string;

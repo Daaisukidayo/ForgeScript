@@ -3,14 +3,13 @@
 * Copyright © 2026 BotForge
 */
 
-import { BaseChannel, MessageType } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { BaseChannel } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$messageEditedAt",
     version: "1.5.0",
-    output: ArgType.Number,
-    description: "Returns the edited timestamp of the message",
+    description: "Returns the edited timestamp of a message",
     unwrap: true,
     brackets: false,
     args: [
@@ -31,6 +30,7 @@ export default new NativeFunction({
             required: true,
         },
     ],
+    output: ArgType.Number,
     execute(ctx, [, message]) {
         return this.success((message ?? ctx.message)?.editedTimestamp)
     },

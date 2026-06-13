@@ -32,7 +32,7 @@ exports.default = new structures_1.NativeFunction({
             name: "color",
             description: "The role color",
             rest: false,
-            type: structures_1.ArgType.String,
+            type: structures_1.ArgType.Color,
         },
         {
             name: "icon",

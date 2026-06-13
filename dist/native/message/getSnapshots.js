@@ -62,7 +62,7 @@ exports.default = new structures_1.NativeFunction({
         const snapshots = (m ?? ctx.message)?.messageSnapshots.toJSON();
         if (typeof index !== "number")
             return this.successJSON(snapshots);
-        if (prop === null)
+        if (!prop)
             return this.successJSON(snapshots[index]);
         return this.success(message_1.MessageProperties[prop](snapshots[index], sep ?? ", "));
     },

@@ -4,7 +4,7 @@
 */
 
 import { BaseChannel } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 import { MessageProperties, MessageProperty } from "../../properties/message"
 import array from "../../functions/array"
 
@@ -60,7 +60,7 @@ export default new NativeFunction({
         const snapshots = (m ?? ctx.message)?.messageSnapshots.toJSON()
 
         if (typeof index !== "number") return this.successJSON(snapshots)
-        if (prop === null) return this.successJSON(snapshots[index])
+        if (!prop) return this.successJSON(snapshots[index])
         return this.success(MessageProperties[prop](snapshots[index], sep ?? ", "))
     },
 })

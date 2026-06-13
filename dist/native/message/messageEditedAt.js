@@ -8,8 +8,7 @@ const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$messageEditedAt",
     version: "1.5.0",
-    output: structures_1.ArgType.Number,
-    description: "Returns the edited timestamp of the message",
+    description: "Returns the edited timestamp of a message",
     unwrap: true,
     brackets: false,
     args: [
@@ -30,6 +29,7 @@ exports.default = new structures_1.NativeFunction({
             required: true,
         },
     ],
+    output: structures_1.ArgType.Number,
     execute(ctx, [, message]) {
         return this.success((message ?? ctx.message)?.editedTimestamp);
     },
