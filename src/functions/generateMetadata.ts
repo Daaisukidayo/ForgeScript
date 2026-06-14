@@ -5,17 +5,21 @@
 
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs"
 import { EventManager, FunctionManager } from "../managers"
-import { cwd, exit } from "process"
-import { EnumLike, IArg, IEvent, INativeFunction, Logger } from "../structures"
+import { EnumLike, IArg, INativeFunction, Logger } from "../structures"
 import { enumToArray } from "./enum"
-import { translateData } from "./translate"
 import { Locale } from "discord.js"
 import { join, relative } from "path"
+import { cwd, exit } from "process"
 
 const FunctionNameRegex = /(name: "\$?(\w+)"),?/m
 const FunctionCategoryRegex = /\r?\n(.*)(category: "\$?(\w+)"),?/m
 const ArgEnumRegex = /(?:enum: +(\w+),?|Arg\.(?:\w+)Enum\([\r\n\t ]*(\w+))/gim
 const OutputRegex = /output:(array(<[A-Za-z.]+>)?\((\w+)?\)|(\w+)|ArgType.(\w+)|\[((array(<[A-Za-z.]+>)?\(\w*\)|\w+|ArgType\.\w+),?)+\]),/im
+
+const translations = {
+    functions: {} as Record<string, any>,
+    events: {} as Record<string, any>
+}
 
 function getOutputValues(fn: INativeFunction<IArg[]>, txt: string, enums: Record<string, string[]>) {
     const output = OutputRegex.exec(txt.replace(/[^0-9A-Za-z:,.[\]<>()|]/gm, ""))?.[1].replace(/[[\]]/g, "").trim()
@@ -146,6 +150,24 @@ export default async function (
 
             if (modified)
                 writeFileSync(nativePath, txt)
+
+            const func: Record<string, any> = {}
+            func.description = fn.data.description
+
+            if (fn.data.args?.length) {
+                func.args = {}
+
+                for (const arg of fn.data.args) {
+                    func.args[arg.name] = {
+                        description: arg.description
+                    }
+                }
+
+                if (!Object.keys(func.args).length)
+                    delete func.args
+            }
+
+            translations.functions[fn.name] = func
         }
 
         if (warnOnNoOutput)
@@ -172,9 +194,24 @@ export default async function (
                 event!.data.version = v
                 writeFileSync(nativePath, txt.replace(FunctionNameRegex, `$1,\n    version: "${v}",`))
             }
+
+            const ev: Record<string, any> = {}
+            ev.description = event.data.description
+            translations.events[event.name] = ev
         }
 
         writeFileSync(join(metaOutPath, "events.json"), JSON.stringify(EventManager.toJSON(eventName)))
+    }
+
+    const transOutPath = join(metaOutPath, "translations")
+    if (!existsSync(transOutPath)) mkdirSync(transOutPath, { recursive: true })
+
+    const transFile = join(transOutPath, "en.json")
+    const json = JSON.stringify(translations)
+
+    if (!existsSync(transFile) || readFileSync(transFile, "utf8") !== json) {
+        Logger.info("Writing translation metadata...")
+        writeFileSync(transFile, json, "utf8")
     }
 
     /* Deprecated.

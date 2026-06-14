@@ -7,14 +7,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = default_1;
 const fs_1 = require("fs");
 const managers_1 = require("../managers");
-const process_1 = require("process");
 const structures_1 = require("../structures");
 const enum_1 = require("./enum");
 const path_1 = require("path");
+const process_1 = require("process");
 const FunctionNameRegex = /(name: "\$?(\w+)"),?/m;
 const FunctionCategoryRegex = /\r?\n(.*)(category: "\$?(\w+)"),?/m;
 const ArgEnumRegex = /(?:enum: +(\w+),?|Arg\.(?:\w+)Enum\([\r\n\t ]*(\w+))/gim;
 const OutputRegex = /output:(array(<[A-Za-z.]+>)?\((\w+)?\)|(\w+)|ArgType.(\w+)|\[((array(<[A-Za-z.]+>)?\(\w*\)|\w+|ArgType\.\w+),?)+\]),/im;
+const translations = {
+    functions: {},
+    events: {}
+};
 function getOutputValues(fn, txt, enums) {
     const output = OutputRegex.exec(txt.replace(/[^0-9A-Za-z:,.[\]<>()|]/gm, ""))?.[1].replace(/[[\]]/g, "").trim();
     if (!output) {
@@ -117,6 +121,19 @@ translate = []) {
             }
             if (modified)
                 (0, fs_1.writeFileSync)(nativePath, txt);
+            const func = {};
+            func.description = fn.data.description;
+            if (fn.data.args?.length) {
+                func.args = {};
+                for (const arg of fn.data.args) {
+                    func.args[arg.name] = {
+                        description: arg.description
+                    };
+                }
+                if (!Object.keys(func.args).length)
+                    delete func.args;
+            }
+            translations.functions[fn.name] = func;
         }
         if (warnOnNoOutput)
             structures_1.Logger.warn(`${total.toLocaleString()} functions are missing output value`);
@@ -137,8 +154,20 @@ translate = []) {
                 event.data.version = v;
                 (0, fs_1.writeFileSync)(nativePath, txt.replace(FunctionNameRegex, `$1,\n    version: "${v}",`));
             }
+            const ev = {};
+            ev.description = event.data.description;
+            translations.events[event.name] = ev;
         }
         (0, fs_1.writeFileSync)((0, path_1.join)(metaOutPath, "events.json"), JSON.stringify(managers_1.EventManager.toJSON(eventName)));
+    }
+    const transOutPath = (0, path_1.join)(metaOutPath, "translations");
+    if (!(0, fs_1.existsSync)(transOutPath))
+        (0, fs_1.mkdirSync)(transOutPath, { recursive: true });
+    const transFile = (0, path_1.join)(transOutPath, "en.json");
+    const json = JSON.stringify(translations);
+    if (!(0, fs_1.existsSync)(transFile) || (0, fs_1.readFileSync)(transFile, "utf8") !== json) {
+        structures_1.Logger.info("Writing translation metadata...");
+        (0, fs_1.writeFileSync)(transFile, json, "utf8");
     }
     /* Deprecated.
     if (translate.length) {
