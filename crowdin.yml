@@ -1,0 +1,3 @@
+files:
+  - source: metadata/translations/en.json
+    translation: metadata/translations/%locale%.json
