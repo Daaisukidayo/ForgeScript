@@ -3,7 +3,7 @@
 * Copyright © 2026 BotForge
 */
 
-import { ArgType, NativeFunction } from "../../structures"
+import { ArgType, IExtendedCompiledFunctionField, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$escapeCode",
@@ -17,14 +17,15 @@ export default new NativeFunction({
     args: [
         {
             name: "code",
-            type: ArgType.String,
             description: "The code to ignore",
+            type: ArgType.String,
             required: true,
             rest: false
         }
     ],
     output: ArgType.String,
     execute(ctx) {
-        return this.success(this.displayField(0))
+        const code = this.data.fields![0] as IExtendedCompiledFunctionField
+        return this.success(code.rawValue)
     },
 })

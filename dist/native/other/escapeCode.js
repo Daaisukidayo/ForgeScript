@@ -17,15 +17,16 @@ exports.default = new structures_1.NativeFunction({
     args: [
         {
             name: "code",
-            type: structures_1.ArgType.String,
             description: "The code to ignore",
+            type: structures_1.ArgType.String,
             required: true,
             rest: false
         }
     ],
     output: structures_1.ArgType.String,
     execute(ctx) {
-        return this.success(this.displayField(0));
+        const code = this.data.fields[0];
+        return this.success(code.rawValue);
     },
 });
 //# sourceMappingURL=escapeCode.js.map
