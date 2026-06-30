@@ -6,11 +6,13 @@ export interface IForgeFunctionParam {
     type?: ArgType | keyof typeof ArgType;
     required?: boolean;
     rest?: boolean;
+    [x: PropertyKey]: unknown;
 }
 export interface IForgeFunction {
     name: string;
     params?: Array<string | IForgeFunctionParam>;
     firstParamCondition?: boolean;
+    [x: PropertyKey]: unknown;
     brackets?: boolean;
     code: string;
     path?: string;
