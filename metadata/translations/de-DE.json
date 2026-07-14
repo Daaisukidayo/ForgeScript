@@ -6310,6 +6310,12 @@
         "$isMentionableSelectMenu": {
             "description": ""
         },
+        "$isMessageComponent": {
+            "description": ""
+        },
+        "$isMessageContextMenu": {
+            "description": ""
+        },
         "$isModal": {
             "description": ""
         },
@@ -6323,6 +6329,9 @@
             "description": ""
         },
         "$isStringSelectMenu": {
+            "description": ""
+        },
+        "$isUserContextMenu": {
             "description": ""
         },
         "$isUserSelectMenu": {
@@ -7097,6 +7106,17 @@
                 }
             }
         },
+        "$isBannable": {
+            "description": "",
+            "args": {
+                "guild ID": {
+                    "description": ""
+                },
+                "user ID": {
+                    "description": ""
+                }
+            }
+        },
         "$isBanned": {
             "description": "",
             "args": {
@@ -7142,6 +7162,39 @@
             }
         },
         "$isGuildMuted": {
+            "description": "",
+            "args": {
+                "guild ID": {
+                    "description": ""
+                },
+                "user ID": {
+                    "description": ""
+                }
+            }
+        },
+        "$isKickable": {
+            "description": "",
+            "args": {
+                "guild ID": {
+                    "description": ""
+                },
+                "user ID": {
+                    "description": ""
+                }
+            }
+        },
+        "$isManageable": {
+            "description": "",
+            "args": {
+                "guild ID": {
+                    "description": ""
+                },
+                "user ID": {
+                    "description": ""
+                }
+            }
+        },
+        "$isModeratable": {
             "description": "",
             "args": {
                 "guild ID": {
