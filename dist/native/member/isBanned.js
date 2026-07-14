@@ -25,7 +25,7 @@ exports.default = new structures_1.NativeFunction({
         },
         {
             name: "user ID",
-            description: "The user to check ban",
+            description: "The user to check ban status for",
             rest: false,
             type: structures_1.ArgType.User,
             required: true,

@@ -4,21 +4,28 @@
 */
 
 import { ClientEvents, Interaction } from "discord.js"
-import { Context } from ".."
 import { IExtendedCompilationResult, Compiler, ForgeClient } from "../../core"
 import { ForgeError, ErrorType } from "../forge/ForgeError"
+import { Context } from ".."
 
 export type CommandType = keyof ClientEvents
 export type RawExecutableCode = (ctx: Context) => Promise<unknown[] | null>
 
-export type CommandInteractionTypes = 
-    "button" |
-    "modal" |
-    "slashCommand" | 
-    "autocomplete" | 
-    "contextMenu" |
-    "selectMenu" |
-    "activityCommand"
+export type CommandInteractionTypes =
+    | "button"
+    | "modal"
+    | "slashCommand"
+    | "autocomplete"
+    | "contextMenu"
+    | "userContextMenu"
+    | "messageContextMenu"
+    | "selectMenu"
+    | "userSelectMenu"
+    | "roleSelectMenu"
+    | "channelSelectMenu"
+    | "mentionableSelectMenu"
+    | "activityCommand"
+    | "messageComponent"
 
 export interface IBaseCommand<T> {
     name?: string
@@ -93,22 +100,29 @@ export class BaseCommand<T> {
         return (
             !this.data.name ||
             (
-                "customId" in i && 
+                "customId" in i &&
                 this.data.name === i.customId
             )
         ) && (
-            !this.data.allowedInteractionTypes?.length || (
-                this.data.allowedInteractionTypes.some(
-                    type =>
-                        (type === "slashCommand" && i.isChatInputCommand()) || 
-                        (type === "button" && i.isButton()) ||
-                        (type === "selectMenu" && i.isAnySelectMenu()) ||
-                        (type === "modal" && i.isModalSubmit()) ||
-                        (type === "autocomplete" && i.isAutocomplete()) ||
-                        (type === "contextMenu" && i.isContextMenuCommand()) ||
-                        (type === "activityCommand" && i.isPrimaryEntryPointCommand())
+                !this.data.allowedInteractionTypes?.length || (
+                    this.data.allowedInteractionTypes.some(
+                        type =>
+                            (type === "button" && i.isButton()) ||
+                            (type === "modal" && i.isModalSubmit()) ||
+                            (type === "slashCommand" && i.isChatInputCommand()) ||
+                            (type === "autocomplete" && i.isAutocomplete()) ||
+                            (type === "selectMenu" && i.isAnySelectMenu()) ||
+                            (type === "userSelectMenu" && i.isUserSelectMenu()) ||
+                            (type === "roleSelectMenu" && i.isRoleSelectMenu()) ||
+                            (type === "channelSelectMenu" && i.isChannelSelectMenu()) ||
+                            (type === "mentionableSelectMenu" && i.isMentionableSelectMenu()) ||
+                            (type === "contextMenu" && i.isContextMenuCommand()) ||
+                            (type === "userContextMenu" && i.isUserContextMenuCommand()) ||
+                            (type === "messageContextMenu" && i.isMessageContextMenuCommand()) ||
+                            (type === "activityCommand" && i.isPrimaryEntryPointCommand()) ||
+                            (type === "messageComponent" && i.isMessageComponent())
+                    )
                 )
             )
-        )
     }
 }

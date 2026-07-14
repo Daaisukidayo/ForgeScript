@@ -13,6 +13,7 @@ export declare enum MemberProperty {
     guildID = "guildID",
     id = "id",
     manageable = "manageable",
+    moderatable = "moderatable",
     timeout = "timeout",
     timedOutUntil = "timedOutUntil",
     status = "status",

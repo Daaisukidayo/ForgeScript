@@ -1,9 +1,9 @@
 import { ClientEvents, Interaction } from "discord.js";
-import { Context } from "..";
 import { IExtendedCompilationResult, ForgeClient } from "../../core";
+import { Context } from "..";
 export type CommandType = keyof ClientEvents;
 export type RawExecutableCode = (ctx: Context) => Promise<unknown[] | null>;
-export type CommandInteractionTypes = "button" | "modal" | "slashCommand" | "autocomplete" | "contextMenu" | "selectMenu" | "activityCommand";
+export type CommandInteractionTypes = "button" | "modal" | "slashCommand" | "autocomplete" | "contextMenu" | "userContextMenu" | "messageContextMenu" | "selectMenu" | "userSelectMenu" | "roleSelectMenu" | "channelSelectMenu" | "mentionableSelectMenu" | "activityCommand" | "messageComponent";
 export interface IBaseCommand<T> {
     name?: string;
     type: T;

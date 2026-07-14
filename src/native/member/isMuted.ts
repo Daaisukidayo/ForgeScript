@@ -4,12 +4,12 @@
 */
 
 import { APIInteractionGuildMember, GuildMember } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$isMuted",
     version: "1.0.0",
-    description: "Whether a member is muted",
+    description: "Returns whether a member is muted",
     brackets: false,
     unwrap: true,
     aliases: [

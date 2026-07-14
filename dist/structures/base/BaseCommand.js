@@ -45,13 +45,20 @@ class BaseCommand {
     matchesInteractionType(i) {
         return (!this.data.name ||
             ("customId" in i &&
-                this.data.name === i.customId)) && (!this.data.allowedInteractionTypes?.length || (this.data.allowedInteractionTypes.some(type => (type === "slashCommand" && i.isChatInputCommand()) ||
-            (type === "button" && i.isButton()) ||
-            (type === "selectMenu" && i.isAnySelectMenu()) ||
+                this.data.name === i.customId)) && (!this.data.allowedInteractionTypes?.length || (this.data.allowedInteractionTypes.some(type => (type === "button" && i.isButton()) ||
             (type === "modal" && i.isModalSubmit()) ||
+            (type === "slashCommand" && i.isChatInputCommand()) ||
             (type === "autocomplete" && i.isAutocomplete()) ||
+            (type === "selectMenu" && i.isAnySelectMenu()) ||
+            (type === "userSelectMenu" && i.isUserSelectMenu()) ||
+            (type === "roleSelectMenu" && i.isRoleSelectMenu()) ||
+            (type === "channelSelectMenu" && i.isChannelSelectMenu()) ||
+            (type === "mentionableSelectMenu" && i.isMentionableSelectMenu()) ||
             (type === "contextMenu" && i.isContextMenuCommand()) ||
-            (type === "activityCommand" && i.isPrimaryEntryPointCommand()))));
+            (type === "userContextMenu" && i.isUserContextMenuCommand()) ||
+            (type === "messageContextMenu" && i.isMessageContextMenuCommand()) ||
+            (type === "activityCommand" && i.isPrimaryEntryPointCommand()) ||
+            (type === "messageComponent" && i.isMessageComponent()))));
     }
 }
 exports.BaseCommand = BaseCommand;

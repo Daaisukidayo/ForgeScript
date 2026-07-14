@@ -3,7 +3,7 @@
 * Copyright © 2026 BotForge
 */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$isBanned",
@@ -25,7 +25,7 @@ export default new NativeFunction({
         },
         {
             name: "user ID",
-            description: "The user to check ban",
+            description: "The user to check ban status for",
             rest: false,
             type: ArgType.User,
             required: true,

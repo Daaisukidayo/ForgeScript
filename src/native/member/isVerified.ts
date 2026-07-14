@@ -3,7 +3,7 @@
 * Copyright © 2026 BotForge
 */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$isVerified",
@@ -11,7 +11,7 @@ export default new NativeFunction({
     aliases: [
         "$memberIsVerified"
     ],
-    description: "Whether a member is verified",
+    description: "Returns whether a member is verified",
     brackets: false,
     unwrap: true,
     output: ArgType.Boolean,
@@ -25,7 +25,7 @@ export default new NativeFunction({
         },
         {
             name: "user ID",
-            description: "The member to get its voice state",
+            description: "The member to get its verified status",
             rest: false,
             type: ArgType.Member,
             pointer: 0,

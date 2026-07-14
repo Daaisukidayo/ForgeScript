@@ -53,7 +53,7 @@
   },
   "dependencies": {
     "chalk": "^5.6.2",
-    "discord.js": "^14.26.4",
+    "discord.js": "^14.26.5",
     "ms-utility": "^3.3.0",
     "tiny-typed-emitter": "^2.1.0",
     "undici": "^7.25.0"

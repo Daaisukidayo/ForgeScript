@@ -4,12 +4,12 @@
 */
 
 import { APIInteractionGuildMember, GuildMember } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$isTimedOut",
     version: "1.0.0",
-    description: "Whether an member is timed out",
+    description: "Returns whether a member is timed out",
     unwrap: true,
     brackets: false,
     aliases: [

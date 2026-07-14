@@ -3,12 +3,12 @@
 * Copyright © 2026 BotForge
 */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$isSelfDeaf",
     version: "1.0.0",
-    description: "Whether a member is self deafened",
+    description: "Returns whether a member is self deafened",
     brackets: false,
     unwrap: true,
     aliases: [

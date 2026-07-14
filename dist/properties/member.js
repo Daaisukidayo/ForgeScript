@@ -25,6 +25,7 @@ var MemberProperty;
     MemberProperty["guildID"] = "guildID";
     MemberProperty["id"] = "id";
     MemberProperty["manageable"] = "manageable";
+    MemberProperty["moderatable"] = "moderatable";
     MemberProperty["timeout"] = "timeout";
     MemberProperty["timedOutUntil"] = "timedOutUntil";
     MemberProperty["status"] = "status";
@@ -73,6 +74,7 @@ exports.MemberProperties = (0, defineProperties_1.default)({
     bannable: (i) => i?.bannable ?? false,
     kickable: (i) => i?.kickable ?? false,
     manageable: (i) => i?.manageable ?? false,
+    moderatable: (i) => i?.moderatable ?? false,
     id: (i) => i?.user?.id,
     guildID: (i) => i?.guild?.id,
     timedOutUntil: (i) => i instanceof discord_js_1.GuildMember ? (i?.isCommunicationDisabled() ? i.communicationDisabledUntil.getTime() : 0) : (i?.communication_disabled_until ? new Date(i.communication_disabled_until).getTime() : 0),
