@@ -27,6 +27,7 @@ import {
     Subscription,
     User,
     VoiceChannelEffect,
+    VoiceServerUpdateData,
     VoiceState
 } from "discord.js"
 import { IExtendedCompilationResult } from "."
@@ -36,6 +37,7 @@ import { ForgeClient } from "./ForgeClient"
 export interface IStates {
     message: Message
     voiceState: VoiceState
+    voiceServer: VoiceServerUpdateData
     voiceEffect: VoiceChannelEffect
     presence: Presence
     role: Role
