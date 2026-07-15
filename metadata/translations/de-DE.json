@@ -5410,6 +5410,14 @@
                 }
             }
         },
+        "$guildMaximumStageBitrate": {
+            "description": "",
+            "args": {
+                "guild ID": {
+                    "description": ""
+                }
+            }
+        },
         "$guildMemberCount": {
             "description": "",
             "args": {
@@ -7855,6 +7863,9 @@
                 },
                 "description": {
                     "description": ""
+                },
+                "title": {
+                    "description": ""
                 }
             }
         },
@@ -8021,6 +8032,23 @@
             }
         },
         "$getMessage": {
+            "description": "",
+            "args": {
+                "channel ID": {
+                    "description": ""
+                },
+                "message ID": {
+                    "description": ""
+                },
+                "property": {
+                    "description": ""
+                },
+                "separator": {
+                    "description": ""
+                }
+            }
+        },
+        "$getMessageClientTheme": {
             "description": "",
             "args": {
                 "channel ID": {
@@ -8447,6 +8475,17 @@
             }
         },
         "$publishMessage": {
+            "description": "",
+            "args": {
+                "channel ID": {
+                    "description": ""
+                },
+                "message ID": {
+                    "description": ""
+                }
+            }
+        },
+        "$removeAttachments": {
             "description": "",
             "args": {
                 "channel ID": {
@@ -9950,6 +9989,14 @@
                     "description": ""
                 },
                 "separator": {
+                    "description": ""
+                }
+            }
+        },
+        "$voiceServer": {
+            "description": "",
+            "args": {
+                "property": {
                     "description": ""
                 }
             }
@@ -11756,6 +11803,9 @@
             "description": ""
         },
         "voiceChannelEffectSend": {
+            "description": ""
+        },
+        "voiceServerUpdate": {
             "description": ""
         },
         "voiceStateUpdate": {
