@@ -58,6 +58,7 @@ exports.default = new structures_1.NativeFunction({
             name,
             topic: topic || undefined,
             parent: parent,
+            permissionOverwrites: ctx.permissionOverwrites,
             reason: ctx.reason
         })
             .catch(ctx.noop);

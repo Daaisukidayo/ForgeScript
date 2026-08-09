@@ -4,7 +4,7 @@
 */
 
 import { BaseChannel, CategoryChannel, ChannelType, GuildChannelCreateOptions } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$createChannel",
@@ -58,6 +58,7 @@ export default new NativeFunction({
                 name,
                 topic: topic || undefined,
                 parent: parent as CategoryChannel,
+                permissionOverwrites: ctx.permissionOverwrites,
                 reason: ctx.reason
             })
             .catch(ctx.noop)

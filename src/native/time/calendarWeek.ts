@@ -11,7 +11,7 @@ export default new NativeFunction({
     description: "Returns the calendar week",
     unwrap: true,
     output: ArgType.Number,
-    execute: async function(ctx) {
+    execute: async function (ctx) {
         const date = new Date(new Date().toLocaleString("en-US", { timeZone: ctx.timezone, calendar: ctx.calendar }))
 
         if (ctx.calendar === CalendarType.Iso8601) {

@@ -8,6 +8,7 @@ const structures_1 = require("../../structures");
 const clientTheme_1 = require("../../properties/clientTheme");
 exports.default = new structures_1.NativeFunction({
     name: "$getMessageClientTheme",
+    version: "2.7.0",
     description: "Retrieves the shared client theme sent with a message",
     unwrap: true,
     brackets: true,

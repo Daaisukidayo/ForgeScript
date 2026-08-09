@@ -8,6 +8,7 @@ const core_1 = require("../../core");
 const DiscordEventHandler_1 = require("../../structures/extended/DiscordEventHandler");
 exports.default = new DiscordEventHandler_1.DiscordEventHandler({
     name: "voiceServerUpdate",
+    version: "2.7.0",
     description: "This event is fired when a voice server is updated",
     listener: async function (data) {
         const commands = this.commands.get("voiceServerUpdate");

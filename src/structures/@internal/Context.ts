@@ -22,6 +22,7 @@ import {
     MediaGalleryBuilder,
     Message,
     MessageReaction,
+    OverwriteResolvable,
     Role,
     SectionBuilder,
     SoundboardSound,
@@ -141,6 +142,8 @@ export class Context {
     timezone: string = "UTC"
     calendar?: CalendarType
 
+    permissionOverwrites?: OverwriteResolvable[]
+
     #keywords: Record<string, unknown> = {}
     #environment: Record<string, unknown> = {}
     #localFunctions: Record<string, ILocalFunctionData> = {}
@@ -148,7 +151,6 @@ export class Context {
     private _reason?: string
 
     public container: Container
-
 
     public constructor(public readonly runtime: IRunnable) {
         if (runtime.environment) this.#environment = runtime.environment

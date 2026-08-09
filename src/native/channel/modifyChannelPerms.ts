@@ -5,7 +5,7 @@
 
 import { BaseChannel, GuildChannel, PermissionFlagsBits } from "discord.js"
 import { ArgType, NativeFunction } from "../../structures"
-import overwritePermissionsArrayToObject from "../../functions/overwritePermissionsArrayToObject"
+import { overwritePermissionsArrayToObject } from "../../functions/overwritePermissions"
 
 export default new NativeFunction({
     name: "$modifyChannelPerms",
@@ -42,14 +42,18 @@ export default new NativeFunction({
             enum: PermissionFlagsBits
         }
     ],
-    async execute(ctx, [ channel, roleOrUser, raw ]) {
+    async execute(ctx, [channel, roleOrUser, raw]) {
         const ch = channel as GuildChannel
         const mapped = overwritePermissionsArrayToObject(raw)
 
         if (ch.permissionOverwrites.cache.has(roleOrUser.id)) {
-            return this.success(!!(await ch.permissionOverwrites.edit(roleOrUser, mapped, { reason: ctx.reason }).catch(ctx.noop)))
+            return this.success(
+                !!(await ch.permissionOverwrites.edit(roleOrUser, mapped, { reason: ctx.reason }).catch(ctx.noop))
+            )
         } else {
-            return this.success(!!(await ch.permissionOverwrites.create(roleOrUser, mapped, { reason: ctx.reason }).catch(ctx.noop)))
+            return this.success(
+                !!(await ch.permissionOverwrites.create(roleOrUser, mapped, { reason: ctx.reason }).catch(ctx.noop))
+            )
         }
     },
 })

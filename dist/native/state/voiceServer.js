@@ -8,6 +8,7 @@ const voiceServer_1 = require("../../properties/voiceServer");
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$voiceServer",
+    version: "2.7.0",
     description: "Retrieves data from an event whose context was a voice server update event",
     brackets: true,
     unwrap: true,

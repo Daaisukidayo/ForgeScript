@@ -49,6 +49,7 @@ class Context {
     component = {};
     timezone = "UTC";
     calendar;
+    permissionOverwrites;
     #keywords = {};
     #environment = {};
     #localFunctions = {};
