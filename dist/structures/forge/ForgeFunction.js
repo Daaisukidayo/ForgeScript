@@ -29,6 +29,7 @@ class ForgeFunction {
         const outer = this;
         return new __1.NativeFunction({
             name: `$${this.data.name}`,
+            aliases: (this.data?.aliases?.map(a => `$${a}`)),
             description: "Custom function",
             unwrap: (!!this.data.params?.length && !this.data.firstParamCondition),
             args: this.data.params?.length ? this.data.params.map((x, i) => ({
@@ -66,16 +67,17 @@ class ForgeFunction {
         const required = params.filter(param => typeof param === "string" || param.required !== false);
         if (args.length < required.length)
             return new Return_1.Return(Return_1.ReturnType.Error, new ForgeError_1.ForgeError(null, ForgeError_1.ErrorType.Custom, `Calling custom function ${this.data.name} requires ${required.length} argument${required.length > 1 ? "s" : ""}, received ${args.length}`));
-        for (let i = 0, len = params.length; i < len; i++) {
-            const param = params[i];
-            const name = typeof param === "string" ? param : param.name;
-            ctx.setEnvironmentKey(name, args[i]);
-        }
-        const result = await core_1.Interpreter.run(ctx.clone({
+        const functionCtx = ctx.clone({
             doNotSend: true,
             allowTopLevelReturn: true,
             data: this.compiled
-        }));
+        });
+        for (let i = 0, len = params.length; i < len; i++) {
+            const param = params[i];
+            const name = typeof param === "string" ? param : param.name;
+            functionCtx.setEnvironmentKey(name, args[i]);
+        }
+        const result = await core_1.Interpreter.run(functionCtx);
         return result === null ? fn.stop() : fn.success(result);
     }
 }

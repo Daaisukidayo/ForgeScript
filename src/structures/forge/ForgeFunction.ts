@@ -26,6 +26,7 @@ export interface IForgeFunction {
     brackets?: boolean
     code: string
     path?: string
+    aliases?: `$${string}`[]
 }
 
 export class ForgeFunction {
@@ -44,6 +45,7 @@ export class ForgeFunction {
         const outer = this
         return new NativeFunction({
             name: `$${this.data.name}`,
+            aliases: (this.data?.aliases?.map(a => `$${a}` as `$${string}`)),
             description: "Custom function",
             unwrap: (!!this.data.params?.length && !this.data.firstParamCondition) as any,
             args: this.data.params?.length ? this.data.params.map((x, i) => ({
@@ -91,17 +93,20 @@ export class ForgeFunction {
                 )
             )
 
-        for (let i = 0, len = params.length; i < len; i++) {
-            const param = params[i]
-            const name = typeof param === "string" ? param : param.name
-            ctx.setEnvironmentKey(name, args[i])
-        }
-
-        const result = await Interpreter.run(ctx.clone({
+        const functionCtx = ctx.clone({
             doNotSend: true,
             allowTopLevelReturn: true,
             data: this.compiled
-        }))
+        })
+
+        for (let i = 0, len = params.length; i < len; i++) {
+            const param = params[i]
+            const name = typeof param === "string" ? param : param.name
+
+            functionCtx.setEnvironmentKey(name, args[i])
+        }
+
+        const result = await Interpreter.run(functionCtx)
 
         return result === null ? fn.stop() : fn.success(result)
     }

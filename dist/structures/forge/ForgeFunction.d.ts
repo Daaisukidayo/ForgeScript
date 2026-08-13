@@ -16,6 +16,7 @@ export interface IForgeFunction {
     brackets?: boolean;
     code: string;
     path?: string;
+    aliases?: `$${string}`[];
 }
 export declare class ForgeFunction {
     readonly data: IForgeFunction;
