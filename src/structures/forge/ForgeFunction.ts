@@ -26,7 +26,6 @@ export interface IForgeFunction {
     brackets?: boolean
     code: string
     path?: string
-    aliases?: string[]
 }
 
 export class ForgeFunction {
@@ -45,7 +44,6 @@ export class ForgeFunction {
         const outer = this
         return new NativeFunction({
             name: `$${this.data.name}`,
-            aliases: (this.data?.aliases?.map(a => `$${a}` as `$${string}`)),
             description: "Custom function",
             unwrap: (!!this.data.params?.length && !this.data.firstParamCondition) as any,
             args: this.data.params?.length ? this.data.params.map((x, i) => ({
@@ -69,7 +67,7 @@ export class ForgeFunction {
                     const params = await this["resolveMultipleArgs"](ctx, ...this.data.fields.slice(1).map((_, i) => i + 1))
                     if (!this["isValidReturnType"](params.return))
                         return params.return
-                    return outer.call(ctx, this, params.args)
+                    return outer.call(ctx, this, [condition.value as string, ...params.args])
                 } else {
                     return outer.call(ctx, this, args ?? [])
                 }

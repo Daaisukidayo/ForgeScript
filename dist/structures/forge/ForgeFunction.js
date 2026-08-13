@@ -29,7 +29,6 @@ class ForgeFunction {
         const outer = this;
         return new __1.NativeFunction({
             name: `$${this.data.name}`,
-            aliases: (this.data?.aliases?.map(a => `$${a}`)),
             description: "Custom function",
             unwrap: (!!this.data.params?.length && !this.data.firstParamCondition),
             args: this.data.params?.length ? this.data.params.map((x, i) => ({
@@ -53,7 +52,7 @@ class ForgeFunction {
                     const params = await this["resolveMultipleArgs"](ctx, ...this.data.fields.slice(1).map((_, i) => i + 1));
                     if (!this["isValidReturnType"](params.return))
                         return params.return;
-                    return outer.call(ctx, this, params.args);
+                    return outer.call(ctx, this, [condition.value, ...params.args]);
                 }
                 else {
                     return outer.call(ctx, this, args ?? []);
