@@ -26,7 +26,7 @@ export interface IForgeFunction {
     brackets?: boolean
     code: string
     path?: string
-    aliases?: `$${string}`[]
+    aliases?: string[]
 }
 
 export class ForgeFunction {
