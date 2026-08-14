@@ -4,408 +4,182 @@
 */
 
 import { CompiledFunction } from "../structures/@internal/CompiledFunction"
-import { ErrorType, ForgeError } from "../structures/forge/ForgeError"
-import { Collection } from "discord.js"
-
-export interface IRawField {
-    condition?: boolean
-    rest?: boolean
-}
-
-export interface IRawFunctionFieldDefinition {
-    required: boolean
-    fields: IRawField[]
-}
-
-export interface IRawFunction {
-    aliases: null | string[]
-    name: string
-    /**
-     * If undefined, function has no fields.
-     * If present and required true, fields are required.
-     * If false, fields are not required.
-     */
-    args: IRawFunctionFieldDefinition | null
-}
-
-export type WrappedCode = (args: unknown[]) => string
-export type WrappedConditionCode = (lhs: unknown, rhs: unknown) => boolean
-
-export interface ICompiledFunctionField {
-    value: string
-    rawValue: string
-    functions: ICompiledFunction[]
-    resolve: WrappedCode
-}
-
-export enum OperatorType {
-    Eq = "==",
-    NotEq = "!=",
-    Lte = "<=",
-    Gte = ">=",
-    Gt = ">",
-    Lt = "<",
-    None = "unknown",
-}
-
-export const Operators = new Set<OperatorType>(Object.values(OperatorType) as OperatorType[])
-
-export const Conditions: Record<OperatorType, WrappedConditionCode> = {
-    unknown: (lhs, rhs) => lhs === "true",
-    "!=": (lhs, rhs) => lhs !== rhs,
-    "==": (lhs, rhs) => lhs === rhs,
-    "<": (lhs, rhs) => Number(lhs) < Number(rhs),
-    "<=": (lhs, rhs) => Number(lhs) <= Number(rhs),
-    ">": (lhs, rhs) => Number(lhs) > Number(rhs),
-    ">=": (lhs, rhs) => Number(lhs) >= Number(rhs),
-}
-
-export interface ICompiledFunctionConditionField {
-    op: OperatorType
-    lhs: ICompiledFunctionField
-    rhs?: ICompiledFunctionField
-    resolve: WrappedConditionCode
-}
-
-export interface ILocation {
-    line: number
-    column: number
-}
-
-export interface ICompiledFunction {
-    index: number
-    id: string
-    name: string
-    count: string | null
-
-    /**
-     * Whether error will be silenced and just exit execution
-     */
-    silent: boolean
-
-    /**
-     * Whether output is not desirable
-     */
-    negated: boolean
-
-    fields: null | (ICompiledFunctionField | ICompiledFunctionConditionField)[]
-}
-
-export interface ICompilationResult {
-    code: string
-    functions: ICompiledFunction[]
-    resolve: WrappedCode
-}
+import { Cursor } from "./Cursor"
+import { FieldParser } from "./FieldParser"
+import { FunctionRegistry } from "./FunctionRegistry"
+import { TemplateCompiler } from "./TemplateCompiler"
+import {
+    CompilerSyntaxError,
+    ICompilationResult,
+    ICompiledField,
+    ICompiledFunction,
+    IRawFunction,
+    IRawFunctionMatch,
+} from "./types"
 
 export interface IExtendedCompilationResult extends Omit<ICompilationResult, "functions"> {
     functions: CompiledFunction[]
 }
 
-export interface IRawFunctionMatch {
-    index: number
-    length: number
-    negated: boolean
-    silent: boolean
-    count: string | null
-    fn: IRawFunction
-}
+export const Syntax = {
+    Open: "[",
+    Close: "]",
+    Escape: "\\",
+    Count: "@",
+    Negation: "!",
+    Separator: ";",
+    Silent: "#",
+} as const
 
 /**
- * REWRITE NEEDED
+ * Compiles ForgeScript source into an executable representation.
+ *
+ * Unlike the original implementation, this is a plain instantiable class:
+ * no static mutable registry/regex, no `this.code!` non-null assertions
+ * scattered around, and the actual work is delegated to small focused
+ * collaborators (Cursor, FieldParser, TemplateCompiler) so each can be
+ * tested and reasoned about on its own.
  */
 export class Compiler {
-    public static Syntax = {
-        Open: "[",
-        Close: "]",
-        Escape: "\\",
-        Count: "@",
-        Negation: "!",
-        Separator: ";",
-        Silent: "#"
-    }
+    /**
+     * Default, process-wide registry. Kept so that every existing call site
+     * (`Compiler.compile(code, path)`) keeps working unchanged — same as
+     * the original `Compiler.Functions` static Collection, just now backed
+     * by the instantiable `FunctionRegistry` instead of ad-hoc static state
+     * on the compiler itself. Pass an explicit registry (3rd overload arg)
+     * to bypass this — e.g. in tests, or to run an isolated set of functions.
+     *
+     * Public (unlike the original private `Compiler.Functions`/`Compiler.Regex`)
+     * so tooling/debug scripts can inspect it — e.g. `Compiler.defaultRegistry.regex`
+     * instead of reaching into a private field via bracket-notation.
+     */
+    public static readonly defaultRegistry = new FunctionRegistry()
 
-    private static SystemRegex = /(\\+)?\[SYSTEM_FUNCTION\(\d+\)\]/gm
-    private static Regex: RegExp
-    private static InvalidCharRegex = /(\\|\${|`)/g
-    private static Functions = new Collection<string, IRawFunction>()
-    private static EscapeRegex = /(\.|\$|\(|\)|\*|\[|\]|\{|\}|\?|!|\^)/gim
+    private readonly cursor: Cursor
+    private readonly template = new TemplateCompiler()
+    private readonly fieldParser: FieldParser
+    private readonly matches: IRawFunctionMatch[]
 
-    private id = 0
-    private matches: Array<IRawFunctionMatch>
     private matchIndex = 0
-    private index = 0
-
-    private outputFunctions = new Array<ICompiledFunction>()
+    private nextId = 0
+    private outputFunctions: ICompiledFunction[] = []
     private outputCode = ""
 
     private constructor(
-        private readonly path?: null | string,
-        private readonly code?: string
+        private readonly path: string | null | undefined,
+        private readonly code: string | undefined,
+        private readonly registry: FunctionRegistry
     ) {
-        if (code) {
-            this.matches = Array.from(code.matchAll(Compiler.Regex)).map((x) => ({
-                index: x.index!,
-                negated: !!x[1],
-                silent: !!x[2],
-                length: x[0].length,
-                count: x[4] ?? null,
-                fn: this.getFunction(x[5]),
-            }))
-        } else this.matches = []
+        this.cursor = new Cursor(code ?? "")
+        this.matches = code ? this.findMatches(code) : []
+        this.fieldParser = new FieldParser(
+            this.cursor,
+            this.template,
+            () => this.parseFunction(),
+            () => this.currentMatch(),
+            (index) => this.dropMatchIfAt(index),
+            (message) => this.error(message)
+        )
     }
 
-    public compile(): ICompilationResult {
-        if (this.matches.length !== 0) {
-            // Loop while functions are unmatched
-            let match: IRawFunctionMatch
-            loop: while ((match = this.match) !== undefined) {
-                while (match.index !== this.index) {
-                    const char = this.char()!
-                    const { isEscape } = this.getCharInfo(char)
+    /** Registers/updates functions on the default, process-wide registry. */
+    public static setFunctions(fns: IRawFunction[]): void {
+        this.defaultRegistry.register(fns)
+    }
 
-                    if (isEscape) {
-                        const { char } = this.processEscape()
-                        this.outputCode += char
-                        continue loop
-                    }
+    public static compile(
+        code?: string,
+        path?: string | null,
+        registry: FunctionRegistry = this.defaultRegistry
+    ): IExtendedCompilationResult {
+        const result = new Compiler(path, code, registry).compile()
+        return {
+            ...result,
+            functions: result.functions.map((x) => new CompiledFunction(x)),
+        }
+    }
 
-                    this.outputCode += char
-                    this.index++
-                }
+    private compile(): ICompilationResult {
+        if (this.matches.length === 0) {
+            this.outputCode = this.code ?? ""
+        } else {
+            let match: IRawFunctionMatch | undefined
+            while ((match = this.currentMatch()) !== undefined) {
+                this.consumeTextUntil(match.index)
 
                 const parsed = this.parseFunction()
                 this.outputFunctions.push(parsed)
                 this.outputCode += parsed.id
             }
-
-            this.outputCode += this.code!.slice(this.index)
-        } else this.outputCode = this.code ?? ""
+            this.outputCode += this.cursor.sliceFrom(this.cursor.position)
+        }
 
         return {
             code: this.outputCode,
             functions: this.outputFunctions,
-            resolve: this.wrap(this.outputCode),
+            resolve: this.template.wrap(this.outputCode),
         }
     }
 
-    private parseFunction() {
-        // Skip this match already
+    /** Copies raw text (handling escapes) up to `targetIndex` into the output. */
+    private consumeTextUntil(targetIndex: number): void {
+        while (this.cursor.position !== targetIndex) {
+            const char = this.cursor.char()!
+            if (char === Syntax.Escape) {
+                this.cursor.skip(1)
+                const escaped = this.cursor.char()
+                this.dropMatchIfAt(this.cursor.position)
+                this.outputCode += escaped
+                this.cursor.skip(1)
+                continue
+            }
+            this.outputCode += char
+            this.cursor.skip(1)
+        }
+    }
+
+    private parseFunction(): ICompiledFunction {
         const match = this.matches[this.matchIndex++]
+        this.cursor.skip(match.length)
 
-        // Skip function
-        this.skip(match.length)
-
-        const hasFields = this.code![this.index] === Compiler.Syntax.Open
+        const hasFields = this.cursor.char() === Syntax.Open
         if (!hasFields && match.fn.args?.required) {
             this.error(`Function ${match.fn.name} requires brackets`)
-        } else if (!hasFields || match.fn.args === null) {
+        }
+        if (!hasFields || match.fn.args === null) {
             return this.prepareFunction(match, null)
         }
 
-        // Skip [
-        this.skip(1)
+        this.cursor.skip(1) // consume '['
+        const fields: ICompiledField[] = []
+        const definitions = match.fn.args!.fields
 
-        const fields = new Array<ICompiledFunctionField | ICompiledFunctionConditionField>()
+        for (let i = 0; i < definitions.length; i++) {
+            const isLast = i + 1 === definitions.length
+            const field = definitions[i]
 
-        // Field parsing
-        for (let i = 0, len = match.fn.args!.fields.length; i < len; i++) {
-            let isLast = i + 1 === len
-
-            const field = match.fn.args!.fields[i]
             if (!field.rest) {
-                fields.push(this.parseAnyField(match, field))
+                fields.push(this.fieldParser.parseAnyField(match, field))
             } else {
-                for (;;) {
-                    fields.push(this.parseAnyField(match, field))
-                    if (this.back() !== Compiler.Syntax.Separator) break
-                }
+                do {
+                    fields.push(this.fieldParser.parseAnyField(match, field))
+                } while (this.cursor.back() === Syntax.Separator)
             }
 
-            const isSeparator = this.back() === Compiler.Syntax.Separator
-            if (!isSeparator) break
-            else if (isLast && isSeparator) {
-                this.error(`Function ${match.fn.name} expects ${match.fn.args?.fields.length} arguments at most`)
+            const hadSeparator = this.cursor.back() === Syntax.Separator
+            if (!hadSeparator) break
+            if (isLast) {
+                this.error(`Function ${match.fn.name} expects ${definitions.length} arguments at most`)
             }
         }
 
         return this.prepareFunction(match, fields)
     }
 
-    private getCharInfo(char: string) {
+    private prepareFunction(match: IRawFunctionMatch, fields: ICompiledField[] | null): ICompiledFunction {
+        const id = `[SYSTEM_FUNCTION(${this.nextId})]`
         return {
-            isSeparator: char === Compiler.Syntax.Separator,
-            isClosure: char === Compiler.Syntax.Close,
-            isEscape: char === Compiler.Syntax.Escape,
-        }
-    }
-
-    private parseFieldMatch(fns: Array<ICompiledFunction>, match: IRawFunctionMatch) {
-        const start = match.index
-        const fn = this.parseFunction()
-        fns.push(fn)
-        const raw = this.code!.slice(start, this.index)
-        // Next match
-        return {
-            nextMatch: this.match,
-            raw,
-            fn,
-        }
-    }
-
-    private processEscape() {
-        this.index++
-        const next = this.char()
-
-        const now = this.match
-        if (now && now.index === this.index) this.matchIndex++
-
-        this.index++
-
-        return {
-            nextMatch: this.match,
-            char: next,
-        }
-    }
-
-    private parseConditionField(ref: IRawFunctionMatch): ICompiledFunctionConditionField {
-        const data = {} as ICompiledFunctionConditionField
-
-        const functions = new Array<ICompiledFunction>()
-        let rawValue = ""
-        let fieldValue = ""
-        let closedGracefully = false
-
-        let match = this.match
-        let char: string | undefined
-        while ((char = this.char()) !== undefined) {
-            const { isClosure, isEscape, isSeparator } = this.getCharInfo(char)
-
-            if (isEscape) {
-                const { char, nextMatch } = this.processEscape()
-                fieldValue += char
-                rawValue += char
-                match = nextMatch
-                continue
-            }
-
-            if (isClosure || isSeparator) {
-                closedGracefully = true
-                break
-            }
-
-            if (match?.index === this.index) {
-                const { fn, raw, nextMatch } = this.parseFieldMatch(functions, match)
-                match = nextMatch
-                fieldValue += fn.id
-                rawValue += raw
-                continue
-            }
-
-            if (data.op === undefined) {
-                const possibleOperator = ([char + this.peek()!, char] as OperatorType[]).find((x) => Operators.has(x))
-                if (possibleOperator) {
-                    data.op = possibleOperator as OperatorType
-                    data.lhs = {
-                        functions: [...functions],
-                        resolve: this.wrap(fieldValue),
-                        value: fieldValue,
-                        rawValue
-                    }
-
-                    rawValue = ""
-                    fieldValue = ""
-                    functions.length = 0
-                    this.index += data.op.length
-                    continue
-                }
-            }
-
-            fieldValue += char
-            rawValue += char
-            this.index++
-        }
-
-        if (!closedGracefully) this.error(`Function ${ref.fn.name} is missing brace closure`)
-
-        const out: ICompiledFunctionField = {
-            functions,
-            rawValue,
-            value: fieldValue,
-            resolve: this.wrap(fieldValue),
-        }
-
-        if (data.op) data.rhs = out
-        else data.lhs = out
-
-        data.op ??= OperatorType.None
-        data.resolve = this.wrapCondition(data.op)
-
-        return data
-    }
-
-    private parseNormalField(ref: IRawFunctionMatch): ICompiledFunctionField {
-        const functions = new Array<ICompiledFunction>()
-        let rawValue = ""
-        let fieldValue = ""
-        let closedGracefully = false
-
-        let match = this.match
-        let char: string | undefined
-        while ((char = this.char()) !== undefined) {
-            const { isClosure, isEscape, isSeparator } = this.getCharInfo(char)
-
-            if (isEscape) {
-                const { char, nextMatch } = this.processEscape()
-                fieldValue += char
-                rawValue += char
-                match = nextMatch
-                continue
-            }
-
-            if (isClosure || isSeparator) {
-                closedGracefully = true
-                break
-            }
-
-            if (match?.index === this.index) {
-                const { fn, raw, nextMatch } = this.parseFieldMatch(functions, match)
-                match = nextMatch
-                fieldValue += fn.id
-                rawValue += raw
-                continue
-            }
-
-            fieldValue += char
-            rawValue += char
-            this.index++
-        }
-
-        if (!closedGracefully) this.error(`Function ${ref.fn.name} is missing brace closure`)
-
-        return {
-            resolve: this.wrap(fieldValue),
-            functions,
-            rawValue,
-            value: fieldValue,
-        }
-    }
-
-    private parseAnyField(
-        ref: IRawFunctionMatch,
-        field: IRawField
-    ): ICompiledFunctionField | ICompiledFunctionConditionField {
-        const fld = field.condition ? this.parseConditionField(ref) : this.parseNormalField(ref)
-        this.skip(1)
-        return fld
-    }
-
-    private prepareFunction(
-        match: IRawFunctionMatch,
-        fields: null | (ICompiledFunctionField | ICompiledFunctionConditionField)[]
-    ): ICompiledFunction {
-        const id = this.getNextId()
-        return {
-            index: this.id - 1,
+            index: this.nextId++,
             id,
             fields,
             count: match.count,
@@ -415,118 +189,33 @@ export class Compiler {
         }
     }
 
-    private skip(n: number) {
-        return this.moveTo(n + this.index)
-    }
-
-    private skipIf(char: string) {
-        if (char === this.code![this.index]) return this.skip(1), true
-        return false
-    }
-
-    private get match() {
+    private currentMatch(): IRawFunctionMatch | undefined {
         return this.matches[this.matchIndex]
     }
 
-    private getFunction(str: string) {
-        const fn = `$${str.toLowerCase()}`
-        return (
-            Compiler.Functions.get(fn)! ??
-            Compiler.Functions.find((x) => x.aliases?.some((x) => x.toLowerCase() === fn)) ??
-            this.error(`Function ${fn} is not registered.`)
-        )
+    private dropMatchIfAt(index: number): void {
+        if (this.currentMatch()?.index === index) this.matchIndex++
     }
 
-    private error(str: string): never {
-        const { line, column } = this.locate(this.index)
-        throw new ForgeError(null, ErrorType.CompilerError, str, line, column, this.path ?? "index file")
+    private findMatches(code: string): IRawFunctionMatch[] {
+        return Array.from(code.matchAll(this.registry.regex)).map((m) => ({
+            index: m.index!,
+            negated: !!m[1],
+            silent: !!m[2],
+            length: m[0].length,
+            count: m[4] ?? null,
+            fn: this.resolveFunction(m[5]),
+        }))
     }
 
-    private locate(index: number): ILocation {
-        const data: ILocation = {
-            column: 0,
-            line: 1,
-        }
-
-        for (let i = 0; i < index; i++) {
-            const char = this.code![i]
-            if (char === "\n") data.line++, (data.column = 0)
-            else data.column++
-        }
-
-        return data
+    private resolveFunction(name: string): IRawFunction {
+        const fn = this.registry.resolve(name)
+        if (!fn) this.error(`Function $${name.toLowerCase()} is not registered.`)
+        return fn
     }
 
-    private back() {
-        return this.code![this.index - 1]
-    }
-
-    private wrapCondition(op: OperatorType) {
-        return Conditions[op]
-    }
-
-    private wrap(code: string) {
-        let i = 0
-        const gencode = code.replace(Compiler.InvalidCharRegex, "\\$1").replace(Compiler.SystemRegex, () => {
-            return "${args[" + i++ + "] ?? ''}"
-        })
-
-        return new Function("args", "return `" + gencode + "`") as WrappedCode
-    }
-
-    private moveTo(index: number) {
-        this.index = index
-    }
-
-    private getNextId() {
-        return `[SYSTEM_FUNCTION(${this.id++})]`
-    }
-
-    private char(): undefined | string {
-        return this.code![this.index]
-    }
-
-    private peek(): undefined | string {
-        return this.code![this.index + 1]
-    }
-
-    private next(): undefined | string {
-        return this.code![this.index++]
-    }
-
-    private static setFunctions(fns: IRawFunction[]) {
-        fns.map((x) => {
-            this.Functions.set(x.name.toLowerCase(), x)
-            x.aliases
-                ?.filter((x) => typeof x === "string")
-                ?.map((alias) => this.Functions.set((alias as string).toLowerCase(), x))
-        })
-
-        const mapped = Array.from(this.Functions.keys())
-
-        this.Regex = new RegExp(
-            `\\$(\\!)?(\\#)?(@\\[(.*?)\\])?(${mapped
-                .map((x) =>
-                    (x.startsWith("$") ? x.slice(1).toLowerCase() : x.toLowerCase()).replace(
-                        Compiler.EscapeRegex,
-                        "\\$1"
-                    )
-                )
-                .sort((x, y) => y.length - x.length)
-                .join("|")})`,
-            "gim"
-        )
-    }
-
-    public static compile(code?: string, path?: string | null): IExtendedCompilationResult {
-        const result = new this(path, code).compile()
-        return {
-            ...result,
-            functions: result.functions.map((x) => new CompiledFunction(x)),
-        }
-    }
-
-    public static setSyntax(syntax: typeof this.Syntax) {
-        Reflect.set(Compiler, "Syntax", syntax)
+    private error(message: string): never {
+        const { line, column } = this.cursor.locate()
+        throw new CompilerSyntaxError(message, line, column, this.path ?? "index file")
     }
 }

@@ -33,7 +33,7 @@ class CompiledFunction {
         this.fn = managers_1.FunctionManager.get(raw.name);
         this.data = {
             ...raw,
-            fields: raw.fields?.map((x) => !("op" in x)
+            fields: raw.fields?.map((x) => x.kind === "normal"
                 ? {
                     ...x,
                     functions: x.functions.map((x) => new CompiledFunction(x)),
@@ -57,7 +57,7 @@ class CompiledFunction {
         const field = this.data.fields?.[i];
         if (!field)
             return null;
-        if ("op" in field) {
+        if (field.kind === "condition") {
             if (field.rhs) {
                 return `${field.lhs.resolve(field.lhs.functions.map((x) => x.display))}${field.op}${field.rhs.resolve(field.rhs.functions.map((x) => x.display))}`;
             }

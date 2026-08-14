@@ -55,7 +55,10 @@ class FunctionManager {
         return this.addMany(fn);
     }
     static reload() {
-        core_1.Compiler["setFunctions"](this.raw);
+        // `setFunctions` is now a proper public API on Compiler (backed by
+        // its default FunctionRegistry) instead of reaching into a private
+        // static via bracket-notation.
+        core_1.Compiler.setFunctions(this.raw);
     }
     static get(name) {
         return this.Functions.get(name);

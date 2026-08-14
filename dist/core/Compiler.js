@@ -4,285 +4,148 @@
 * Copyright © 2026 BotForge
 */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Compiler = exports.Conditions = exports.Operators = exports.OperatorType = void 0;
+exports.Compiler = exports.Syntax = void 0;
 const CompiledFunction_1 = require("../structures/@internal/CompiledFunction");
-const ForgeError_1 = require("../structures/forge/ForgeError");
-const discord_js_1 = require("discord.js");
-var OperatorType;
-(function (OperatorType) {
-    OperatorType["Eq"] = "==";
-    OperatorType["NotEq"] = "!=";
-    OperatorType["Lte"] = "<=";
-    OperatorType["Gte"] = ">=";
-    OperatorType["Gt"] = ">";
-    OperatorType["Lt"] = "<";
-    OperatorType["None"] = "unknown";
-})(OperatorType || (exports.OperatorType = OperatorType = {}));
-exports.Operators = new Set(Object.values(OperatorType));
-exports.Conditions = {
-    unknown: (lhs, rhs) => lhs === "true",
-    "!=": (lhs, rhs) => lhs !== rhs,
-    "==": (lhs, rhs) => lhs === rhs,
-    "<": (lhs, rhs) => Number(lhs) < Number(rhs),
-    "<=": (lhs, rhs) => Number(lhs) <= Number(rhs),
-    ">": (lhs, rhs) => Number(lhs) > Number(rhs),
-    ">=": (lhs, rhs) => Number(lhs) >= Number(rhs),
+const Cursor_1 = require("./Cursor");
+const FieldParser_1 = require("./FieldParser");
+const FunctionRegistry_1 = require("./FunctionRegistry");
+const TemplateCompiler_1 = require("./TemplateCompiler");
+const types_1 = require("./types");
+exports.Syntax = {
+    Open: "[",
+    Close: "]",
+    Escape: "\\",
+    Count: "@",
+    Negation: "!",
+    Separator: ";",
+    Silent: "#",
 };
 /**
- * REWRITE NEEDED
+ * Compiles ForgeScript source into an executable representation.
+ *
+ * Unlike the original implementation, this is a plain instantiable class:
+ * no static mutable registry/regex, no `this.code!` non-null assertions
+ * scattered around, and the actual work is delegated to small focused
+ * collaborators (Cursor, FieldParser, TemplateCompiler) so each can be
+ * tested and reasoned about on its own.
  */
 class Compiler {
     path;
     code;
-    static Syntax = {
-        Open: "[",
-        Close: "]",
-        Escape: "\\",
-        Count: "@",
-        Negation: "!",
-        Separator: ";",
-        Silent: "#"
-    };
-    static SystemRegex = /(\\+)?\[SYSTEM_FUNCTION\(\d+\)\]/gm;
-    static Regex;
-    static InvalidCharRegex = /(\\|\${|`)/g;
-    static Functions = new discord_js_1.Collection();
-    static EscapeRegex = /(\.|\$|\(|\)|\*|\[|\]|\{|\}|\?|!|\^)/gim;
-    id = 0;
+    registry;
+    /**
+     * Default, process-wide registry. Kept so that every existing call site
+     * (`Compiler.compile(code, path)`) keeps working unchanged — same as
+     * the original `Compiler.Functions` static Collection, just now backed
+     * by the instantiable `FunctionRegistry` instead of ad-hoc static state
+     * on the compiler itself. Pass an explicit registry (3rd overload arg)
+     * to bypass this — e.g. in tests, or to run an isolated set of functions.
+     *
+     * Public (unlike the original private `Compiler.Functions`/`Compiler.Regex`)
+     * so tooling/debug scripts can inspect it — e.g. `Compiler.defaultRegistry.regex`
+     * instead of reaching into a private field via bracket-notation.
+     */
+    static defaultRegistry = new FunctionRegistry_1.FunctionRegistry();
+    cursor;
+    template = new TemplateCompiler_1.TemplateCompiler();
+    fieldParser;
     matches;
     matchIndex = 0;
-    index = 0;
-    outputFunctions = new Array();
+    nextId = 0;
+    outputFunctions = [];
     outputCode = "";
-    constructor(path, code) {
+    constructor(path, code, registry) {
         this.path = path;
         this.code = code;
-        if (code) {
-            this.matches = Array.from(code.matchAll(Compiler.Regex)).map((x) => ({
-                index: x.index,
-                negated: !!x[1],
-                silent: !!x[2],
-                length: x[0].length,
-                count: x[4] ?? null,
-                fn: this.getFunction(x[5]),
-            }));
-        }
-        else
-            this.matches = [];
+        this.registry = registry;
+        this.cursor = new Cursor_1.Cursor(code ?? "");
+        this.matches = code ? this.findMatches(code) : [];
+        this.fieldParser = new FieldParser_1.FieldParser(this.cursor, this.template, () => this.parseFunction(), () => this.currentMatch(), (index) => this.dropMatchIfAt(index), (message) => this.error(message));
+    }
+    /** Registers/updates functions on the default, process-wide registry. */
+    static setFunctions(fns) {
+        this.defaultRegistry.register(fns);
+    }
+    static compile(code, path, registry = this.defaultRegistry) {
+        const result = new Compiler(path, code, registry).compile();
+        return {
+            ...result,
+            functions: result.functions.map((x) => new CompiledFunction_1.CompiledFunction(x)),
+        };
     }
     compile() {
-        if (this.matches.length !== 0) {
-            // Loop while functions are unmatched
+        if (this.matches.length === 0) {
+            this.outputCode = this.code ?? "";
+        }
+        else {
             let match;
-            loop: while ((match = this.match) !== undefined) {
-                while (match.index !== this.index) {
-                    const char = this.char();
-                    const { isEscape } = this.getCharInfo(char);
-                    if (isEscape) {
-                        const { char } = this.processEscape();
-                        this.outputCode += char;
-                        continue loop;
-                    }
-                    this.outputCode += char;
-                    this.index++;
-                }
+            while ((match = this.currentMatch()) !== undefined) {
+                this.consumeTextUntil(match.index);
                 const parsed = this.parseFunction();
                 this.outputFunctions.push(parsed);
                 this.outputCode += parsed.id;
             }
-            this.outputCode += this.code.slice(this.index);
+            this.outputCode += this.cursor.sliceFrom(this.cursor.position);
         }
-        else
-            this.outputCode = this.code ?? "";
         return {
             code: this.outputCode,
             functions: this.outputFunctions,
-            resolve: this.wrap(this.outputCode),
+            resolve: this.template.wrap(this.outputCode),
         };
     }
+    /** Copies raw text (handling escapes) up to `targetIndex` into the output. */
+    consumeTextUntil(targetIndex) {
+        while (this.cursor.position !== targetIndex) {
+            const char = this.cursor.char();
+            if (char === exports.Syntax.Escape) {
+                this.cursor.skip(1);
+                const escaped = this.cursor.char();
+                this.dropMatchIfAt(this.cursor.position);
+                this.outputCode += escaped;
+                this.cursor.skip(1);
+                continue;
+            }
+            this.outputCode += char;
+            this.cursor.skip(1);
+        }
+    }
     parseFunction() {
-        // Skip this match already
         const match = this.matches[this.matchIndex++];
-        // Skip function
-        this.skip(match.length);
-        const hasFields = this.code[this.index] === Compiler.Syntax.Open;
+        this.cursor.skip(match.length);
+        const hasFields = this.cursor.char() === exports.Syntax.Open;
         if (!hasFields && match.fn.args?.required) {
             this.error(`Function ${match.fn.name} requires brackets`);
         }
-        else if (!hasFields || match.fn.args === null) {
+        if (!hasFields || match.fn.args === null) {
             return this.prepareFunction(match, null);
         }
-        // Skip [
-        this.skip(1);
-        const fields = new Array();
-        // Field parsing
-        for (let i = 0, len = match.fn.args.fields.length; i < len; i++) {
-            let isLast = i + 1 === len;
-            const field = match.fn.args.fields[i];
+        this.cursor.skip(1); // consume '['
+        const fields = [];
+        const definitions = match.fn.args.fields;
+        for (let i = 0; i < definitions.length; i++) {
+            const isLast = i + 1 === definitions.length;
+            const field = definitions[i];
             if (!field.rest) {
-                fields.push(this.parseAnyField(match, field));
+                fields.push(this.fieldParser.parseAnyField(match, field));
             }
             else {
-                for (;;) {
-                    fields.push(this.parseAnyField(match, field));
-                    if (this.back() !== Compiler.Syntax.Separator)
-                        break;
-                }
+                do {
+                    fields.push(this.fieldParser.parseAnyField(match, field));
+                } while (this.cursor.back() === exports.Syntax.Separator);
             }
-            const isSeparator = this.back() === Compiler.Syntax.Separator;
-            if (!isSeparator)
+            const hadSeparator = this.cursor.back() === exports.Syntax.Separator;
+            if (!hadSeparator)
                 break;
-            else if (isLast && isSeparator) {
-                this.error(`Function ${match.fn.name} expects ${match.fn.args?.fields.length} arguments at most`);
+            if (isLast) {
+                this.error(`Function ${match.fn.name} expects ${definitions.length} arguments at most`);
             }
         }
         return this.prepareFunction(match, fields);
     }
-    getCharInfo(char) {
-        return {
-            isSeparator: char === Compiler.Syntax.Separator,
-            isClosure: char === Compiler.Syntax.Close,
-            isEscape: char === Compiler.Syntax.Escape,
-        };
-    }
-    parseFieldMatch(fns, match) {
-        const start = match.index;
-        const fn = this.parseFunction();
-        fns.push(fn);
-        const raw = this.code.slice(start, this.index);
-        // Next match
-        return {
-            nextMatch: this.match,
-            raw,
-            fn,
-        };
-    }
-    processEscape() {
-        this.index++;
-        const next = this.char();
-        const now = this.match;
-        if (now && now.index === this.index)
-            this.matchIndex++;
-        this.index++;
-        return {
-            nextMatch: this.match,
-            char: next,
-        };
-    }
-    parseConditionField(ref) {
-        const data = {};
-        const functions = new Array();
-        let rawValue = "";
-        let fieldValue = "";
-        let closedGracefully = false;
-        let match = this.match;
-        let char;
-        while ((char = this.char()) !== undefined) {
-            const { isClosure, isEscape, isSeparator } = this.getCharInfo(char);
-            if (isEscape) {
-                const { char, nextMatch } = this.processEscape();
-                fieldValue += char;
-                rawValue += char;
-                match = nextMatch;
-                continue;
-            }
-            if (isClosure || isSeparator) {
-                closedGracefully = true;
-                break;
-            }
-            if (match?.index === this.index) {
-                const { fn, raw, nextMatch } = this.parseFieldMatch(functions, match);
-                match = nextMatch;
-                fieldValue += fn.id;
-                rawValue += raw;
-                continue;
-            }
-            if (data.op === undefined) {
-                const possibleOperator = [char + this.peek(), char].find((x) => exports.Operators.has(x));
-                if (possibleOperator) {
-                    data.op = possibleOperator;
-                    data.lhs = {
-                        functions: [...functions],
-                        resolve: this.wrap(fieldValue),
-                        value: fieldValue,
-                        rawValue
-                    };
-                    rawValue = "";
-                    fieldValue = "";
-                    functions.length = 0;
-                    this.index += data.op.length;
-                    continue;
-                }
-            }
-            fieldValue += char;
-            rawValue += char;
-            this.index++;
-        }
-        if (!closedGracefully)
-            this.error(`Function ${ref.fn.name} is missing brace closure`);
-        const out = {
-            functions,
-            rawValue,
-            value: fieldValue,
-            resolve: this.wrap(fieldValue),
-        };
-        if (data.op)
-            data.rhs = out;
-        else
-            data.lhs = out;
-        data.op ??= OperatorType.None;
-        data.resolve = this.wrapCondition(data.op);
-        return data;
-    }
-    parseNormalField(ref) {
-        const functions = new Array();
-        let rawValue = "";
-        let fieldValue = "";
-        let closedGracefully = false;
-        let match = this.match;
-        let char;
-        while ((char = this.char()) !== undefined) {
-            const { isClosure, isEscape, isSeparator } = this.getCharInfo(char);
-            if (isEscape) {
-                const { char, nextMatch } = this.processEscape();
-                fieldValue += char;
-                rawValue += char;
-                match = nextMatch;
-                continue;
-            }
-            if (isClosure || isSeparator) {
-                closedGracefully = true;
-                break;
-            }
-            if (match?.index === this.index) {
-                const { fn, raw, nextMatch } = this.parseFieldMatch(functions, match);
-                match = nextMatch;
-                fieldValue += fn.id;
-                rawValue += raw;
-                continue;
-            }
-            fieldValue += char;
-            rawValue += char;
-            this.index++;
-        }
-        if (!closedGracefully)
-            this.error(`Function ${ref.fn.name} is missing brace closure`);
-        return {
-            resolve: this.wrap(fieldValue),
-            functions,
-            rawValue,
-            value: fieldValue,
-        };
-    }
-    parseAnyField(ref, field) {
-        const fld = field.condition ? this.parseConditionField(ref) : this.parseNormalField(ref);
-        this.skip(1);
-        return fld;
-    }
     prepareFunction(match, fields) {
-        const id = this.getNextId();
+        const id = `[SYSTEM_FUNCTION(${this.nextId})]`;
         return {
-            index: this.id - 1,
+            index: this.nextId++,
             id,
             fields,
             count: match.count,
@@ -291,91 +154,32 @@ class Compiler {
             negated: match.negated,
         };
     }
-    skip(n) {
-        return this.moveTo(n + this.index);
-    }
-    skipIf(char) {
-        if (char === this.code[this.index])
-            return this.skip(1), true;
-        return false;
-    }
-    get match() {
+    currentMatch() {
         return this.matches[this.matchIndex];
     }
-    getFunction(str) {
-        const fn = `$${str.toLowerCase()}`;
-        return (Compiler.Functions.get(fn) ??
-            Compiler.Functions.find((x) => x.aliases?.some((x) => x.toLowerCase() === fn)) ??
-            this.error(`Function ${fn} is not registered.`));
+    dropMatchIfAt(index) {
+        if (this.currentMatch()?.index === index)
+            this.matchIndex++;
     }
-    error(str) {
-        const { line, column } = this.locate(this.index);
-        throw new ForgeError_1.ForgeError(null, ForgeError_1.ErrorType.CompilerError, str, line, column, this.path ?? "index file");
+    findMatches(code) {
+        return Array.from(code.matchAll(this.registry.regex)).map((m) => ({
+            index: m.index,
+            negated: !!m[1],
+            silent: !!m[2],
+            length: m[0].length,
+            count: m[4] ?? null,
+            fn: this.resolveFunction(m[5]),
+        }));
     }
-    locate(index) {
-        const data = {
-            column: 0,
-            line: 1,
-        };
-        for (let i = 0; i < index; i++) {
-            const char = this.code[i];
-            if (char === "\n")
-                data.line++, (data.column = 0);
-            else
-                data.column++;
-        }
-        return data;
+    resolveFunction(name) {
+        const fn = this.registry.resolve(name);
+        if (!fn)
+            this.error(`Function $${name.toLowerCase()} is not registered.`);
+        return fn;
     }
-    back() {
-        return this.code[this.index - 1];
-    }
-    wrapCondition(op) {
-        return exports.Conditions[op];
-    }
-    wrap(code) {
-        let i = 0;
-        const gencode = code.replace(Compiler.InvalidCharRegex, "\\$1").replace(Compiler.SystemRegex, () => {
-            return "${args[" + i++ + "] ?? ''}";
-        });
-        return new Function("args", "return `" + gencode + "`");
-    }
-    moveTo(index) {
-        this.index = index;
-    }
-    getNextId() {
-        return `[SYSTEM_FUNCTION(${this.id++})]`;
-    }
-    char() {
-        return this.code[this.index];
-    }
-    peek() {
-        return this.code[this.index + 1];
-    }
-    next() {
-        return this.code[this.index++];
-    }
-    static setFunctions(fns) {
-        fns.map((x) => {
-            this.Functions.set(x.name.toLowerCase(), x);
-            x.aliases
-                ?.filter((x) => typeof x === "string")
-                ?.map((alias) => this.Functions.set(alias.toLowerCase(), x));
-        });
-        const mapped = Array.from(this.Functions.keys());
-        this.Regex = new RegExp(`\\$(\\!)?(\\#)?(@\\[(.*?)\\])?(${mapped
-            .map((x) => (x.startsWith("$") ? x.slice(1).toLowerCase() : x.toLowerCase()).replace(Compiler.EscapeRegex, "\\$1"))
-            .sort((x, y) => y.length - x.length)
-            .join("|")})`, "gim");
-    }
-    static compile(code, path) {
-        const result = new this(path, code).compile();
-        return {
-            ...result,
-            functions: result.functions.map((x) => new CompiledFunction_1.CompiledFunction(x)),
-        };
-    }
-    static setSyntax(syntax) {
-        Reflect.set(Compiler, "Syntax", syntax);
+    error(message) {
+        const { line, column } = this.cursor.locate();
+        throw new types_1.CompilerSyntaxError(message, line, column, this.path ?? "index file");
     }
 }
 exports.Compiler = Compiler;

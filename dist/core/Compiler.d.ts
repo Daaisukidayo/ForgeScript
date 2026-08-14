@@ -1,134 +1,65 @@
 import { CompiledFunction } from "../structures/@internal/CompiledFunction";
-export interface IRawField {
-    condition?: boolean;
-    rest?: boolean;
-}
-export interface IRawFunctionFieldDefinition {
-    required: boolean;
-    fields: IRawField[];
-}
-export interface IRawFunction {
-    aliases: null | string[];
-    name: string;
-    /**
-     * If undefined, function has no fields.
-     * If present and required true, fields are required.
-     * If false, fields are not required.
-     */
-    args: IRawFunctionFieldDefinition | null;
-}
-export type WrappedCode = (args: unknown[]) => string;
-export type WrappedConditionCode = (lhs: unknown, rhs: unknown) => boolean;
-export interface ICompiledFunctionField {
-    value: string;
-    rawValue: string;
-    functions: ICompiledFunction[];
-    resolve: WrappedCode;
-}
-export declare enum OperatorType {
-    Eq = "==",
-    NotEq = "!=",
-    Lte = "<=",
-    Gte = ">=",
-    Gt = ">",
-    Lt = "<",
-    None = "unknown"
-}
-export declare const Operators: Set<OperatorType>;
-export declare const Conditions: Record<OperatorType, WrappedConditionCode>;
-export interface ICompiledFunctionConditionField {
-    op: OperatorType;
-    lhs: ICompiledFunctionField;
-    rhs?: ICompiledFunctionField;
-    resolve: WrappedConditionCode;
-}
-export interface ILocation {
-    line: number;
-    column: number;
-}
-export interface ICompiledFunction {
-    index: number;
-    id: string;
-    name: string;
-    count: string | null;
-    /**
-     * Whether error will be silenced and just exit execution
-     */
-    silent: boolean;
-    /**
-     * Whether output is not desirable
-     */
-    negated: boolean;
-    fields: null | (ICompiledFunctionField | ICompiledFunctionConditionField)[];
-}
-export interface ICompilationResult {
-    code: string;
-    functions: ICompiledFunction[];
-    resolve: WrappedCode;
-}
+import { FunctionRegistry } from "./FunctionRegistry";
+import { ICompilationResult, IRawFunction } from "./types";
 export interface IExtendedCompilationResult extends Omit<ICompilationResult, "functions"> {
     functions: CompiledFunction[];
 }
-export interface IRawFunctionMatch {
-    index: number;
-    length: number;
-    negated: boolean;
-    silent: boolean;
-    count: string | null;
-    fn: IRawFunction;
-}
+export declare const Syntax: {
+    readonly Open: "[";
+    readonly Close: "]";
+    readonly Escape: "\\";
+    readonly Count: "@";
+    readonly Negation: "!";
+    readonly Separator: ";";
+    readonly Silent: "#";
+};
 /**
- * REWRITE NEEDED
+ * Compiles ForgeScript source into an executable representation.
+ *
+ * Unlike the original implementation, this is a plain instantiable class:
+ * no static mutable registry/regex, no `this.code!` non-null assertions
+ * scattered around, and the actual work is delegated to small focused
+ * collaborators (Cursor, FieldParser, TemplateCompiler) so each can be
+ * tested and reasoned about on its own.
  */
 export declare class Compiler {
-    private readonly path?;
-    private readonly code?;
-    static Syntax: {
-        Open: string;
-        Close: string;
-        Escape: string;
-        Count: string;
-        Negation: string;
-        Separator: string;
-        Silent: string;
-    };
-    private static SystemRegex;
-    private static Regex;
-    private static InvalidCharRegex;
-    private static Functions;
-    private static EscapeRegex;
-    private id;
-    private matches;
+    private readonly path;
+    private readonly code;
+    private readonly registry;
+    /**
+     * Default, process-wide registry. Kept so that every existing call site
+     * (`Compiler.compile(code, path)`) keeps working unchanged — same as
+     * the original `Compiler.Functions` static Collection, just now backed
+     * by the instantiable `FunctionRegistry` instead of ad-hoc static state
+     * on the compiler itself. Pass an explicit registry (3rd overload arg)
+     * to bypass this — e.g. in tests, or to run an isolated set of functions.
+     *
+     * Public (unlike the original private `Compiler.Functions`/`Compiler.Regex`)
+     * so tooling/debug scripts can inspect it — e.g. `Compiler.defaultRegistry.regex`
+     * instead of reaching into a private field via bracket-notation.
+     */
+    static readonly defaultRegistry: FunctionRegistry;
+    private readonly cursor;
+    private readonly template;
+    private readonly fieldParser;
+    private readonly matches;
     private matchIndex;
-    private index;
+    private nextId;
     private outputFunctions;
     private outputCode;
     private constructor();
-    compile(): ICompilationResult;
+    /** Registers/updates functions on the default, process-wide registry. */
+    static setFunctions(fns: IRawFunction[]): void;
+    static compile(code?: string, path?: string | null, registry?: FunctionRegistry): IExtendedCompilationResult;
+    private compile;
+    /** Copies raw text (handling escapes) up to `targetIndex` into the output. */
+    private consumeTextUntil;
     private parseFunction;
-    private getCharInfo;
-    private parseFieldMatch;
-    private processEscape;
-    private parseConditionField;
-    private parseNormalField;
-    private parseAnyField;
     private prepareFunction;
-    private skip;
-    private skipIf;
-    private get match();
-    private getFunction;
+    private currentMatch;
+    private dropMatchIfAt;
+    private findMatches;
+    private resolveFunction;
     private error;
-    private locate;
-    private back;
-    private wrapCondition;
-    private wrap;
-    private moveTo;
-    private getNextId;
-    private char;
-    private peek;
-    private next;
-    private static setFunctions;
-    static compile(code?: string, path?: string | null): IExtendedCompilationResult;
-    static setSyntax(syntax: typeof this.Syntax): void;
 }
 //# sourceMappingURL=Compiler.d.ts.map
