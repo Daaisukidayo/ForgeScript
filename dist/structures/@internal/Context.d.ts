@@ -143,8 +143,12 @@ export declare class Context {
     getLocalFunction(name: string): ILocalFunctionData;
     deleteLocalFunction(name: string): boolean;
     setLocalFunction(name: string, data: ILocalFunctionData): ILocalFunctionData;
+    setArgumentKey(name: string, value: unknown): unknown;
+    getArgumentKey(...args: string[]): object | undefined;
+    traverseAddArgumentKey(value: unknown, ...keys: string[]): boolean;
     clearKeywords(): void;
     clearEnvironment(): void;
+    clearArguments(): void;
     isSelectMenu(): this is this & {
         get interaction(): AnySelectMenuInteraction;
     };

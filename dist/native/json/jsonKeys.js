@@ -22,7 +22,7 @@ exports.default = new structures_1.NativeFunction({
     output: structures_1.ArgType.Json,
     unwrap: true,
     execute(ctx, [name]) {
-        const json = ctx.getEnvironmentKey(name);
+        const json = ctx.getArgumentKey(name) ?? ctx.getEnvironmentKey(name);
         if (!json)
             return this.success();
         return this.successJSON(Object.keys(json));

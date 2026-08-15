@@ -35,7 +35,7 @@ exports.default = new NativeFunction_1.NativeFunction({
     ],
     output: NativeFunction_1.ArgType.Json,
     execute(ctx, [var1, var2, objects]) {
-        const json = ctx.getEnvironmentKey(var1);
+        const json = ctx.getArgumentKey(var1) ?? ctx.getEnvironmentKey(var1);
         if (!json)
             return this.success();
         const obj = Object.assign(json, ...objects);

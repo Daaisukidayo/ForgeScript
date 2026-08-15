@@ -23,6 +23,9 @@ export default new NativeFunction({
     ],
     output: ArgType.Boolean,
     execute(ctx, [ keys ]) {
-        return this.success(ctx.traverseAddEnvironmentKey(parseJSON(keys[keys.length - 1]), ...keys.slice(0, -1)))
+        const json = parseJSON(keys[keys.length - 1])
+        const value = keys.slice(0, -1)
+        const res = ctx.traverseAddArgumentKey(json, ...value) || ctx.traverseAddEnvironmentKey(json, ...value)
+        return this.success(res)
     },
 })

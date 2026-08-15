@@ -29,7 +29,7 @@ exports.default = new NativeFunction_1.NativeFunction({
     ],
     output: NativeFunction_1.ArgType.Boolean,
     execute(ctx, [name, key]) {
-        const json = ctx.getEnvironmentKey(name);
+        const json = ctx.getArgumentKey(name) ?? ctx.getEnvironmentKey(name);
         if (!json)
             return this.success();
         return this.success(Object.hasOwn(json, key));

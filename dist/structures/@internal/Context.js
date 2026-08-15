@@ -53,6 +53,7 @@ class Context {
     #keywords = {};
     #environment = {};
     #localFunctions = {};
+    #arguments = {};
     _reason;
     container;
     constructor(runtime) {
@@ -291,11 +292,32 @@ class Context {
     setLocalFunction(name, data) {
         return (this.#localFunctions[name] = data);
     }
+    setArgumentKey(name, value) {
+        return (this.#arguments[name] = value);
+    }
+    getArgumentKey(...args) {
+        return Context.traverseGetValue(this.#arguments, ...args);
+    }
+    traverseAddArgumentKey(value, ...keys) {
+        let data = this.#arguments;
+        for (let i = 0, len = keys.length - 1; i < len; i++) {
+            const key = keys[i];
+            if (!(key in data))
+                return false;
+            data = data[key];
+        }
+        const lastKey = keys[keys.length - 1];
+        data[lastKey] = value;
+        return true;
+    }
     clearKeywords() {
         this.#keywords = {};
     }
     clearEnvironment() {
         this.#environment = {};
+    }
+    clearArguments() {
+        this.#arguments = {};
     }
     isSelectMenu() {
         return !!this.interaction && this.interaction.isAnySelectMenu();

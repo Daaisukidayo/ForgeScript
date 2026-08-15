@@ -22,7 +22,7 @@ export default new NativeFunction({
     output: ArgType.Json,
     unwrap: true,
     execute(ctx, [name]) {
-        const json = ctx.getEnvironmentKey(name)
+        const json = ctx.getArgumentKey(name) ?? ctx.getEnvironmentKey(name)
         if (!json) return this.success()
         return this.successJSON(Object.entries(json))
     },

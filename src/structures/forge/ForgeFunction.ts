@@ -98,7 +98,7 @@ export class ForgeFunction {
             const param = params[i]
             const name = typeof param === "string" ? param : param.name
 
-            functionCtx.setEnvironmentKey(name, args[i])
+            functionCtx.setArgumentKey(name, args[i])
         }
 
         const result = await Interpreter.run(functionCtx)

@@ -23,7 +23,7 @@ export default new NativeFunction({
     ],
     output: ArgType.Json,
     execute(ctx, [name]) {
-        const arr = ctx.getEnvironmentKey(name)
+        const arr = ctx.getArgumentKey(name) ?? ctx.getEnvironmentKey(name)
         if (!Array.isArray(arr)) return this.success()
 
         try {

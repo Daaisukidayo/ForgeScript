@@ -5,6 +5,7 @@
 
 import array from "../../functions/array"
 import { ArgType, NativeFunction } from "../../structures"
+import parseJSON from "../../functions/parseJSON"
 
 export default new NativeFunction({
     name: "$jsonValues",
@@ -32,7 +33,7 @@ export default new NativeFunction({
     ],
     unwrap: true,
     execute(ctx, [name, sep]) {
-        const json = ctx.getEnvironmentKey(name)
+        const json = parseJSON(ctx.getArgumentKey(name) ?? ctx.getEnvironmentKey(name))
         if (!json) return this.success()
         return this.successJSON(Object.values(json).join(sep ?? ", "))
     },

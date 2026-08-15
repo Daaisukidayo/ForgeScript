@@ -26,7 +26,10 @@ exports.default = new structures_1.NativeFunction({
     ],
     output: structures_1.ArgType.Boolean,
     execute(ctx, [keys]) {
-        return this.success(ctx.traverseAddEnvironmentKey((0, parseJSON_1.default)(keys[keys.length - 1]), ...keys.slice(0, -1)));
+        const json = (0, parseJSON_1.default)(keys[keys.length - 1]);
+        const value = keys.slice(0, -1);
+        const res = ctx.traverseAddArgumentKey(json, ...value) || ctx.traverseAddEnvironmentKey(json, ...value);
+        return this.success(res);
     },
 });
 //# sourceMappingURL=jsonSet.js.map

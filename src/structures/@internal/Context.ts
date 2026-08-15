@@ -147,6 +147,7 @@ export class Context {
     #keywords: Record<string, unknown> = {}
     #environment: Record<string, unknown> = {}
     #localFunctions: Record<string, ILocalFunctionData> = {}
+    #arguments: Record<string, unknown> = {}
 
     private _reason?: string
 
@@ -436,12 +437,39 @@ export class Context {
         return (this.#localFunctions[name] = data)
     }
 
+    public setArgumentKey(name: string, value: unknown) {
+        return (this.#arguments[name] = value);
+    }
+
+    public getArgumentKey(...args: string[]) {
+        return Context.traverseGetValue(this.#arguments, ...args);
+    }
+
+    public traverseAddArgumentKey(value: unknown, ...keys: string[]) {
+        let data = this.#arguments
+        for (let i = 0, len = keys.length - 1; i < len; i++) {
+            const key = keys[i]
+            if (!(key in data))
+                return false
+            data = data[key] as Record<string, unknown>
+        }
+
+        const lastKey = keys[keys.length - 1]
+        data[lastKey] = value
+
+        return true
+    }
+
     public clearKeywords() {
         this.#keywords = {}
     }
 
     public clearEnvironment() {
         this.#environment = {}
+    }
+
+    public clearArguments() {
+        this.#arguments = {}
     }
 
     public isSelectMenu(): this is this & { get interaction(): AnySelectMenuInteraction } {

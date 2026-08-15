@@ -9,6 +9,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const array_1 = __importDefault(require("../../functions/array"));
 const structures_1 = require("../../structures");
+const parseJSON_1 = __importDefault(require("../../functions/parseJSON"));
 exports.default = new structures_1.NativeFunction({
     name: "$jsonValues",
     version: "1.4.0",
@@ -35,7 +36,7 @@ exports.default = new structures_1.NativeFunction({
     ],
     unwrap: true,
     execute(ctx, [name, sep]) {
-        const json = ctx.getEnvironmentKey(name);
+        const json = (0, parseJSON_1.default)(ctx.getArgumentKey(name) ?? ctx.getEnvironmentKey(name));
         if (!json)
             return this.success();
         return this.successJSON(Object.values(json).join(sep ?? ", "));
