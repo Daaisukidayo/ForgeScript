@@ -9,6 +9,7 @@ const structures_1 = require("../../structures");
 const overwritePermissions_1 = require("../../functions/overwritePermissions");
 exports.default = new structures_1.NativeFunction({
     name: "$addPermissionOverwrite",
+    version: "2.7.0",
     description: "Adds a new permission overwrite to the channel",
     unwrap: true,
     brackets: true,
@@ -24,7 +25,7 @@ exports.default = new structures_1.NativeFunction({
         },
         {
             name: "perms",
-            description: "The permissions to allow, nullify or disallow, (+,/,-)Perm",
+            description: "The permissions to allow or disallow, (+,-)Perm",
             type: structures_1.ArgType.OverwritePermission,
             rest: true,
             required: true,

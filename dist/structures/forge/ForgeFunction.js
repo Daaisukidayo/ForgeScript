@@ -3,9 +3,6 @@
 * SPDX-License-Identifier: LGPL-3.0-or-later
 * Copyright © 2026 BotForge
 */
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ForgeFunction = void 0;
 const __1 = require("..");
@@ -13,7 +10,6 @@ const core_1 = require("../../core");
 const managers_1 = require("../../managers");
 const Return_1 = require("../@internal/Return");
 const ForgeError_1 = require("./ForgeError");
-const isTrue_1 = __importDefault(require("../../functions/isTrue"));
 class ForgeFunction {
     data;
     compiled;
@@ -47,8 +43,6 @@ class ForgeFunction {
                     const condition = await this["resolveCondition"](ctx, this.data.fields[0]);
                     if (!this["isValidReturnType"](condition))
                         return condition;
-                    else if (!(0, isTrue_1.default)(condition))
-                        return this.stop();
                     const params = await this["resolveMultipleArgs"](ctx, ...this.data.fields.slice(1).map((_, i) => i + 1));
                     if (!this["isValidReturnType"](params.return))
                         return params.return;

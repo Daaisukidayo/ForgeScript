@@ -8,7 +8,6 @@ import { IExtendedCompilationResult, Compiler, Interpreter } from "../../core"
 import { FunctionManager } from "../../managers"
 import { Return, ReturnType } from "../@internal/Return"
 import { ForgeError, ErrorType } from "./ForgeError"
-import isTrue from "../../functions/isTrue"
 
 export interface IForgeFunctionParam {
     name: string
@@ -62,8 +61,6 @@ export class ForgeFunction {
                     const condition = await this["resolveCondition"](ctx, this.data.fields[0] as IExtendedCompiledFunctionConditionField)
                     if (!this["isValidReturnType"](condition))
                         return condition
-                    else if (!isTrue(condition))
-                        return this.stop()
                     const params = await this["resolveMultipleArgs"](ctx, ...this.data.fields.slice(1).map((_, i) => i + 1))
                     if (!this["isValidReturnType"](params.return))
                         return params.return

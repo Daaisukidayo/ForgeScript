@@ -25,7 +25,7 @@ export default new NativeFunction({
         },
         {
             name: "perms",
-            description: "The permissions to allow, nullify or disallow, (+,/,-)Perm",
+            description: "The permissions to allow or disallow, (+,-)Perm",
             type: ArgType.OverwritePermission,
             rest: true,
             required: true,
