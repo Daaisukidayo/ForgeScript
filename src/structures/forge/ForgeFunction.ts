@@ -67,7 +67,7 @@ export class ForgeFunction {
                     const params = await this["resolveMultipleArgs"](ctx, ...this.data.fields.slice(1).map((_, i) => i + 1))
                     if (!this["isValidReturnType"](params.return))
                         return params.return
-                    return outer.call(ctx, this, params.args)
+                    return outer.call(ctx, this, [condition.value as string, ...params.args])
                 } else {
                     return outer.call(ctx, this, args ?? [])
                 }
@@ -91,17 +91,20 @@ export class ForgeFunction {
                 )
             )
 
-        for (let i = 0, len = params.length; i < len; i++) {
-            const param = params[i]
-            const name = typeof param === "string" ? param : param.name
-            ctx.setEnvironmentKey(name, args[i])
-        }
-
-        const result = await Interpreter.run(ctx.clone({
+        const functionCtx = ctx.clone({
             doNotSend: true,
             allowTopLevelReturn: true,
             data: this.compiled
-        }))
+        })
+
+        for (let i = 0, len = params.length; i < len; i++) {
+            const param = params[i]
+            const name = typeof param === "string" ? param : param.name
+
+            functionCtx.setEnvironmentKey(name, args[i])
+        }
+
+        const result = await Interpreter.run(functionCtx)
 
         return result === null ? fn.stop() : fn.success(result)
     }
