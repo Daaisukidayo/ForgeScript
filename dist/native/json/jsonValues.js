@@ -38,7 +38,7 @@ exports.default = new structures_1.NativeFunction({
         const json = ctx.getEnvironmentKey(name);
         if (!json)
             return this.success();
-        return this.successJSON(Object.values(json).map((v) => (typeof v === "string" ? v : JSON.stringify(v))).join(sep ?? ', '));
+        return this.successJSON(Object.values(json).map((v) => (typeof v === "string" ? v : JSON.stringify(v))).join(sep ?? ", "));
     },
 });
 //# sourceMappingURL=jsonValues.js.map
