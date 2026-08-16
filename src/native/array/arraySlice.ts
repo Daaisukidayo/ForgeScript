@@ -3,7 +3,7 @@
 * Copyright © 2026 BotForge
 */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$arraySlice",
@@ -42,7 +42,7 @@ export default new NativeFunction({
     ],
     output: ArgType.Json,
     execute(ctx, [var1, var2, start, end]) {
-        const arr = ctx.getEnvironmentKey(var1)
+        const arr = ctx.getParamOrEnvKey(var1)
 
         if (Array.isArray(arr)) {
             const sliced = arr.slice(start, end || undefined)

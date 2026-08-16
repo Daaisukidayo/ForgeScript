@@ -28,7 +28,7 @@ exports.default = new structures_1.NativeFunction({
     execute(ctx, [keys]) {
         const json = (0, parseJSON_1.default)(keys[keys.length - 1]);
         const value = keys.slice(0, -1);
-        const res = ctx.traverseAddArgumentKey(json, ...value) || ctx.traverseAddEnvironmentKey(json, ...value);
+        const res = ctx.traverseAddParamOrEnvKey(json, ...value);
         return this.success(res);
     },
 });

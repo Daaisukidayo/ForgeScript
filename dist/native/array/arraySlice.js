@@ -42,7 +42,7 @@ exports.default = new structures_1.NativeFunction({
     ],
     output: structures_1.ArgType.Json,
     execute(ctx, [var1, var2, start, end]) {
-        const arr = ctx.getEnvironmentKey(var1);
+        const arr = ctx.getParamOrEnvKey(var1);
         if (Array.isArray(arr)) {
             const sliced = arr.slice(start, end || undefined);
             if (var2)

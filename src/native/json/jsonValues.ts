@@ -33,7 +33,7 @@ export default new NativeFunction({
     ],
     unwrap: true,
     execute(ctx, [name, sep]) {
-        const json = parseJSON(ctx.getArgumentKey(name) ?? ctx.getEnvironmentKey(name))
+        const json = parseJSON(ctx.getParamOrEnvKey(name))
         if (!json) return this.success()
 
         return this.successJSON(Object.values(json).map((v) => (typeof v === "string" ? v : JSON.stringify(v))).join(sep ?? ', '))

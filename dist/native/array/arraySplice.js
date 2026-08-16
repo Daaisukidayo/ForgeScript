@@ -42,7 +42,7 @@ exports.default = new structures_1.NativeFunction({
     ],
     brackets: true,
     execute(ctx, [name, index, count, elements]) {
-        const arr = ctx.getEnvironmentKey(name);
+        const arr = ctx.getParamOrEnvKey(name);
         if (Array.isArray(arr))
             return this.successJSON(arr.splice(index, count, ...elements));
         return this.success();

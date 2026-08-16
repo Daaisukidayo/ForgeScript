@@ -130,25 +130,32 @@ export declare class Context {
      * @returns
      */
     fetchApplicationEmojis(once?: boolean): Promise<void | import("discord.js").Collection<string, import("discord.js").ApplicationEmoji>>;
-    setEnvironmentKey(name: string, value: unknown): unknown;
-    traverseDeleteEnvironmentKey(...keys: string[]): boolean | any[];
-    traverseAddEnvironmentKey(value: unknown, ...keys: string[]): boolean;
-    deleteEnvironmentKey(name: string): boolean;
-    static traverseGetValue(previous: object, ...args: string[]): object | undefined;
-    getEnvironmentKey(...args: string[]): object | undefined;
     getKeyword(name: string): unknown;
     deleteKeyword(name: string): boolean;
     setKeyword(name: string, value: unknown): unknown;
     hasKeyword(name: string): boolean;
+    clearKeywords(): void;
     getLocalFunction(name: string): ILocalFunctionData;
     deleteLocalFunction(name: string): boolean;
     setLocalFunction(name: string, data: ILocalFunctionData): ILocalFunctionData;
-    setArgumentKey(name: string, value: unknown): unknown;
-    getArgumentKey(...args: string[]): object | undefined;
-    traverseAddArgumentKey(value: unknown, ...keys: string[]): boolean;
-    clearKeywords(): void;
+    setEnvironmentKey(name: string, value: unknown): unknown;
+    traverseDeleteEnvironmentKey(...keys: string[]): boolean | any[];
+    traverseAddEnvironmentKey(value: unknown, ...keys: string[]): boolean;
+    deleteEnvironmentKey(name: string): boolean;
+    getEnvironmentKey(...args: string[]): object | undefined;
+    hasEnvironmentKey(name: string): boolean;
+    getEnvironmentInstance<T extends ClassType>(type: T, ...keys: string[]): ClassInstance<T> | null;
     clearEnvironment(): void;
-    clearArguments(): void;
+    setParamKey(name: string, value: unknown): unknown;
+    getParamKey(...args: string[]): object | undefined;
+    traverseAddParamKey(value: unknown, ...keys: string[]): boolean;
+    hasParamKey(name: string): boolean;
+    getParamInstance<T extends ClassType>(type: T, ...keys: string[]): ClassInstance<T> | null;
+    clearParams(): void;
+    static traverseGetValue(previous: object, ...args: string[]): object | undefined;
+    getParamOrEnvKey(...args: string[]): object | undefined;
+    traverseAddParamOrEnvKey(value: unknown, ...args: string[]): boolean;
+    getParamOrEnvInstance<T extends ClassType>(type: T, ...keys: string[]): ClassInstance<T> | null;
     isSelectMenu(): this is this & {
         get interaction(): AnySelectMenuInteraction;
     };
@@ -158,7 +165,6 @@ export declare class Context {
     isCommand(): this is this & {
         get interaction(): ChatInputCommandInteraction;
     };
-    getEnvironmentInstance<T extends ClassType>(type: T, ...keys: string[]): ClassInstance<T> | null;
     hasInstance<K extends string, V extends ClassType>(key: K, type: V): this is this & {
         [P in keyof {
             bro: boolean;

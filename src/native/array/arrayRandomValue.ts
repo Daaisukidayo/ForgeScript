@@ -3,7 +3,7 @@
 * Copyright © 2026 BotForge
 */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$arrayRandomValue",
@@ -22,7 +22,7 @@ export default new NativeFunction({
         },
     ],
     execute(ctx, [variable]) {
-        const arr = ctx.getEnvironmentInstance(Array, variable)
+        const arr = ctx.getParamOrEnvInstance(Array, variable)
         return this.successJSON(Array.isArray(arr) ? arr[Math.floor(Math.random() * arr.length)] : undefined)
     },
 })

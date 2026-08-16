@@ -53,7 +53,7 @@ class Context {
     #keywords = {};
     #environment = {};
     #localFunctions = {};
-    #arguments = {};
+    #params = {};
     _reason;
     container;
     constructor(runtime) {
@@ -224,6 +224,33 @@ class Context {
         }
         return await emojis.fetch().catch(this.noop);
     }
+    // Keyword
+    getKeyword(name) {
+        return this.#keywords[name];
+    }
+    deleteKeyword(name) {
+        return delete this.#keywords[name];
+    }
+    setKeyword(name, value) {
+        return (this.#keywords[name] = value);
+    }
+    hasKeyword(name) {
+        return name in this.#keywords;
+    }
+    clearKeywords() {
+        this.#keywords = {};
+    }
+    // Local function
+    getLocalFunction(name) {
+        return this.#localFunctions[name];
+    }
+    deleteLocalFunction(name) {
+        return delete this.#localFunctions[name];
+    }
+    setLocalFunction(name, data) {
+        return (this.#localFunctions[name] = data);
+    }
+    // Environment
     setEnvironmentKey(name, value) {
         return (this.#environment[name] = value);
     }
@@ -255,6 +282,49 @@ class Context {
     deleteEnvironmentKey(name) {
         return delete this.#environment[name];
     }
+    getEnvironmentKey(...args) {
+        return Context.traverseGetValue(this.#environment, ...args);
+    }
+    hasEnvironmentKey(name) {
+        return name in this.#environment;
+    }
+    getEnvironmentInstance(type, ...keys) {
+        const got = this.getEnvironmentKey(...keys);
+        return (got && got instanceof type ? got : null);
+    }
+    clearEnvironment() {
+        this.#environment = {};
+    }
+    // Function params
+    setParamKey(name, value) {
+        return (this.#params[name] = value);
+    }
+    getParamKey(...args) {
+        return Context.traverseGetValue(this.#params, ...args);
+    }
+    traverseAddParamKey(value, ...keys) {
+        let data = this.#params;
+        for (let i = 0, len = keys.length - 1; i < len; i++) {
+            const key = keys[i];
+            if (!(key in data))
+                return false;
+            data = data[key];
+        }
+        const lastKey = keys[keys.length - 1];
+        data[lastKey] = value;
+        return true;
+    }
+    hasParamKey(name) {
+        return name in this.#params;
+    }
+    getParamInstance(type, ...keys) {
+        const got = this.getParamKey(...keys);
+        return (got && got instanceof type ? got : null);
+    }
+    clearParams() {
+        this.#params = {};
+    }
+    // For both param and environment
     static traverseGetValue(previous, ...args) {
         if (!previous)
             return previous;
@@ -268,56 +338,20 @@ class Context {
         }
         return previous;
     }
-    getEnvironmentKey(...args) {
-        return Context.traverseGetValue(this.#environment, ...args);
+    getParamOrEnvKey(...args) {
+        return this.hasParamKey(args[0])
+            ? this.getParamKey(...args)
+            : this.getEnvironmentKey(...args);
     }
-    getKeyword(name) {
-        return this.#keywords[name];
+    traverseAddParamOrEnvKey(value, ...args) {
+        return this.hasParamKey(args[0])
+            ? this.traverseAddParamKey(value, ...args)
+            : this.traverseAddEnvironmentKey(value, ...args);
     }
-    deleteKeyword(name) {
-        return delete this.#keywords[name];
-    }
-    setKeyword(name, value) {
-        return (this.#keywords[name] = value);
-    }
-    hasKeyword(name) {
-        return name in this.#keywords;
-    }
-    getLocalFunction(name) {
-        return this.#localFunctions[name];
-    }
-    deleteLocalFunction(name) {
-        return delete this.#localFunctions[name];
-    }
-    setLocalFunction(name, data) {
-        return (this.#localFunctions[name] = data);
-    }
-    setArgumentKey(name, value) {
-        return (this.#arguments[name] = value);
-    }
-    getArgumentKey(...args) {
-        return Context.traverseGetValue(this.#arguments, ...args);
-    }
-    traverseAddArgumentKey(value, ...keys) {
-        let data = this.#arguments;
-        for (let i = 0, len = keys.length - 1; i < len; i++) {
-            const key = keys[i];
-            if (!(key in data))
-                return false;
-            data = data[key];
-        }
-        const lastKey = keys[keys.length - 1];
-        data[lastKey] = value;
-        return true;
-    }
-    clearKeywords() {
-        this.#keywords = {};
-    }
-    clearEnvironment() {
-        this.#environment = {};
-    }
-    clearArguments() {
-        this.#arguments = {};
+    getParamOrEnvInstance(type, ...keys) {
+        return this.hasParamKey(keys[0])
+            ? this.getParamInstance(type, ...keys)
+            : this.getEnvironmentInstance(type, ...keys);
     }
     isSelectMenu() {
         return !!this.interaction && this.interaction.isAnySelectMenu();
@@ -327,10 +361,6 @@ class Context {
     }
     isCommand() {
         return !!this.interaction && this.interaction.isChatInputCommand();
-    }
-    getEnvironmentInstance(type, ...keys) {
-        const got = this.getEnvironmentKey(...keys);
-        return (got && got instanceof type ? got : null);
     }
     hasInstance(key, type) {
         return this[key] !== undefined && this[key] instanceof type;

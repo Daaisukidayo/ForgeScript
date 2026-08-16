@@ -28,7 +28,7 @@ export default new NativeFunction({
     ],
     unwrap: true,
     execute(ctx, [ v, n ]) {
-        ctx.getEnvironmentInstance(Array, v)?.fill(n)
+        ctx.getParamOrEnvInstance(Array, v)?.fill(n)
         return this.success()
     },
 })

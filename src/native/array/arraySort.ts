@@ -3,7 +3,7 @@
 * Copyright © 2026 BotForge
 */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export enum SortType {
     asc,
@@ -41,7 +41,7 @@ export default new NativeFunction({
     ],
     output: ArgType.Json,
     execute(ctx, [variable, other, order]) {
-        const arr = ctx.getEnvironmentInstance(Array, variable)
+        const arr = ctx.getParamOrEnvInstance(Array, variable)
         if (arr !== null) {
             const sorted = arr.sort(order !== null ? (a, b) => (order ? Number(a) - Number(b) : Number(b) - Number(a)) : undefined)
 

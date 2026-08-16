@@ -50,20 +50,20 @@ exports.default = new structures_1.NativeFunction({
     experimental: true,
     brackets: true,
     async execute(ctx) {
+        const code = this.data.fields[3];
         const { args, return: rt } = await this["resolveMultipleArgs"](ctx, 0, 1, 2, 4);
         if (!this["isValidReturnType"](rt))
             return rt;
-        const code = this.data.fields[3];
         const [name, variable, otherVariable, defaultValue] = args;
-        const arr = ctx.getEnvironmentKey(name);
-        ctx.setEnvironmentKey(variable, defaultValue);
+        const arr = ctx.getParamOrEnvKey(name);
+        ctx.setParamKey(variable, defaultValue ?? 0);
         if (Array.isArray(arr)) {
             for (let i = 0, len = arr.length; i < len; i++) {
                 const el = arr[i];
-                ctx.setEnvironmentKey(otherVariable, el);
+                ctx.setParamKey(otherVariable, el);
                 const rt = (await this["resolveCode"](ctx, code));
                 if (rt.return) {
-                    ctx.setEnvironmentKey(variable, rt.value);
+                    ctx.setParamKey(variable, rt.value);
                 }
                 else if (!this["isValidReturnType"](rt))
                     return rt;

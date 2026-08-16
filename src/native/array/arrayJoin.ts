@@ -4,7 +4,7 @@
 */
 
 import array from "../../functions/array"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$arrayJoin",
@@ -29,7 +29,7 @@ export default new NativeFunction({
     ],
     brackets: true,
     execute(ctx, [name, sep]) {
-        const arr = ctx.getEnvironmentKey(name)
+        const arr = ctx.getParamOrEnvKey(name)
         return this.success(Array.isArray(arr) ? arr.join(sep ?? ", ") : undefined)
     },
 })

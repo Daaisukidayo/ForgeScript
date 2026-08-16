@@ -36,7 +36,7 @@ exports.default = new structures_1.NativeFunction({
     ],
     unwrap: true,
     execute(ctx, [name, sep]) {
-        const json = (0, parseJSON_1.default)(ctx.getArgumentKey(name) ?? ctx.getEnvironmentKey(name));
+        const json = (0, parseJSON_1.default)(ctx.getParamOrEnvKey(name));
         if (!json)
             return this.success();
         return this.successJSON(Object.values(json).map((v) => (typeof v === "string" ? v : JSON.stringify(v))).join(sep ?? ', '));

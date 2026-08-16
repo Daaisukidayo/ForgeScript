@@ -69,15 +69,15 @@ exports.default = new structures_1.NativeFunction({
     ],
     output: structures_1.ArgType.Json,
     async execute(ctx) {
-        const { return: rt, args } = await this["resolveMultipleArgs"](ctx, 0, 1, 2, 4);
+        const { args, return: rt } = await this["resolveMultipleArgs"](ctx, 0, 1, 2, 4);
         if (!this["isValidReturnType"](rt))
             return rt;
         const [mainVar, var1, var2, otherVar] = args;
-        const arr = ctx.getEnvironmentInstance(Array, mainVar);
+        const arr = ctx.getParamOrEnvInstance(Array, mainVar);
         if (arr != null) {
             const result = await asyncSort(arr, async (x, y) => {
-                ctx.setEnvironmentKey(var1, x);
-                ctx.setEnvironmentKey(var2, y);
+                ctx.setParamKey(var1, x);
+                ctx.setParamKey(var2, y);
                 const exec = await this["resolveUnhandledArg"](ctx, 3);
                 return Number(exec.value);
             });

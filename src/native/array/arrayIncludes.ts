@@ -3,7 +3,7 @@
 * Copyright © 2026 BotForge
 */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$arrayIncludes",
@@ -29,7 +29,7 @@ export default new NativeFunction({
     ],
     brackets: true,
     execute(ctx, [name, value]) {
-        const arr = ctx.getEnvironmentKey(name)
+        const arr = ctx.getParamOrEnvKey(name)
         return this.success(Array.isArray(arr) ? arr.includes(value) : false)
     },
 })

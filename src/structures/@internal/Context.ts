@@ -147,7 +147,7 @@ export class Context {
     #keywords: Record<string, unknown> = {}
     #environment: Record<string, unknown> = {}
     #localFunctions: Record<string, ILocalFunctionData> = {}
-    #arguments: Record<string, unknown> = {}
+    #params: Record<string, unknown> = {}
 
     private _reason?: string
 
@@ -353,6 +353,42 @@ export class Context {
         return await emojis.fetch().catch(this.noop)
     }
 
+    // Keyword
+    public getKeyword(name: string) {
+        return this.#keywords[name]
+    }
+
+    public deleteKeyword(name: string) {
+        return delete this.#keywords[name]
+    }
+
+    public setKeyword(name: string, value: unknown) {
+        return (this.#keywords[name] = value)
+    }
+
+    public hasKeyword(name: string) {
+        return name in this.#keywords
+    }
+
+    public clearKeywords() {
+        this.#keywords = {}
+    }
+
+
+    // Local function
+    public getLocalFunction(name: string) {
+        return this.#localFunctions[name]
+    }
+
+    public deleteLocalFunction(name: string) {
+        return delete this.#localFunctions[name]
+    }
+
+    public setLocalFunction(name: string, data: ILocalFunctionData) {
+        return (this.#localFunctions[name] = data)
+    }
+
+    // Environment
     public setEnvironmentKey(name: string, value: unknown) {
         return (this.#environment[name] = value)
     }
@@ -391,6 +427,63 @@ export class Context {
         return delete this.#environment[name]
     }
 
+    public getEnvironmentKey(...args: string[]) {
+        return Context.traverseGetValue(this.#environment, ...args)
+    }
+
+    public hasEnvironmentKey(name: string) {
+        return name in this.#environment
+    }
+
+    public getEnvironmentInstance<T extends ClassType>(type: T, ...keys: string[]) {
+        const got = this.getEnvironmentKey(...keys)
+        return (got && got instanceof type ? got : null) as ClassInstance<T> | null
+    }
+
+    public clearEnvironment() {
+        this.#environment = {}
+    }
+
+
+    // Function params
+    public setParamKey(name: string, value: unknown) {
+        return (this.#params[name] = value);
+    }
+
+    public getParamKey(...args: string[]) {
+        return Context.traverseGetValue(this.#params, ...args);
+    }
+
+    public traverseAddParamKey(value: unknown, ...keys: string[]) {
+        let data = this.#params
+        for (let i = 0, len = keys.length - 1; i < len; i++) {
+            const key = keys[i]
+            if (!(key in data))
+                return false
+            data = data[key] as Record<string, unknown>
+        }
+
+        const lastKey = keys[keys.length - 1]
+        data[lastKey] = value
+
+        return true
+    }
+
+    public hasParamKey(name: string) {
+        return name in this.#params
+    }
+
+    public getParamInstance<T extends ClassType>(type: T, ...keys: string[]) {
+        const got = this.getParamKey(...keys)
+        return (got && got instanceof type ? got : null) as ClassInstance<T> | null
+    }
+
+    public clearParams() {
+        this.#params = {}
+    }
+
+
+    // For both param and environment
     public static traverseGetValue(previous: object, ...args: string[]) {
         if (!previous)
             return previous
@@ -405,72 +498,25 @@ export class Context {
         return previous
     }
 
-    public getEnvironmentKey(...args: string[]) {
-        return Context.traverseGetValue(this.#environment, ...args)
+    public getParamOrEnvKey(...args: string[]) {
+        return this.hasParamKey(args[0]) 
+            ? this.getParamKey(...args) 
+            : this.getEnvironmentKey(...args)
     }
 
-    public getKeyword(name: string) {
-        return this.#keywords[name]
+    public traverseAddParamOrEnvKey(value: unknown, ...args: string[]) {
+        return this.hasParamKey(args[0]) 
+            ? this.traverseAddParamKey(value, ...args) 
+            : this.traverseAddEnvironmentKey(value, ...args)
     }
 
-    public deleteKeyword(name: string) {
-        return delete this.#keywords[name]
+    public getParamOrEnvInstance<T extends ClassType>(type: T, ...keys: string[]) {
+        return this.hasParamKey(keys[0])
+            ? this.getParamInstance(type, ...keys)
+            : this.getEnvironmentInstance(type, ...keys)
     }
 
-    public setKeyword(name: string, value: unknown) {
-        return (this.#keywords[name] = value)
-    }
 
-    public hasKeyword(name: string) {
-        return name in this.#keywords
-    }
-
-    public getLocalFunction(name: string) {
-        return this.#localFunctions[name]
-    }
-
-    public deleteLocalFunction(name: string) {
-        return delete this.#localFunctions[name]
-    }
-
-    public setLocalFunction(name: string, data: ILocalFunctionData) {
-        return (this.#localFunctions[name] = data)
-    }
-
-    public setArgumentKey(name: string, value: unknown) {
-        return (this.#arguments[name] = value);
-    }
-
-    public getArgumentKey(...args: string[]) {
-        return Context.traverseGetValue(this.#arguments, ...args);
-    }
-
-    public traverseAddArgumentKey(value: unknown, ...keys: string[]) {
-        let data = this.#arguments
-        for (let i = 0, len = keys.length - 1; i < len; i++) {
-            const key = keys[i]
-            if (!(key in data))
-                return false
-            data = data[key] as Record<string, unknown>
-        }
-
-        const lastKey = keys[keys.length - 1]
-        data[lastKey] = value
-
-        return true
-    }
-
-    public clearKeywords() {
-        this.#keywords = {}
-    }
-
-    public clearEnvironment() {
-        this.#environment = {}
-    }
-
-    public clearArguments() {
-        this.#arguments = {}
-    }
 
     public isSelectMenu(): this is this & { get interaction(): AnySelectMenuInteraction } {
         return !!this.interaction && this.interaction.isAnySelectMenu()
@@ -482,11 +528,6 @@ export class Context {
 
     public isCommand(): this is this & { get interaction(): ChatInputCommandInteraction } {
         return !!this.interaction && this.interaction.isChatInputCommand()
-    }
-
-    public getEnvironmentInstance<T extends ClassType>(type: T, ...keys: string[]) {
-        const got = this.getEnvironmentKey(...keys)
-        return (got && got instanceof type ? got : null) as ClassInstance<T> | null
     }
 
     public hasInstance<K extends string, V extends ClassType>(key: K, type: V): this is this & { [P in keyof { bro: boolean } as K]: ClassInstance<V> } {

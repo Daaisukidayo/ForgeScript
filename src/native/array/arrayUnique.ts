@@ -4,7 +4,7 @@
 */
 
 import { isEqual, uniqWith } from "lodash"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$arrayUnique",
@@ -30,7 +30,7 @@ export default new NativeFunction({
     ],
     output: ArgType.Json,
     execute(ctx, [variable, other]) {
-        const arr = ctx.getEnvironmentInstance(Array, variable)
+        const arr = ctx.getParamOrEnvInstance(Array, variable)
         if (arr !== null) {
             const unique = uniqWith(arr, isEqual)
 

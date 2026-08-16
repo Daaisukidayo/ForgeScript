@@ -22,7 +22,7 @@ exports.default = new structures_1.NativeFunction({
     ],
     brackets: true,
     execute(ctx, args) {
-        const arr = ctx.getEnvironmentKey(...args);
+        const arr = ctx.getParamOrEnvKey(...args);
         return this.success(Array.isArray(arr) ? arr.length : 0);
     },
 });

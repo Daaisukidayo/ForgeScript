@@ -3,7 +3,7 @@
 * Copyright © 2026 BotForge
 */
 
-import { ArgType, Context, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$arrayAt",
@@ -29,7 +29,7 @@ export default new NativeFunction({
     ],
     output: ArgType.Unknown,
     execute(ctx, [variable, index]) {
-        const arr = ctx.getEnvironmentKey(variable)
+        const arr = ctx.getParamOrEnvKey(variable)
         return this.successJSON(Array.isArray(arr) ? arr.at(index) : undefined)
     },
 })

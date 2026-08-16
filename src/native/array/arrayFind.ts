@@ -45,12 +45,12 @@ export default new NativeFunction({
         if (!this["isValidReturnType"](rt)) return rt
         const [ name, varName ] = args
 
-        const arr = ctx.getEnvironmentKey(name)
+        const arr = ctx.getParamOrEnvKey(name)
         if (!Array.isArray(arr)) return this.success()
 
         for (let i = 0, len = arr.length; i < len; i++) {
             const el = arr[i]
-            ctx.setEnvironmentKey(varName, el)
+            ctx.setParamKey(varName, el)
             const rt = await this["resolveCondition"](ctx, code)
 
             if (rt.return || rt.success) {

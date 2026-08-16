@@ -28,6 +28,6 @@ export default new NativeFunction({
     brackets: true,
     unwrap: true,
     execute(ctx, [ env, space ]) {
-        return this.successJSON(JSON.stringify(ctx.getArgumentKey(env) ?? ctx.getEnvironmentKey(env), undefined, space || undefined))
+        return this.successJSON(JSON.stringify(ctx.getParamOrEnvKey(env), undefined, space || undefined))
     }
 })

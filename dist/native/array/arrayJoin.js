@@ -32,7 +32,7 @@ exports.default = new structures_1.NativeFunction({
     ],
     brackets: true,
     execute(ctx, [name, sep]) {
-        const arr = ctx.getEnvironmentKey(name);
+        const arr = ctx.getParamOrEnvKey(name);
         return this.success(Array.isArray(arr) ? arr.join(sep ?? ", ") : undefined);
     },
 });

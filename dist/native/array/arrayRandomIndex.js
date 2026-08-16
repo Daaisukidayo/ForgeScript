@@ -22,7 +22,7 @@ exports.default = new structures_1.NativeFunction({
         },
     ],
     execute(ctx, [variable]) {
-        const arr = ctx.getEnvironmentInstance(Array, variable);
+        const arr = ctx.getParamOrEnvInstance(Array, variable);
         return this.successJSON(Array.isArray(arr) ? Math.floor(Math.random() * arr.length) : undefined);
     },
 });

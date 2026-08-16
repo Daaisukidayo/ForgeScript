@@ -30,7 +30,7 @@ exports.default = new structures_1.NativeFunction({
     ],
     output: structures_1.ArgType.Json,
     execute(ctx, [variable, other]) {
-        const arr = ctx.getEnvironmentInstance(Array, variable);
+        const arr = ctx.getParamOrEnvInstance(Array, variable);
         if (arr !== null) {
             const unique = (0, lodash_1.uniqWith)(arr, lodash_1.isEqual);
             if (other)

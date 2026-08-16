@@ -29,7 +29,7 @@ exports.default = new structures_1.NativeFunction({
     ],
     output: structures_1.ArgType.Unknown,
     execute(ctx, [variable, index]) {
-        const arr = ctx.getEnvironmentKey(variable);
+        const arr = ctx.getParamOrEnvKey(variable);
         return this.successJSON(Array.isArray(arr) ? arr.at(index) : undefined);
     },
 });

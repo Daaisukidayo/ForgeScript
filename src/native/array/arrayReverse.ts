@@ -3,7 +3,7 @@
 * Copyright © 2026 BotForge
 */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$arrayReverse",
@@ -29,13 +29,13 @@ export default new NativeFunction({
     ],
     output: ArgType.Json,
     execute(ctx, [var1, var2]) {
-        const arr = ctx.getEnvironmentKey(var1)
+        const arr = ctx.getParamOrEnvKey(var1)
 
         if (Array.isArray(arr)) {
-            if (var2)
-                return this.success(void ctx.setEnvironmentKey(var2, arr.reverse()))
-            else 
-                return this.successJSON(arr.reverse())
+            if (var2) {
+                ctx.setEnvironmentKey(var2, arr.reverse())
+                return this.success()
+            } else return this.successJSON(arr.reverse())
         }
 
         return this.success()

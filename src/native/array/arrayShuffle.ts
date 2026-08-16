@@ -3,7 +3,7 @@
 * Copyright © 2026 BotForge
 */
 
-import { ArgType, Context, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$arrayShuffle",
@@ -21,8 +21,8 @@ export default new NativeFunction({
         }
     ],
     execute(ctx, [variable]) {
-        const arr = ctx.getEnvironmentInstance(Array, variable)
-        if (arr !== null)
+        const arr = ctx.getParamOrEnvInstance(Array, variable)
+        if (Array.isArray(arr))
             ctx.setEnvironmentKey(variable, arr.sort(x => 0.5 - Math.random()))
         return this.success()
     },

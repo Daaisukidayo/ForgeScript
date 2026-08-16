@@ -42,7 +42,7 @@ exports.default = new structures_1.NativeFunction({
     ],
     output: structures_1.ArgType.Json,
     execute(ctx, [variable, other, order]) {
-        const arr = ctx.getEnvironmentInstance(Array, variable);
+        const arr = ctx.getParamOrEnvInstance(Array, variable);
         if (arr !== null) {
             const sorted = arr.sort(order !== null ? (a, b) => (order ? Number(a) - Number(b) : Number(b) - Number(a)) : undefined);
             if (other)

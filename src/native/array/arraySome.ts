@@ -4,7 +4,7 @@
 */
 
 import isTrue from "../../functions/isTrue"
-import { ArgType, IExtendedCompiledFunctionConditionField, IExtendedCompiledFunctionField, NativeFunction, Return } from "../../structures"
+import { ArgType, IExtendedCompiledFunctionConditionField, NativeFunction, Return } from "../../structures"
 
 export default new NativeFunction({
     name: "$arraySome",
@@ -38,21 +38,19 @@ export default new NativeFunction({
     ],
     brackets: true,
     async execute(ctx) {
-        const [,, code] = this.data.fields! as IExtendedCompiledFunctionField[]
+        const code = this.data.fields![2] as IExtendedCompiledFunctionConditionField
 
-        const {
-            args: { "0": name, "1": variable },
-            return: rt,
-        } = await this["resolveMultipleArgs"](ctx, 0, 1)
+        const { args, return: rt,} = await this["resolveMultipleArgs"](ctx, 0, 1)
         if (!this["isValidReturnType"](rt)) return rt
+        const [name, variable] = args
 
-        const arr = ctx.getEnvironmentKey(name)
+        const arr = ctx.getParamOrEnvKey(name)
 
         if (Array.isArray(arr)) {
             for (let i = 0, len = arr.length; i < len; i++) {
                 const el = arr[i]
-                ctx.setEnvironmentKey(variable, el)
-                const rt = (await this["resolveCondition"](ctx, code as unknown as IExtendedCompiledFunctionConditionField)) as Return
+                ctx.setParamKey(variable, el)
+                const rt = await this["resolveCondition"](ctx, code) as Return
 
                 if (rt.return || rt.success) {
                     if (!isTrue(rt)) continue

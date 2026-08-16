@@ -3,7 +3,7 @@
 * Copyright © 2026 BotForge
 */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$arrayShift",
@@ -22,7 +22,7 @@ export default new NativeFunction({
     ],
     brackets: true,
     execute(ctx, [name]) {
-        const arr = ctx.getEnvironmentKey(name)
+        const arr = ctx.getParamOrEnvKey(name)
         if (Array.isArray(arr)) return this.successJSON(arr.shift())
         return this.success()
     },

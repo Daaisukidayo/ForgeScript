@@ -21,8 +21,8 @@ exports.default = new structures_1.NativeFunction({
         }
     ],
     execute(ctx, [variable]) {
-        const arr = ctx.getEnvironmentInstance(Array, variable);
-        if (arr !== null)
+        const arr = ctx.getParamOrEnvInstance(Array, variable);
+        if (Array.isArray(arr))
             ctx.setEnvironmentKey(variable, arr.sort(x => 0.5 - Math.random()));
         return this.success();
     },

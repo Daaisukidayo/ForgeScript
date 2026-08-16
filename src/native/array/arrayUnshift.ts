@@ -28,7 +28,7 @@ export default new NativeFunction({
     ],
     brackets: true,
     execute(ctx, [name, values]) {
-        const arr = ctx.getEnvironmentKey(name)
+        const arr = ctx.getParamOrEnvKey(name)
         if (Array.isArray(arr)) arr.unshift(...values)
         return this.success()
     },

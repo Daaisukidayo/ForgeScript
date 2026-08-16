@@ -3,7 +3,7 @@
 * Copyright © 2026 BotForge
 */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$arrayLength",
@@ -22,7 +22,7 @@ export default new NativeFunction({
     ],
     brackets: true,
     execute(ctx, args) {
-        const arr = ctx.getEnvironmentKey(...args)
+        const arr = ctx.getParamOrEnvKey(...args)
         return this.success(Array.isArray(arr) ? arr.length : 0)
     },
 })

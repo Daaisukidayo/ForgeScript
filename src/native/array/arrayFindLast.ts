@@ -4,7 +4,7 @@
 */
 
 import isTrue from "../../functions/isTrue"
-import { ArgType, IExtendedCompiledFunctionConditionField, NativeFunction } from "../../structures"
+import { ArgType, IExtendedCompiledFunctionConditionField, NativeFunction, Return } from "../../structures"
 
 export default new NativeFunction({
     name: "$arrayFindLast",
@@ -45,13 +45,13 @@ export default new NativeFunction({
         if (!this["isValidReturnType"](rt)) return rt
         const [ name, varName ] = args
 
-        const arr = ctx.getEnvironmentKey(name)
+        const arr = ctx.getParamOrEnvKey(name)
         if (!Array.isArray(arr)) return this.success()
 
         for (let i = arr.length - 1; i >= 0; i--) {
             const el = arr[i]
-            ctx.setEnvironmentKey(varName, el)
-            const rt = await this["resolveCondition"](ctx, code)
+            ctx.setParamKey(varName, el)
+            const rt = await this["resolveCondition"](ctx, code) as Return
 
             if (rt.return || rt.success) {
                 if (!isTrue(rt)) continue

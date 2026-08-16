@@ -54,12 +54,12 @@ exports.default = new structures_1.NativeFunction({
         if (!this["isValidReturnType"](rt))
             return rt;
         const [name, varName, otherVarName] = args;
-        const arr = ctx.getEnvironmentKey(name);
+        const arr = ctx.getParamOrEnvKey(name);
         const newArr = new Array();
         if (Array.isArray(arr)) {
             for (let i = 0, len = arr.length; i < len; i++) {
                 const el = arr[i];
-                ctx.setEnvironmentKey(varName, el);
+                ctx.setParamKey(varName, el);
                 const rt = await this["resolveCondition"](ctx, code);
                 if (rt.return || rt.success) {
                     if (!(0, isTrue_1.default)(rt))

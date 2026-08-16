@@ -68,7 +68,7 @@ class ForgeFunction {
         for (let i = 0, len = params.length; i < len; i++) {
             const param = params[i];
             const name = typeof param === "string" ? param : param.name;
-            functionCtx.setArgumentKey(name, args[i]);
+            functionCtx.setParamKey(name, args[i]);
         }
         const result = await core_1.Interpreter.run(functionCtx);
         return result === null ? fn.stop() : fn.success(result);
