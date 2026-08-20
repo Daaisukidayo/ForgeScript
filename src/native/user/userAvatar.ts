@@ -4,12 +4,12 @@
 */
 
 import { ImageExtension, ImageSize } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$userAvatar",
     version: "1.0.0",
-    description: "Returns the user avatar",
+    description: "Returns the avatar of a user",
     brackets: false,
     output: ArgType.URL,
     args: [

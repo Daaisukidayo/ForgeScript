@@ -3,17 +3,17 @@
 * Copyright © 2026 BotForge
 */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$guildSystemChannelID",
     version: "1.0.0",
-    description: "Returns the server's system channel ID",
-    brackets: false,
+    description: "Returns the system channel ID of a guild",
     aliases: [
         "$serverSystemChannelID"
     ],
-    output: ArgType.Channel,
+    brackets: false,
+    unwrap: true,
     args: [
         {
             name: "guild ID",
@@ -23,7 +23,7 @@ export default new NativeFunction({
             type: ArgType.Guild,
         },
     ],
-    unwrap: true,
+    output: ArgType.Channel,
     execute(ctx, [guild]) {
         return this.success((guild ?? ctx.guild)?.systemChannelId)
     },

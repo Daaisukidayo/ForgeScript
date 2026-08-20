@@ -8,7 +8,7 @@ const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$userAvatar",
     version: "1.0.0",
-    description: "Returns the user avatar",
+    description: "Returns the avatar of a user",
     brackets: false,
     output: structures_1.ArgType.URL,
     args: [

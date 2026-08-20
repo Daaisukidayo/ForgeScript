@@ -8,7 +8,7 @@ import { ArgType, NativeFunction } from "../../structures/@internal/NativeFuncti
 export default new NativeFunction({
     name: "$username",
     version: "1.0.0",
-    description: "Retrieves a user's username",
+    description: "Returns the username of a user",
     brackets: false,
     output: ArgType.String,
     args: [

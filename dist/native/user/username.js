@@ -8,7 +8,7 @@ const NativeFunction_1 = require("../../structures/@internal/NativeFunction");
 exports.default = new NativeFunction_1.NativeFunction({
     name: "$username",
     version: "1.0.0",
-    description: "Retrieves a user's username",
+    description: "Returns the username of a user",
     brackets: false,
     output: NativeFunction_1.ArgType.String,
     args: [

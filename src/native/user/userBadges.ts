@@ -4,9 +4,8 @@
 */
 
 import { UserFlags } from "discord.js"
+import { ArgType, NativeFunction } from "../../structures"
 import array from "../../functions/array"
-import noop from "../../functions/noop"
-import { ArgType, NativeFunction, Return } from "../../structures"
 
 export default new NativeFunction({
     name: "$userBadges",

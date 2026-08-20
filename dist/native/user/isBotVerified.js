@@ -8,7 +8,7 @@ const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$isBotVerified",
     version: "1.0.0",
-    description: "Whether the bot is verified",
+    description: "Returns whether the bot is verified",
     unwrap: true,
     output: structures_1.ArgType.Boolean,
     args: [

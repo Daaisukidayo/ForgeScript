@@ -8,7 +8,7 @@ import { ArgType, NativeFunction } from "../../structures"
 export default new NativeFunction({
     name: "$discriminator",
     version: "1.4.0",
-    description: "Returns the user discriminator",
+    description: "Returns the discriminator of a user",
     brackets: false,
     unwrap: true,
     args: [
@@ -21,7 +21,7 @@ export default new NativeFunction({
         }
     ],
     output: ArgType.String,
-    execute(ctx, [ u ]) {
-        return this.success((u ?? ctx.user)?.discriminator)
+    execute(ctx, [user]) {
+        return this.success((user ?? ctx.user)?.discriminator)
     },
 })

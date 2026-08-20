@@ -8,7 +8,7 @@ const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$userAccentColor",
     version: "1.0.0",
-    description: "Returns the user accent color",
+    description: "Returns the accent color of a user",
     brackets: false,
     output: structures_1.ArgType.Color,
     args: [

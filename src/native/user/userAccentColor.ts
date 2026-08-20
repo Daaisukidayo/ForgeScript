@@ -3,12 +3,12 @@
 * Copyright © 2026 BotForge
 */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$userAccentColor",
     version: "1.0.0",
-    description: "Returns the user accent color",
+    description: "Returns the accent color of a user",
     brackets: false,
     output: ArgType.Color,
     args: [

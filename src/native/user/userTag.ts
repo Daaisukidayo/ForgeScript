@@ -8,7 +8,7 @@ import { ArgType, NativeFunction } from "../../structures"
 export default new NativeFunction({
     name: "$userTag",
     version: "1.4.0",
-    description: "Returns the user tag",
+    description: "Returns the legacy tag of a user",
     brackets: false,
     unwrap: true,
     args: [

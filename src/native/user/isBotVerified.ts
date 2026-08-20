@@ -3,12 +3,12 @@
 * Copyright © 2026 BotForge
 */
 
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$isBotVerified",
     version: "1.0.0",
-    description: "Whether the bot is verified",
+    description: "Returns whether the bot is verified",
     unwrap: true,
     output: ArgType.Boolean,
     args: [

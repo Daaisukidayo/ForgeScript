@@ -8,7 +8,7 @@ const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$userAvatarDecoration",
     version: "1.0.0",
-    description: "Returns the user decoration",
+    description: "Returns the avatar decoration of a user",
     brackets: false,
     output: structures_1.ArgType.URL,
     args: [

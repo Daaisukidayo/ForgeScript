@@ -8,7 +8,7 @@ const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$userTag",
     version: "1.4.0",
-    description: "Returns the user tag",
+    description: "Returns the legacy tag of a user",
     brackets: false,
     unwrap: true,
     args: [

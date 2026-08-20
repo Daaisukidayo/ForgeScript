@@ -8,12 +8,12 @@ const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$guildSystemChannelID",
     version: "1.0.0",
-    description: "Returns the server's system channel ID",
-    brackets: false,
+    description: "Returns the system channel ID of a guild",
     aliases: [
         "$serverSystemChannelID"
     ],
-    output: structures_1.ArgType.Channel,
+    brackets: false,
+    unwrap: true,
     args: [
         {
             name: "guild ID",
@@ -23,7 +23,7 @@ exports.default = new structures_1.NativeFunction({
             type: structures_1.ArgType.Guild,
         },
     ],
-    unwrap: true,
+    output: structures_1.ArgType.Channel,
     execute(ctx, [guild]) {
         return this.success((guild ?? ctx.guild)?.systemChannelId);
     },
