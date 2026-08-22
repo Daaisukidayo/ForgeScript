@@ -8,6 +8,7 @@ const structures_1 = require("../../structures");
 const forumTag_1 = require("../../properties/forumTag");
 exports.default = new structures_1.NativeFunction({
     name: "$getForumTag",
+    version: "2.7.0",
     description: "Returns the tag of a forum",
     unwrap: true,
     brackets: true,
@@ -40,9 +41,9 @@ exports.default = new structures_1.NativeFunction({
         structures_1.ArgType.Json,
         structures_1.ArgType.Unknown
     ],
-    async execute(ctx, [, tag, prop]) {
+    execute(ctx, [, tag, prop]) {
         if (prop)
-            this.success(forumTag_1.ForumTagProperties[prop](tag));
+            return this.success(forumTag_1.ForumTagProperties[prop](tag));
         return this.successJSON(tag);
     },
 });

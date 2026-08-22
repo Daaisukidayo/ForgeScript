@@ -42,8 +42,8 @@ export default new NativeFunction({
         ArgType.Json,
         ArgType.Unknown
     ],
-    async execute(ctx, [, tag, prop]) {
-        if (prop) this.success(ForumTagProperties[prop](tag))
+    execute(ctx, [, tag, prop]) {
+        if (prop) return this.success(ForumTagProperties[prop](tag))
         return this.successJSON(tag)
     },
 })
