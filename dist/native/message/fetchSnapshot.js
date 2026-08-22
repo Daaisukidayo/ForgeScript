@@ -9,6 +9,7 @@ const structures_1 = require("../../structures");
 const components_1 = require("../../functions/components");
 exports.default = new structures_1.NativeFunction({
     name: "$fetchSnapshot",
+    version: "2.7.0",
     brackets: false,
     unwrap: true,
     description: "Fetches all data from a message snapshot and loads it to the next response",

@@ -7,6 +7,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$hasSnapshots",
+    version: "2.7.0",
     description: "Checks whether given message has snapshots",
     brackets: false,
     unwrap: true,
