@@ -23,11 +23,11 @@ exports.default = new structures_1.NativeFunction({
         },
         {
             name: "message ID",
-            pointer: 0,
+            description: "The message to check for embeds",
             rest: false,
             required: true,
             type: structures_1.ArgType.Message,
-            description: "The message to check for embeds"
+            pointer: 0,
         }
     ],
     execute(ctx, [, msg]) {

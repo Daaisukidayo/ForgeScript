@@ -4,7 +4,7 @@
 */
 
 import { BaseChannel } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$hasComponents",
@@ -23,11 +23,11 @@ export default new NativeFunction({
         },
         {
             name: "message ID",
-            pointer: 0,
+            description: "The message to check for components",
             rest: false,
             required: true,
             type: ArgType.Message,
-            description: "The message to check for components"
+            pointer: 0,
         }
     ],
     output: ArgType.Boolean,

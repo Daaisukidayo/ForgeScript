@@ -22,11 +22,11 @@ exports.default = new structures_1.NativeFunction({
         },
         {
             name: "message ID",
-            pointer: 0,
+            description: "The message to check for components",
             rest: false,
             required: true,
             type: structures_1.ArgType.Message,
-            description: "The message to check for components"
+            pointer: 0,
         }
     ],
     output: structures_1.ArgType.Boolean,

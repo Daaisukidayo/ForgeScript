@@ -12,7 +12,7 @@ exports.default = new structures_1.NativeFunction({
     version: "1.4.0",
     brackets: false,
     unwrap: true,
-    description: "Fetches all data from the message and loads it to response, this includes: embeds, components, attachments, stickers",
+    description: "Fetches all data from the message and loads it to the next response, this includes: embeds, components, attachments, stickers",
     args: [
         {
             name: "channel ID",

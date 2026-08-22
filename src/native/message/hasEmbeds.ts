@@ -4,7 +4,7 @@
 */
 
 import { BaseChannel } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 
 export default new NativeFunction({
     name: "$hasEmbeds",
@@ -24,16 +24,14 @@ export default new NativeFunction({
         },
         {
             name: "message ID",
-            pointer: 0,
+            description: "The message to check for embeds",
             rest: false,
             required: true,
             type: ArgType.Message,
-            description: "The message to check for embeds"
+            pointer: 0,
         }
     ],
     execute(ctx, [, msg]) {
-        return this.success(
-            !!(msg ?? ctx.message)?.embeds.length
-        )
+        return this.success(!!(msg ?? ctx.message)?.embeds.length)
     },
 })

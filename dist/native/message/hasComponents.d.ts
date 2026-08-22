@@ -9,11 +9,11 @@ declare const _default: NativeFunction<[{
     check: (i: BaseChannel) => i is BaseChannel & Record<"messages", unknown>;
 }, {
     name: string;
-    pointer: number;
+    description: string;
     rest: false;
     required: true;
     type: ArgType.Message;
-    description: string;
+    pointer: number;
 }], true>;
 export default _default;
 //# sourceMappingURL=hasComponents.d.ts.map
