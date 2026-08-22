@@ -12,6 +12,7 @@ const structures_1 = require("../../structures");
 const array_1 = __importDefault(require("../../functions/array"));
 exports.default = new structures_1.NativeFunction({
     name: "$guildSystemChannelFlags",
+    version: "2.7.0",
     description: "Returns the system channel flags of a guild",
     aliases: [
         "$serverSystemChannelFlags"

@@ -12,9 +12,8 @@ const array_1 = __importDefault(require("../../functions/array"));
 exports.default = new structures_1.NativeFunction({
     name: "$getThreadMembers",
     version: "1.0.0",
-    description: "Gets thread members",
+    description: "Returns all members from a thread",
     brackets: true,
-    output: (0, array_1.default)(),
     unwrap: true,
     args: [
         {
@@ -32,6 +31,7 @@ exports.default = new structures_1.NativeFunction({
             type: structures_1.ArgType.String,
         },
     ],
+    output: (0, array_1.default)(),
     async execute(ctx, [channel, sep]) {
         const thread = channel;
         const success = await thread.members.fetch().catch(ctx.noop);

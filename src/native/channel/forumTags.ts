@@ -4,7 +4,7 @@
 */
 
 import { BaseChannel, ThreadOnlyChannel } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 import { ForumTagProperty, ForumTagProperties } from "../../properties/forumTag"
 import array from "../../functions/array"
 
@@ -45,6 +45,8 @@ export default new NativeFunction({
         const channel = ch as ThreadOnlyChannel | undefined
         const tags = channel?.availableTags
 
-        return this.successJSON(!prop ? tags : tags?.map(tag => ForumTagProperties[prop](tag)).join(sep ?? ", "))
+        if (!tags) return this.success()
+        if (!prop) return this.successJSON(tags)
+        return this.success(tags.map(tag => ForumTagProperties[prop](tag)).join(sep ?? ", "))
     },
 })

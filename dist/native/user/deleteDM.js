@@ -7,6 +7,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../structures");
 exports.default = new structures_1.NativeFunction({
     name: "$deleteDM",
+    version: "2.7.0",
     description: "Deletes the DM channel between the client and a user",
     unwrap: true,
     brackets: true,

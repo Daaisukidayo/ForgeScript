@@ -4,15 +4,14 @@
 */
 
 import { BaseChannel, ThreadChannel } from "discord.js"
-import { ArgType, NativeFunction, Return } from "../../structures"
+import { ArgType, NativeFunction } from "../../structures"
 import array from "../../functions/array"
 
 export default new NativeFunction({
     name: "$getThreadMembers",
     version: "1.0.0",
-    description: "Gets thread members",
+    description: "Returns all members from a thread",
     brackets: true,
-    output: array<ArgType.Member>(),
     unwrap: true,
     args: [
         {
@@ -30,6 +29,7 @@ export default new NativeFunction({
             type: ArgType.String,
         },
     ],
+    output: array<ArgType.Member>(),
     async execute(ctx, [channel, sep]) {
         const thread = channel as ThreadChannel
 
