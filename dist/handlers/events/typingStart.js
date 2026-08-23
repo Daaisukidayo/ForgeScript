@@ -9,12 +9,12 @@ const DiscordEventHandler_1 = require("../../structures/extended/DiscordEventHan
 exports.default = new DiscordEventHandler_1.DiscordEventHandler({
     name: "typingStart",
     version: "1.4.0",
-    description: "This event is fired when a user starts typing",
+    description: "This event is fired when a user starts typing in a channel",
     listener: async function (typing) {
         const commands = this.commands.get("typingStart");
         for (const command of commands) {
             core_1.Interpreter.run({
-                obj: typing.member ?? typing.user,
+                obj: typing,
                 command,
                 client: this,
                 data: command.compiled.code,
